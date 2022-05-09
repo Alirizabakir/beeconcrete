@@ -20,9 +20,12 @@
           />
         </ul>
         <div class="pay-box w-full h-full">
-          <div class="button">PAY</div>
-          <ul class="flex column a-start j-start w-full">
-            <li class="j-between flex a-center w-full">
+          <div class="button up">PAY</div>
+          <ul
+            :class="{ listActive: listActive }"
+            class="price-box flex column a-start j-start w-full"
+          >
+            <li class="header j-between flex a-center w-full">
               <h3>Order Summary</h3>
             </li>
             <li class="j-between flex a-center w-full">
@@ -37,12 +40,22 @@
               <span>Product Total</span>
               <span class="num">{{ totalPrice }} ₺</span>
             </li>
-            <li class="j-between flex a-center w-full">
+            <li class="total j-between flex a-center w-full">
               <span>Total</span>
               <span class="num"> {{ totalPrice }} ₺</span>
             </li>
           </ul>
-          <div class="button">PAY</div>
+          <div class="down-box flex a-center j-center">
+            <div @click="listActive = !listActive" class="svg-box">
+              <UpSvg />
+            </div>
+            <div @click="listActive = !listActive" class="total-down">
+              <div>Total</div>
+              <div class="num">{{ totalPrice }} ₺</div>
+              <div>Total</div>
+            </div>
+            <button class="button down flex-1">Pay</button>
+          </div>
         </div>
       </div>
     </div>
@@ -50,10 +63,16 @@
 </template>
 
 <script>
+import UpSvg from "@/components/icon/UpSvg.vue";
 export default {
   name: "Bag",
+  components: {
+    UpSvg,
+  },
   data() {
-    return {};
+    return {
+      listActive: false,
+    };
   },
   computed: {
     cart() {
@@ -107,9 +126,6 @@ export default {
               padding: 0.25rem 0.5rem;
               margin-bottom: 1rem;
             }
-            &:nth-child(4) {
-              border-bottom: 1px solid black;
-            }
             &:nth-child(5) {
               .num {
                 font-size: var(--bigSize);
@@ -120,6 +136,16 @@ export default {
               font-weight: bold;
             }
           }
+
+          .total {
+            border-top: 1px solid rgb(79, 118, 79);
+          }
+        }
+        .svg-box {
+          display: none;
+        }
+        .total-down {
+          display: none;
         }
         .button {
           height: 40px;
@@ -137,12 +163,66 @@ export default {
         display: flex;
         grid-gap: 0;
         flex-direction: column;
+        padding: 0;
+        padding-top: 0.5rem;
+        .bag-box {
+          padding: 0.5rem;
+        }
         .pay-box {
           height: auto;
           ul {
             margin: 0;
             border: none;
             border-radius: 0;
+            background-color: rgb(241, 241, 241);
+            transform: translateY(100%);
+            z-index: 0;
+            position: absolute;
+            transition: all 0.3s;
+            span {
+              font-size: var(--normalSize);
+            }
+            .header {
+              display: none;
+            }
+            .total {
+              display: none;
+            }
+          }
+
+          .listActive {
+            transform: translateY(-100%);
+          }
+
+          .up {
+            display: none;
+          }
+          .down-box {
+            padding: 1rem 10px;
+            background-color: white;
+            border-top: 0.1px solid rgb(94, 94, 94);
+            .svg-box {
+              display: inline-block;
+              svg {
+                width: 12px;
+                fill: rgb(31, 84, 11);
+              }
+            }
+            .total-down {
+              display: inline-block;
+              margin: 0 1rem 0 0.5rem;
+              font-size: var(--normalSize);
+              .num {
+                font-size: var(--mediumSize);
+                font-weight: bold;
+              }
+            }
+            .down {
+              height: 30px;
+              line-height: 30px;
+              background-color: rgb(31, 84, 11);
+              color: white;
+            }
           }
         }
       }

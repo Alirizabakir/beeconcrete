@@ -1,5 +1,5 @@
 <template>
-  <div class="icon flex a-end j-end">
+  <div class="icon">
     <div class="cont">
       <span
         @click="favItem"
@@ -22,12 +22,14 @@ export default {
     };
   },
   created() {
-    this.fav = this.product.fav
-    this.$store.getters.getFavItem.filter((a) => {
-      if (a._id == this.product._id) {
-        this.active = true;
-      }
-    });
+    this.fav = this.product.fav;
+    if (this.$store.getters.getFavItem) {
+      this.$store.getters.getFavItem.filter((a) => {
+        if (a._id == this.product._id) {
+          this.active = true;
+        }
+      });
+    }
   },
   methods: {
     favItem() {
@@ -36,15 +38,15 @@ export default {
           status: false,
           ...this.product,
         });
-        this.active = false
-        this.fav -= 1
+        this.active = false;
+        this.fav -= 1;
       } else {
         this.$store.dispatch("favItem", {
           status: true,
           ...this.product,
         });
         this.active = true;
-        this.fav += 1
+        this.fav += 1;
       }
     },
   },
@@ -55,7 +57,6 @@ export default {
 <style lang="scss" scoped>
 .icon {
   position: relative;
-  width: 70px;
   .cont {
     cursor: pointer;
     .heart {
@@ -68,6 +69,11 @@ export default {
       top: 50%;
       left: 21%;
       transform: translate(-50%, -50%);
+    }
+    .numb {
+      display: inline-block;
+      width: 35px;
+      transform: translateX(25px);
     }
   }
 

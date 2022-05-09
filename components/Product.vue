@@ -18,7 +18,7 @@
         <div class="fav-box j-center flex a-center">
           <FavIcon :product="product" />
         </div>
-        <button @click="addToCart" class="button">Buy+</button>
+        <button @click="addToCart" class="button">Add To Cart+</button>
       </div>
     </div>
   </li>

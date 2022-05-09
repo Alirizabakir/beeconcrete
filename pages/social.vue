@@ -2,9 +2,15 @@
   <div class="content">
     <ul class="section-one">
       <li class="one-item">
-        <span class="border-r">
-          <img src="instagram.png" alt="" />
-        </span>
+        <a
+          class="border-r"
+          href="https://www.instagram.com/beeconcretedesign/"
+          target="_blank"
+        >
+          <span>
+            <img src="instagram.png" alt="" />
+          </span>
+        </a>
       </li>
       <li class="one-item">
         <span class="border-r">

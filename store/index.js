@@ -230,7 +230,6 @@ export const actions = {
         this.$axios.post('/favItem', { product: product })
             .then(response => {
                 vuexContext.commit("setFavItem", response.data.favItem.items)
-                console.log(response.data.favItem.items);
             })
     },
     // User Methods

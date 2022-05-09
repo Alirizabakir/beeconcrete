@@ -602,7 +602,6 @@ app.post('/favItem', (req, res) => {
 
                 })
         }
-        console.log('True');
     } else {
         if (favItem.length > 0) {
             let itemIndex = favItem.findIndex(item => item._id == product._id)

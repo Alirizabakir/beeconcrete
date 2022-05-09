@@ -5,10 +5,16 @@
       <div class="swiper-wrapper">
         <!-- Slides -->
         <div class="swiper-slide">
-          <img :src="require(`~/static/resize/${product.src.a}`)" :alt="product.name" />
+          <img
+            :src="require(`~/static/resize/${product.src.a}`)"
+            :alt="product.name"
+          />
         </div>
         <div class="swiper-slide">
-          <img :src="require(`~/static/resize/size/${product.src.b}`)" :alt="product.name" />
+          <img
+            :src="require(`~/static/resize/size/${product.src.b}`)"
+            :alt="product.name"
+          />
         </div>
       </div>
       <!-- If we need pagination -->
@@ -92,12 +98,9 @@
       </li>
       <li class="control w-full flex a-center">
         <div class="fav-box j-center flex a-center">
-          <FavIcon />
-          <div class="count">
-            {{ product.fav }}
-          </div>
+          <FavIcon :product="product"/>
         </div>
-        <span @click="addToCart" class="button">Buy+</span>
+        <span @click="addToCart" class="button">Add To Cart+</span>
       </li>
     </ul>
   </div>

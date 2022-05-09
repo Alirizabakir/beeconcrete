@@ -50,6 +50,12 @@
       ></span>
     </div>
     <div class="user flex a-center j-center">
+      <nuxt-link class="fav flex a-center j-center h-full" to="#">
+        <HeartSolidSvg />
+        <span v-show="getCartLength.length > 0">
+          {{ getFavItem.length }}
+        </span>
+      </nuxt-link>
       <nuxt-link class="bag flex a-center j-center h-full" to="/bag">
         <img
           @click="cancel"
@@ -83,6 +89,7 @@ import ProductHuntBrandsSvg from "@/components/icon/ProductHuntBrandsSvg.vue";
 import InstagramBrandsSvg from "@/components/icon/InstagramBrandsSvg.vue";
 import SquarePhoneSolidSvg from "@/components/icon/SquarePhoneSolidSvg.vue";
 import UserSvg from "@/components/icon/UserSvg.vue";
+import HeartSolidSvg from "@/components/icon/HeartSolidSvg.vue";
 export default {
   name: "MasterHeader",
   components: {
@@ -92,6 +99,7 @@ export default {
     InfoCircleSvg,
     HomeSvg,
     UserSvg,
+    HeartSolidSvg,
   },
   data() {
     return {
@@ -109,6 +117,9 @@ export default {
     };
   },
   computed: {
+    getFavItem(){
+      return this.$store.getters.getFavItem
+    },
     getCartLength() {
       if (this.$store.getters.getCart) {
         return this.$store.getters.getCart;
@@ -197,6 +208,25 @@ export default {
       font-size: var(--normalSize);
       margin: 0 0.5rem;
     }
+    .fav {
+      position: relative;
+      svg {
+        width: 25px;
+        fill: rgb(5, 82, 5);
+      }
+      span {
+        background-color: #f21a1a;
+        color: white;
+        min-width: 15px;
+        text-align: center;
+        padding: 3px;
+        font-size: 11px;
+        border-radius: 50%;
+        position: absolute;
+        top: -8px;
+        right: -7px;
+      }
+    }
     .bag {
       position: relative;
       img {
@@ -208,7 +238,7 @@ export default {
         min-width: 15px;
         text-align: center;
         padding: 3px;
-        font-size: 13px;
+        font-size: 11px;
         border-radius: 3px;
         position: absolute;
         top: 0;
