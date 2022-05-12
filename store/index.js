@@ -134,7 +134,12 @@ export const actions = {
                 }
             })
     },
-
+    report(vuexContext, data){
+        this.$axios.post('/callback', data)
+            .then(response => {
+                console.log('Ok');
+            })
+    },
     // Get Data
     nuxtServerInit(vuexContext, context) {
         return context.$axios.get('/')
