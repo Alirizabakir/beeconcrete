@@ -11,7 +11,6 @@
         {{ getUser.name }}
       </div>
       <div class="two-footer">
-        <h1>User Information</h1>
         <UserBox @succes="(a) => (succes = a)" @del="(a) => (deleteA = a)" />
       </div>
     </div>

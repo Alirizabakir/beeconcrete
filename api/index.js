@@ -3,6 +3,7 @@ const session = require('express-session')
 const mongoose = require('mongoose')
 const app = express()
 const fs = require('fs').promises
+var requestIp = require('request-ip');
 
 const ejsLayouts = require('express-ejs-layouts');
 const microtime = require('microtime');
@@ -42,7 +43,6 @@ app.set('view engine', 'ejs');
 app.use(ejsLayouts);
 app.use(express.urlencoded({ extended: true }));
 
-
 // --->>>
 var merchant_id = '286946';
 var merchant_key = 'EQeHt9mxLPBqKE9g';
@@ -53,7 +53,8 @@ var basket = JSON.stringify([
     ['Örnek Ürün 3', '45.42', 1]
 ]);
 var user_basket = nodeBase64.encode(basket);
-var merchant_oid = "IN" + microtime.now() + Math.floor(Math.random() * 100) + 1; // Sipariş numarası: Her işlemde benzersiz olmalıdır!! Bu bilgi bildirim sayfanıza yapılacak bildirimde geri gönderilir.
+const neww = new Date()
+var merchant_oid = 'BEE' + (neww.getTime() + Math.floor(Math.random() * 1000) + 2).toString(); // Sipariş numarası: Her işlemde benzersiz olmalıdır!! Bu bilgi bildirim sayfanıza yapılacak bildirimde geri gönderilir.
 // Sayfada görüntülenecek taksit adedini sınırlamak istiyorsanız uygun şekilde değiştirin.
 // Sıfır (0) gönderilmesi durumunda yürürlükteki en fazla izin verilen taksit geçerli olur.
 var max_installment = '0';
@@ -69,7 +70,7 @@ var user_phone = '05301783802'; // Müşterinizin sitenizde kayıtlı veya form 
 
 // Başarılı ödeme sonrası müşterinizin yönlendirileceği sayfa
 // Bu sayfa siparişi onaylayacağınız sayfa değildir! Yalnızca müşterinizi bilgilendireceğiniz sayfadır!
-var merchant_ok_url = 'https://www.beeconcrete.com.tr/myOrders';
+var merchant_ok_url = 'https://www.beeconcrete.com.tr/products';
 // Ödeme sürecinde beklenmedik bir hata oluşması durumunda müşterinizin yönlendirileceği sayfa
 // Bu sayfa siparişi iptal edeceğiniz sayfa değildir! Yalnızca müşterinizi bilgilendireceğiniz sayfadır!
 var merchant_fail_url = 'https://www.beeconcrete.com.tr/failed';
@@ -78,13 +79,31 @@ var debug_on = 1; // Hata mesajlarının ekrana basılması için entegrasyon ve
 var lang = 'tr'; // Türkçe için tr veya İngilizce için en gönderilebilir. Boş gönderilirse tr geçerli olur.
 
 
-app.get("/payPages", function (req, res) {
-
+app.post("/pay-go", function (req, res) {
+    var ip;
+    if (req.headers['x-forwarded-for']) {
+        ip = req.headers['x-forwarded-for'].split(",")[0];
+    } else if (req.socket && req.socket.remoteAddress) {
+        ip = req.socket.remoteAddress;
+    } else {
+        ip = req.ip;
+    } 
+    
+    user_ip = ip
+    const payData = req.body.payData
+    user_name = payData.user.name
+    user_email = payData.user.email
+    user_phone = payData.user.phonenumber
+    user_address = payData.user.address
+    merchant_oid = payData.merchant_oid
+    basket = JSON.stringify(payData.basket)
+    payment_amount = payData.totalPrice * 100
     var hashSTR = `${merchant_id}${user_ip}${merchant_oid}${email}${payment_amount}${user_basket}${no_installment}${max_installment}${currency}${test_mode}`;
 
     var paytr_token = hashSTR + merchant_salt;
 
     var token = crypto.createHmac('sha256', merchant_key).update(paytr_token).digest('base64');
+
     var options = {
         method: 'POST',
         url: 'https://www.paytr.com/odeme/api/get-token',
@@ -133,7 +152,7 @@ app.get("/payPages", function (req, res) {
 });
 
 
-app.post("/callback", function (req, res) {
+app.post("/report", function (req, res) {
 
     // ÖNEMLİ UYARILAR!
     // 1) Bu sayfaya oturum (SESSION) ile veri taşıyamazsınız. Çünkü bu sayfa müşterilerin yönlendirildiği bir sayfa değildir.
@@ -141,7 +160,6 @@ app.post("/callback", function (req, res) {
     // veri tabanınızdan ilgili siparişi tespit edip onaylamalı veya iptal etmelisiniz.
     // 3) Aynı sipariş için birden fazla bildirim ulaşabilir (Ağ bağlantı sorunları vb. nedeniyle). Bu nedenle öncelikle
     // siparişin durumunu veri tabanınızdan kontrol edin, eğer onaylandıysa tekrar işlem yapmayın. Örneği aşağıda bulunmaktadır.
-
     var callback = req.body;
 
     // POST değerleri ile hash oluştur.
@@ -167,20 +185,19 @@ app.post("/callback", function (req, res) {
 
 });
 
+
 // --->>>>
 app.get('/', (req, res) => {
     let cart = []
     if (req.session.cart) {
         cart = req.session.cart
     }
-
     // bagTotalPrice
     let bagTotalPrice = 0
     cart.forEach(item => {
         bagTotalPrice += item.totalPrice
     });
 
-    
     Products.find({}, (err, products) => {
         Sliders.find({}, (err, sliders) => {
             Abouts.find({}, (err, about) => {

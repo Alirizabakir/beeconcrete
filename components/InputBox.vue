@@ -46,7 +46,6 @@ export default {
     font-weight: normal;
     font-size: var(--smallSize);
     border: solid 1px #e6e6e6;
-    border-radius: 6px;
     background-color: #fbfbfb;
     height: 44px;
     padding: 10px 12px;

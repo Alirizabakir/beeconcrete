@@ -125,19 +125,10 @@ export const mutations = {
 
 export const actions = {
     // Pay
-    payMethods(vuexContext, product) {
-        this.$axios.get('/payPages', { product: product })
+    payMethods(vuexContext, payData) {
+        this.$axios.post('/pay-go', { payData: payData })
             .then(response => {
                 vuexContext.commit("setIframeToken", response.data.iframetoken)
-                if (response) {
-                    this.$router.push("/payPages");
-                }
-            })
-    },
-    report(vuexContext, data){
-        this.$axios.post('/callback', data)
-            .then(response => {
-                console.log('Ok');
             })
     },
     // Get Data
