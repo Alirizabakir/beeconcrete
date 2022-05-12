@@ -52,10 +52,7 @@
         <li class="iframe">
           <iframe
             class="w-full h-full"
-            src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d12648.242172659022!2d36.92445259261883!3d37.57719202046663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x152dddbc3d7a1a47%3A0x8e9bdcea1291516f!2sKahramanmara%C5%9F!3m2!1d37.5752755!2d36.9228223!4m5!1s0x152ddd11c62b27e3%3A0x3cf5bbc3b7805637!2sKahramanmara%C5%9F%20Kalesi!3m2!1d37.586332999999996!2d36.925756899999996!5e0!3m2!1str!2str!4v1647718522547!5m2!1str!2str"
-            width="600"
-            height="450"
-            style="border: 0"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3170.0192409673664!2d36.865830315524846!3d37.389377242011285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x152e71a87a006b9b%3A0x40219c8aad466e44!2zQ1RWIMSwTsWeQUFU!5e0!3m2!1str!2str!4v1652199787134!5m2!1str!2str"
             allowfullscreen=""
             loading="lazy"
           ></iframe>

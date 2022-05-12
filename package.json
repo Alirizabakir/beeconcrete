@@ -24,11 +24,17 @@
     "mongoose": "^6.2.8",
     "net": "^1.0.2",
     "nuxt": "^2.15.8",
-    "request": "^2.79.0",
     "vue": "^2.6.14",
     "vue-server-renderer": "^2.6.14",
     "vue-template-compiler": "^2.6.14",
-    "webpack": "^4.46.0"
+    "webpack": "^4.46.0",
+    "crypto": "^1.0.1",
+    "ejs": "^3.1.6",
+    "express-ejs-layouts": "^2.5.0",
+    "microtime": "^3.0.0",
+    "nodejs-base64-converter": "^1.0.5",
+    "path": "^0.12.7",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "sass": "^1.49.9",

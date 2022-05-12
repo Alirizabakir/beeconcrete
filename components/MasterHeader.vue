@@ -14,30 +14,23 @@
     >
       <nuxt-link to="/"
         ><HomeSvg />
-        <span @click="trans($event, 0), (menuActive = false)"
-          >Home</span
-        ></nuxt-link
+        <span @click="trans(0), (menuActive = false)">Home</span></nuxt-link
       >
       <nuxt-link to="/products"
         ><ProductHuntBrandsSvg />
-        <span @click="trans($event, 1), (menuActive = false)"
-          >Product</span
-        ></nuxt-link
+        <span @click="trans(1), (menuActive = false)">Product</span></nuxt-link
       >
       <nuxt-link to="/social"
         ><InstagramBrandsSvg />
-        <span @click="trans($event, 2), (menuActive = false)"
-          >Social</span
-        ></nuxt-link
+        <span @click="trans(2), (menuActive = false)">Social</span></nuxt-link
       >
       <nuxt-link to="/about"
-        ><InfoCircleSvg /><span @click="trans($event, 3), (menuActive = false)"
+        ><InfoCircleSvg /><span @click="trans(3), (menuActive = false)"
           >About</span
         ></nuxt-link
       >
       <nuxt-link to="/contact"
-        ><SquarePhoneSolidSvg /><span
-          @click="trans($event, 4), (menuActive = false)"
+        ><SquarePhoneSolidSvg /><span @click="trans(4), (menuActive = false)"
           >Contact</span
         ></nuxt-link
       >
@@ -52,7 +45,7 @@
     <div class="user flex a-center j-center">
       <nuxt-link class="fav flex a-center j-center h-full" to="#">
         <HeartSolidSvg />
-        <span v-show="getCartLength.length > 0">
+        <span v-show="getFavItem.length > 0">
           {{ getFavItem.length }}
         </span>
       </nuxt-link>
@@ -65,6 +58,7 @@
         <span v-show="getCartLength.length > 0">
           {{ getCartLength.length }}
         </span>
+        <AddToCart :AddToCart="AddToCart">Product Added</AddToCart>
       </nuxt-link>
       <nuxt-link class="user-pp" to="/user">
         <span class="flex a-center j-center" @click="cancel"><UserSvg /></span>
@@ -90,8 +84,10 @@ import InstagramBrandsSvg from "@/components/icon/InstagramBrandsSvg.vue";
 import SquarePhoneSolidSvg from "@/components/icon/SquarePhoneSolidSvg.vue";
 import UserSvg from "@/components/icon/UserSvg.vue";
 import HeartSolidSvg from "@/components/icon/HeartSolidSvg.vue";
+
 export default {
   name: "MasterHeader",
+
   components: {
     SquarePhoneSolidSvg,
     ProductHuntBrandsSvg,
@@ -106,6 +102,7 @@ export default {
       isCancel: false,
       index: null,
       menuActive: false,
+      AddToCart: false,
       masterIcon: [
         "hamburger.png",
         "icon.png",
@@ -117,11 +114,21 @@ export default {
     };
   },
   computed: {
-    getFavItem(){
-      return this.$store.getters.getFavItem
+    getFavItem() {
+      if (this.$store.getters.getFavItem) {
+        return this.$store.getters.getFavItem;
+      } else {
+        return 0;
+      }
     },
     getCartLength() {
       if (this.$store.getters.getCart) {
+        if (this.$store.getters.getCart.length > 0) {
+          this.AddToCart = true;
+          setTimeout(() => {
+            this.AddToCart = false;
+          }, 2000);
+        }
         return this.$store.getters.getCart;
       } else {
         return 0;
@@ -132,7 +139,7 @@ export default {
     },
   },
   methods: {
-    trans(e, a) {
+    trans(a) {
       this.isCancel = false;
       this.index = a;
     },
@@ -336,8 +343,6 @@ export default {
         img {
           width: 40px;
         }
-      }
-      .user-pp {
       }
       .logout {
         img {

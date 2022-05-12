@@ -54,7 +54,7 @@
               <div class="num">{{ totalPrice }} ₺</div>
               <div>Total</div>
             </div>
-            <button class="button down flex-1">Pay</button>
+            <button @click="payMethods" class="button down flex-1">Pay</button>
           </div>
         </div>
       </div>
@@ -83,6 +83,11 @@ export default {
     },
     totalPrice() {
       return this.$store.getters.getTotalPrice;
+    },
+  },
+  methods: {
+    payMethods() {
+      this.$store.dispatch("payMethods", null);
     },
   },
 };
@@ -170,13 +175,16 @@ export default {
         }
         .pay-box {
           height: auto;
+          position: fixed;
+          bottom: 0;
+          z-index: 100;
           ul {
             margin: 0;
             border: none;
             border-radius: 0;
             background-color: rgb(241, 241, 241);
             transform: translateY(100%);
-            z-index: 0;
+            z-index: -1;
             position: absolute;
             transition: all 0.3s;
             span {

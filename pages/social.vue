@@ -24,24 +24,26 @@
         Social
       </div>
       <div class="two-footer">
-        <div
-          class="item w-full flex column"
-          v-for="(item, index) in getSocial"
-          :key="index"
-        >
-          <a :href="item.link" target="_blank">
-            <div class="header w-full flex a-center">
-              <img src="icon.png" alt="" />
-              <h3>beeconcretedesign</h3>
-            </div>
-            <img class="img w-full" :src="'instagram/' + item.src.a" alt="" />
-            <div class="description w-full">
-              <h3 class="w-full">beeconcretedesign</h3>
-              <p class="w-full">{{ item.name }}</p>
+        <div class="social-box">
+          <div
+            class="item w-full flex column"
+            v-for="(item, index) in getSocial"
+            :key="index"
+          >
+            <a :href="item.link" target="_blank">
+              <div class="header w-full flex a-center">
+                <img src="icon.png" alt="" />
+                <h3>beeconcretedesign</h3>
+              </div>
+              <img class="img w-full" :src="'instagram/' + item.src.a" alt="" />
+              <div class="description w-full">
+                <h3 class="w-full">beeconcretedesign</h3>
+                <p class="w-full">{{ item.name }}</p>
 
-              <p class="w-full">{{ item.description }}</p>
-            </div>
-          </a>
+                <p class="w-full">{{ item.description }}</p>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -65,79 +67,162 @@ export default {
 .content {
   .section-two {
     .two-footer {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
-      align-items: flex-start;
-      justify-content: center;
-      grid-gap: 2rem;
+      // display: grid;
+      // grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+      // align-items: flex-start;
+      // justify-content: center;
+      // grid-gap: 2rem;
+
       overflow-y: scroll;
 
-      .item {
+      .social-box {
         width: 100%;
-        background-color: white;
-        justify-content: space-between;
-        align-items: flex-start;
-        border-radius: 2px;
-        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.255);
-
-        .header {
-          padding: 0.5rem 1rem;
-          border-bottom: 1px solid rgb(221, 221, 221);
-          img {
-            width: 30px;
-            margin-right: 0.5rem;
-          }
-        }
-        .img {
+        columns: 3;
+        margin: 20px auto;
+        column-gap: 40px;
+        .item {
           width: 100%;
-          margin-bottom: 1rem;
-        }
-        .description {
-          padding: 0 0.5rem;
-          flex: 1;
-          h3 {
-            font-size: var(--normalSize);
+          margin: 0 0 20px;
+          background-color: white;
+          justify-content: space-between;
+          align-items: flex-start;
+          border-radius: 2px;
+          box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.255);
+          break-inside: avoid;
+
+          .header {
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid rgb(221, 221, 221);
+            img {
+              width: 30px;
+              margin-right: 0.5rem;
+            }
+          }
+          .img {
+            max-width: 100%;
             margin-bottom: 1rem;
           }
-          p {
+          .description {
             padding: 0 0.5rem;
-            margin-bottom: 1rem;
+            flex: 1;
+            h3 {
+              font-size: var(--normalSize);
+              margin-bottom: 1rem;
+            }
+            p {
+              padding: 0 0.5rem;
+              margin-bottom: 1rem;
+            }
           }
         }
       }
     }
   }
 }
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1200px) {
   .content {
     .section-two {
       .two-footer {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
-        grid-gap: 1rem;
         width: 100%;
-        .item {
-          width: 100%;
-          height: auto;
-          align-items: center;
-          justify-content: center;
-          .header {
-            img {
-              width: 30px;
+        .social-box {
+          columns: 3;
+          .item {
+            width: 100%;
+            height: auto;
+            align-items: center;
+            justify-content: center;
+            .header {
+              img {
+                width: 30px;
+              }
+              h3 {
+                font-size: var(--normalSize);
+              }
             }
-            h3 {
-              font-size: var(--normalSize);
+            .img {
+              max-width: 100%;
+            }
+            .description {
+              h3 {
+                font-size: var(--normalSize);
+              }
+              p {
+                font-size: var(--smallSize);
+              }
             }
           }
-          .img {
-            max-width: 100%;
-          }
-          .description {
-            h3 {
-              font-size: var(--normalSize);
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 768px) {
+  .content {
+    .section-two {
+      .two-footer {
+        width: 100%;
+        .social-box {
+          columns: 2;
+          .item {
+            width: 100%;
+            height: auto;
+            align-items: center;
+            justify-content: center;
+            .header {
+              img {
+                width: 30px;
+              }
+              h3 {
+                font-size: var(--normalSize);
+              }
             }
-            p {
-              font-size: var(--smallSize);
+            .img {
+              max-width: 100%;
+            }
+            .description {
+              h3 {
+                font-size: var(--normalSize);
+              }
+              p {
+                font-size: var(--smallSize);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 480px) {
+  .content {
+    .section-two {
+      .two-footer {
+        width: 100%;
+        .social-box {
+          columns: 1;
+          .item {
+            width: 100%;
+            height: auto;
+            align-items: center;
+            justify-content: center;
+            .header {
+              img {
+                width: 30px;
+              }
+              h3 {
+                font-size: var(--normalSize);
+              }
+            }
+            .img {
+              max-width: 100%;
+            }
+            .description {
+              h3 {
+                font-size: var(--normalSize);
+              }
+              p {
+                font-size: var(--smallSize);
+              }
             }
           }
         }

@@ -9,6 +9,7 @@ export const state = () => ({
     about: [],
     favItem: [],
     id: null,
+    iframetoken: null,
     bigProduct: null,
     cart: null,
     totalPrice: 0.0,
@@ -20,6 +21,10 @@ export const state = () => ({
 });
 
 export const mutations = {
+    // Set iframetoken
+    setIframeToken(state, token) {
+        state.iframetoken = token
+    },
     // Set FavItem
     setFavItem(state, favItem) {
         state.favItem = favItem
@@ -119,6 +124,16 @@ export const mutations = {
 };
 
 export const actions = {
+    // Pay
+    payMethods(vuexContext, product) {
+        this.$axios.get('/payPages', { product: product })
+            .then(response => {
+                vuexContext.commit("setIframeToken", response.data.iframetoken)
+                if (response) {
+                    this.$router.push("/payPages");
+                }
+            })
+    },
 
     // Get Data
     nuxtServerInit(vuexContext, context) {
@@ -395,6 +410,10 @@ export const actions = {
 };
 
 export const getters = {
+    // Get iframetoken
+    getIframeToken(state) {
+        return state.iframetoken
+    },
     // Get FavItem
     getFavItem(state) {
         return state.favItem
