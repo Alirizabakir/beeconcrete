@@ -237,11 +237,13 @@ export default {
   },
   created() {
     this.dataBase = { ...this.getUser };
-    if (this.getUser != null) {
+    if (this.getUser.birthday != null) {
       const birthday = this.getUser.birthday.split("-");
       this.day = birthday[0];
       this.month = birthday[1];
       this.year = birthday[2];
+    }
+    if (this.getUser.number != null) {
       const number = this.getUser.number.slice(3, this.getUser.number.length);
       this.dataBase.number = number;
     }

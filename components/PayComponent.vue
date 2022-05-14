@@ -1,5 +1,12 @@
 <template>
     <div class="two-footer">
+        <div :class="{ emptyInfoActive: emptyInfoActive }" class="emptyInfo">
+            <p>Plase fill in all fields..</p>
+        </div>
+        <div :class="{ emptyInfoActive: emptyBagActive }" class="emptyInfo">
+            <p>Plase fill in all fields..</p>
+        </div>
+
         <div class="info-box h-full">
             <ul v-show="!cartConfirm" class="bag-box flex column a-start j-start w-full h-full">
                 <li class="empty" v-show="cart == null || cart.length == 0">
@@ -20,6 +27,7 @@
                             v-model="payData.user.address"></textarea>
                     </template>
                 </InputBox>
+                <button @click="cartConfirm = false" class="button cancel">Back To Cart</button>
             </div>
             <div v-show="iframetoken" class="pay-card">
                 <iframe :src="iframetoken" scrolling="yes" style="width: 100%; height: 100%;"></iframe>
@@ -27,7 +35,7 @@
         </div>
         <div class="pay-box w-full h-full">
             <div class="up-box flex">
-                <button v-show="!cartConfirm" @click="cartConfirm = true" class="button down flex-1"
+                <button v-show="!cartConfirm" @click="cartConfirmMethods" class="button down flex-1"
                     :disabled="cartConfirm">Confirm
                     Cart</button>
                 <button v-show="cartConfirm" @click="payGo" class="button down flex-1"
@@ -63,7 +71,7 @@
                     <div class="num">{{ totalPrice }} ₺</div>
                     <div>Total</div>
                 </div>
-                <button v-show="!cartConfirm" @click="cartConfirm = true" class="button down flex-1"
+                <button v-show="!cartConfirm" @click="cartConfirmMethods" class="button down flex-1"
                     :disabled="cartConfirm">Confirm
                     Cart</button>
                 <button v-show="cartConfirm" @click="payGo" class="button down flex-1"
@@ -83,6 +91,8 @@ export default {
     },
     data() {
         return {
+            emptyBagActive: false,
+            emptyInfoActive: false,
             cartConfirm: false,
             listActive: false,
             payData: {
@@ -97,15 +107,19 @@ export default {
         }
     },
     created() {
-        this.cart.map(a => {
-            this.payData.basket.push([a.name, a.big.newPrice.toString(), a.count])
-        })
-        const number = this.user.number.split('9')[1]
-        this.payData.user = {
-            name: this.user.name + ' ' + this.user.familyName,
-            email: this.user.email,
-            phonenumber: number,
-            address: this.user.address + ' ' + '/' + this.user.provience
+        if (this.cart) {
+            this.cart.map(a => {
+                this.payData.basket.push([a.name, a.big.newPrice.toString(), a.count])
+            })
+        }
+        if (this.user) {
+            const number = this.user.number.split('9')[1]
+            this.payData.user = {
+                name: this.user.name + ' ' + this.user.familyName,
+                email: this.user.email,
+                phonenumber: number,
+                address: this.user.address + ' ' + '/' + this.user.provience
+            }
         }
     },
     computed: {
@@ -127,10 +141,35 @@ export default {
         }
     },
     methods: {
+        cartConfirmMethods() {
+            if (this.cart) {
+                if (this.cart.length > 0) {
+                    this.cartConfirm = true
+                } else {
+                    this.emptyBagActive = true
+                    setTimeout(() => {
+                        this.emptyBagActive = false
+                    }, 2000);
+                }
+            } else {
+                this.emptyBagActive = true
+                setTimeout(() => {
+                    this.emptyBagActive = false
+                }, 2000);
+            }
+        },
         payGo() {
-            const neww = new Date()
-            let merchant_oid = 'BEE' + (neww.getTime() * Math.floor(Math.random() * 10000) + 2).toString();
-            this.$store.dispatch("payMethods", { ...this.payData, merchant_oid: merchant_oid, totalPrice: this.totalPrice });
+            if (this.payData.user.name != '' && this.payData.user.email != '' && this.payData.user.phonenumber != '' && this.payData.user.address != '') {
+                const neww = new Date()
+                let merchant_oid = 'BEE' + (neww.getTime() * Math.floor(Math.random() * 10000) + 2).toString();
+                this.$store.dispatch("payMethods", { ...this.payData, merchant_oid: merchant_oid, totalPrice: this.totalPrice });
+            } else {
+                this.emptyInfoActive = true
+                setTimeout(() => {
+                    this.emptyInfoActive = false
+
+                }, 2000);
+            }
         },
     },
 }
@@ -144,15 +183,50 @@ export default {
     grid-template-columns: 2fr 1fr;
     grid-gap: 1rem;
     overflow-y: scroll;
+    position: relative;
 
     &::-webkit-scrollbar {
         display: none !important;
     }
 
+    .emptyInfo {
+        width: 100%;
+        position: absolute;
+        top: -20px;
+        left: 0;
+        transition: all .3s;
+        opacity: 0;
+
+        p {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background-color: rgb(195, 162, 13);
+            color: white;
+            font-size: var(--normalSize);
+        }
+    }
+
+    .emptyInfoActive {
+        top: 0;
+        opacity: 1;
+    }
+
     .info-box {
+
+        .address-info {}
+
         .pay-card {
             height: 100%;
+        }
 
+        .button {
+            border-color: rgb(73, 133, 70);
+            background-color: rgb(73, 133, 70);
+            width: 100%;
+            padding: .5rem;
+            color: white;
+            font-size: var(--normalSize);
         }
     }
 
@@ -176,6 +250,7 @@ export default {
 
 
     .pay-box {
+
         ul {
             background-color: rgb(255, 255, 255);
             padding: 1rem;
@@ -232,10 +307,15 @@ export default {
         grid-gap: 0;
         flex-direction: column;
         padding: 0;
-        padding-top: 0.5rem;
-
-        .bag-box {
+        .info-box {
             padding: 0.5rem;
+
+        }
+
+        .bag-box {}
+
+        .address-info {
+            padding: 1rem
         }
 
         .pay-box {

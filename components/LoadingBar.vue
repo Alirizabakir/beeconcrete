@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading" class="loading-page flex a-center j-center">
+  <div v-if="status ? status : loading" class="loading-page flex a-center j-center">
     <div class="load flex a-center j-center">
       <div class="outer">
         <div class="inner flex a-center j-center">
@@ -26,6 +26,7 @@
 
 <script>
 export default {
+  props: ['status'],
   data: () => ({
     loading: false,
     num: 0,
@@ -56,6 +57,7 @@ export default {
   width: 100%;
   height: 100%;
   position: fixed;
+  inset: 0;
   background-color: rgba(173, 173, 173, 0.2);
   z-index: 1000;
   .load {

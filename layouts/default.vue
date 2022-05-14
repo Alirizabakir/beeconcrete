@@ -6,7 +6,7 @@
 </template>
 <script>
 export default {
-    middleware: ['user-control']
+  middleware: ["session-control"],
 }
 </script>
 <style lang="scss">

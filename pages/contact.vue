@@ -13,15 +13,15 @@
           <div class="send flex column">
             <InputBox
               :name="'Name'"
-              :type="text"
+              :type="'text'"
               :payload="(payload) => (sendMail.name = payload)"
             />
             <InputBox
               :name="'Email'"
-              :type="email"
+              :type="'email'"
               :payload="(payload) => (sendMail.email = payload)"
             />
-            <InputBox :name="'Message'" :type="text">
+            <InputBox :name="'Message'" :type="'text'">
               <template v-slot:inputArea>
                 <textarea
                   name="message"

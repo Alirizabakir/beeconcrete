@@ -87,8 +87,8 @@ app.post("/pay-go", function (req, res) {
         ip = req.socket.remoteAddress;
     } else {
         ip = req.ip;
-    } 
-    
+    }
+
     user_ip = ip
     const payData = req.body.payData
     user_name = payData.user.name
@@ -583,36 +583,38 @@ app.post('/del-social', (req, res) => {
 app.post('/login', (req, res) => {
     let user = req.body.user
     Users.findOne({ email: user.email }, (err, docs) => {
-        req.session.user = docs
-        res.status(200).json({
-            user: req.session.user,
-        })
-    })
-
-
-})
-app.post('/sign-up', (req, res) => {
-    let user = req.body.user
-    const userAdd = new Users({
-        name: user.name,
-        familyName: user.familyName,
-        email: user.email,
-        number: null,
-        provience: null,
-        address: null,
-        addressTitle: null,
-        birthday: null
-    })
-
-    userAdd.save()
-        .then((result) => {
-            Users.findOne({ email: user.email }, (err, docs) => {
-                res.status(200).json({
-                    user: docs
-                })
+        if (docs != null) {
+            req.session.user = docs
+            res.status(200).json({
+                user: req.session.user,
             })
-        })
+        } else {
+            const userAdd = new Users({
+                name: user.name,
+                familyName: user.familyName,
+                email: user.email,
+                number: null,
+                provience: null,
+                address: null,
+                addressTitle: null,
+                birthday: null
+            })
+
+            userAdd.save()
+                .then((result) => {
+                    Users.findOne({ email: user.email }, (err, docs) => {
+                        req.session.user = docs
+                        res.status(200).json({
+                            user: req.session.user,
+                        })
+                    })
+                })
+        }
+    })
+
+
 })
+
 app.post('/update-user', (req, res) => {
     const user = req.body.user
     const id = user.id
@@ -654,11 +656,6 @@ app.post('/del-user', (req, res) => {
         res.status(200).json({
             delete: true
         })
-    })
-})
-app.post('/logout', (req, res) => {
-    res.status(200).json({
-        process: true
     })
 })
 // About

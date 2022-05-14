@@ -16,19 +16,21 @@
 <script>
 export default {
   name: "Bag",
-
 };
 </script>
 
 <style lang="scss" scoped>
 .content {
+  .section-one {
+    display: none;
+  }
   .section-two {
   }
 }
 
 @media only screen and (max-width: 1024px) {
   .content {
-
-  }
+   
+  } 
 }
 </style>

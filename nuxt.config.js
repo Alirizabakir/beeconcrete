@@ -83,17 +83,24 @@ export default {
       measurementId: "G-X3BLPWHPDR"
     },
     services: {
-      auth: true,
+      auth: {
+        persistence: 'local', // default
+        initialize: {
+          onAuthStateChangedMutation: 'ON_AUTH_STATE_CHANGED_MUTATION',
+          onAuthStateChangedAction: 'onAuthStateChangedAction',
+          subscribeManually: false
+        },
+        ssr: false, // default
+      },
       firestore: true,
       functions: true,
       storage: true,
       database: true,
       messaging: true,
-      performance: true,
-      analytics: true,
       remoteConfig: true // Just as example. Can be any other service.
     }
   },
+
   router: {
   },
   target: 'server',
@@ -101,8 +108,8 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'http://localhost:3000/api',
-    // baseURL: 'https://www.beeconcrete.com.tr/api'
+    // baseURL: 'http://localhost:3000/api',
+    baseURL: 'https://www.beeconcrete.com.tr/api'
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

@@ -4,43 +4,30 @@
       <div class="hamburger" @click="menuActive = !menuActive">
         <img :src="require(`~/static/${masterIcon[0]}`)" alt="" />
       </div>
-      <nuxt-link to="/" class="flex a-center j-center"
-        ><img :src="require(`~/static/${masterIcon[1]}`)" alt=""
-      /></nuxt-link>
+      <nuxt-link to="/" class="flex a-center j-center"><img :src="require(`~/static/${masterIcon[1]}`)" alt="" />
+      </nuxt-link>
     </div>
-    <div
-      class="router flex a-center j-center"
-      :class="{ menuActive: menuActive }"
-    >
-      <nuxt-link to="/"
-        ><HomeSvg />
-        <span @click="trans(0), (menuActive = false)">Home</span></nuxt-link
-      >
-      <nuxt-link to="/products"
-        ><ProductHuntBrandsSvg />
-        <span @click="trans(1), (menuActive = false)">Product</span></nuxt-link
-      >
-      <nuxt-link to="/social"
-        ><InstagramBrandsSvg />
-        <span @click="trans(2), (menuActive = false)">Social</span></nuxt-link
-      >
-      <nuxt-link to="/about"
-        ><InfoCircleSvg /><span @click="trans(3), (menuActive = false)"
-          >About</span
-        ></nuxt-link
-      >
-      <nuxt-link to="/contact"
-        ><SquarePhoneSolidSvg /><span @click="trans(4), (menuActive = false)"
-          >Contact</span
-        ></nuxt-link
-      >
-      <span
-        v-show="index != null"
-        @click="trans"
-        :style="'--i:' + index + ';'"
-        class="trans h-full"
-        :class="{ cancel: isCancel }"
-      ></span>
+    <div class="router flex a-center j-center" :class="{ menuActive: menuActive }">
+      <nuxt-link to="/">
+        <HomeSvg />
+        <span @click="trans(0), (menuActive = false)">Home</span>
+      </nuxt-link>
+      <nuxt-link to="/products">
+        <ProductHuntBrandsSvg />
+        <span @click="trans(1), (menuActive = false)">Product</span>
+      </nuxt-link>
+      <nuxt-link to="/social">
+        <InstagramBrandsSvg />
+        <span @click="trans(2), (menuActive = false)">Social</span>
+      </nuxt-link>
+      <nuxt-link to="/about">
+        <InfoCircleSvg /><span @click="trans(3), (menuActive = false)">About</span>
+      </nuxt-link>
+      <nuxt-link to="/contact">
+        <SquarePhoneSolidSvg /><span @click="trans(4), (menuActive = false)">Contact</span>
+      </nuxt-link>
+      <span v-show="index != null" @click="trans" :style="'--i:' + index + ';'" class="trans h-full"
+        :class="{ cancel: isCancel }"></span>
     </div>
     <div class="user flex a-center j-center">
       <nuxt-link class="fav flex a-center j-center h-full" to="#">
@@ -50,28 +37,19 @@
         </span>
       </nuxt-link>
       <nuxt-link class="bag flex a-center j-center h-full" to="/bag">
-        <img
-          @click="cancel"
-          :src="require(`~/static/${masterIcon[2]}`)"
-          alt=""
-        />
+        <img @click="cancel" :src="require(`~/static/${masterIcon[2]}`)" alt="" />
         <span v-show="getCartLength.length > 0">
           {{ getCartLength.length }}
         </span>
         <AddToCart :AddToCart="AddToCart">Product Added</AddToCart>
       </nuxt-link>
       <nuxt-link class="user-pp" to="/user">
-        <span class="flex a-center j-center" @click="cancel"><UserSvg /></span>
+        <span class="flex a-center j-center" @click="cancel">
+          <UserSvg />
+        </span>
       </nuxt-link>
-      <nuxt-link class="h-full" v-show="!isAuth" to="/signin"
-        ><span @click="cancel">Sign In</span></nuxt-link
-      >
-      <a href="#" class="logout h-full" v-show="isAuth" @click.prevent="logout"
-        ><img
-          @click="cancel"
-          :src="require(`~/static/${masterIcon[5]}`)"
-          alt=""
-      /></a>
+      <span class="logout h-full" v-show="isAuth" @click="signOut"><img @click="cancel"
+          :src="require(`~/static/${masterIcon[5]}`)" alt="" /></span>
     </div>
   </div>
 </template>
@@ -147,8 +125,10 @@ export default {
       this.isCancel = true;
       this.menuActive = false;
     },
-    logout() {
-      this.$store.dispatch("logout");
+    signOut() {
+      this.$fire.auth.signOut()
+      this.$store.commit('clearAuthKey')
+      this.$router.push('/')
     },
   },
 };
@@ -161,32 +141,40 @@ export default {
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
   border-radius: 0px 0px 5px 5px;
   padding: 0 1rem;
+
   .logo {
     width: 200px;
+
     .hamburger {
       display: none;
     }
+
     a {
       width: 60px;
       height: 60px;
       border-radius: 50%;
       background-color: white;
+
       img {
         width: 50px;
       }
     }
   }
+
   .router {
     position: relative;
     height: 50px;
+
     a {
       font-weight: 600;
       width: 100px;
       font-size: var(--bigSize);
+
       svg {
         width: 25px;
         display: none;
       }
+
       span {
         width: 100%;
         height: 100%;
@@ -194,6 +182,7 @@ export default {
         text-align: center;
       }
     }
+
     .trans {
       width: 100px;
       border-radius: 10px;
@@ -206,21 +195,26 @@ export default {
       z-index: -1;
       opacity: 1;
     }
+
     .cancel {
       opacity: 0;
     }
   }
+
   .user {
     a {
       font-size: var(--normalSize);
       margin: 0 0.5rem;
     }
+
     .fav {
       position: relative;
+
       svg {
         width: 25px;
         fill: rgb(5, 82, 5);
       }
+
       span {
         background-color: #f21a1a;
         color: white;
@@ -234,11 +228,14 @@ export default {
         right: -7px;
       }
     }
+
     .bag {
       position: relative;
+
       img {
         width: 40px;
       }
+
       span {
         background-color: #f27a1a;
         color: white;
@@ -252,10 +249,12 @@ export default {
         right: 3px;
       }
     }
+
     .user-pp {
       span {
         width: 40px;
         height: 40px;
+
         svg {
           width: 25px;
           height: 25px;
@@ -263,37 +262,46 @@ export default {
         }
       }
     }
+
     .logout {
       img {
         width: 20px;
+        cursor: pointer;
       }
     }
   }
 }
+
 @media only screen and (max-width: 1024px) {
   .header {
     width: 95%;
     padding: 0;
+
     .logo {
       flex: 1;
       justify-content: flex-start;
+
       .hamburger {
         display: block;
         margin: 0 0.7rem;
+
         img {
           width: 20px;
         }
       }
+
       a {
         width: 50px;
         height: 50px;
         border-radius: 50%;
         background-color: white;
+
         img {
           width: 40px;
         }
       }
     }
+
     .router {
       display: flex;
       align-items: flex-start;
@@ -308,15 +316,18 @@ export default {
       transition: all 0.4s;
       top: 90px;
       left: -110%;
+
       a {
         display: flex;
         width: 100%;
         padding: 0 2rem;
         margin-bottom: 1rem;
+
         svg {
           display: block;
           fill: rgb(18, 85, 10);
         }
+
         span {
           display: flex;
           align-items: flex-start;
@@ -327,10 +338,12 @@ export default {
           font-weight: normal;
         }
       }
+
       .trans {
         display: none;
       }
     }
+
     .menuActive {
       left: 0%;
     }
@@ -339,11 +352,13 @@ export default {
       a {
         font-size: var(--smallSize);
       }
+
       .bag {
         img {
           width: 40px;
         }
       }
+
       .logout {
         img {
           width: 15px;
