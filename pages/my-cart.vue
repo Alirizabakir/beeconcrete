@@ -2,9 +2,8 @@
     <div>
         <Slider :products='slider' />
         <Container>
-            <SocialBox>
-                SOCIAL
-            </SocialBox>
+            <h1 id="pots" class="text-3xl text-gray-dark border-b border-gray-dark pt-20">MY CART</h1>
+            <MyCartBox></MyCartBox>
         </Container>
     </div>
 </template>

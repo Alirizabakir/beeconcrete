@@ -1,106 +1,107 @@
 <template>
-  <!-- Slider main container -->
-  <div class="swiper w-full">
-    <!-- Additional required wrapper -->
-    <div class="swiper-wrapper w-full">
-      <!-- Slides -->
-      <div
-        class="swiper-slide flex a-center j-center"
-        v-for="(item, index) in slidersData"
-        :key="index"
-      >
-        <img :src="'resize/' + item.src.a" alt="" />
-      </div>
+    <!-- Slider main container -->
+    <div class="swiper w-full h-144">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper w-full">
+            <!-- Slides -->
+            <div class="swiper-slide" :style="{ backgroundImage: 'url(small/' + item.src.a + ')' }"
+                v-for="(item, index) in products" :key="index">
+                <div class="opacity w-full h-full justify-center items-center flex flex-col ">
+                    <Container class="pt-20 sm:px-2">
+                        <h1 class="text-3xl font-bold mb-4 text-white">{{ item.name.split(' ')[0] }} Collection</h1>
+                        <p class="lg:w-144 sm:w-auto mb-4 text-white ">Lorem ipsum, dolor sit amet consectetur
+                            adipisicing elit. Inventore
+                            exercitationem ab sit
+                            nostrum!
+                            Nemo modi impedit et ex qui mollitia voluptatum, fuga cupiditate? Velit saepe, at maiores
+                            voluptas
+                            adipisci porro.</p>
+                        <nuxt-link :to="'/products#' + item.name.split(' ')[0].toLowerCase()"
+                            class="w-32 h-10 block text-center leading-10 bg-green rounded-sm text-white">Go Collection</nuxt-link>
+                    </Container>
+                </div>
+            </div>
+
+        </div>
+        <div class="swiper-pagination flex items-center justify-center"></div>
+
     </div>
-    <!-- If we need pagination -->
-    <div class="swiper-pagination flex a-center j-center"></div>
-
-    <!-- If we need navigation buttons -->
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-
-    <!-- If we need scrollbar -->
-  </div>
 </template>
+
 <script>
 export default {
-  data() {
-    return {};
-  },
-  computed: {
-    slidersData() {
-      return this.$store.getters.getSlider;
-    },
-  },
-  mounted() {
-    const swiper = new Swiper(".swiper", {
-      // Optional parameters
-      effect: "slide",
-      loop: true,
-      speed: 1000,
-      // If we need pagination
-      pagination: {
-        el: ".swiper-pagination",
-      },
-      autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-      },
-      // Navigation arrows
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
+    props: ['products'],
+    mounted() {
+        const swiper = new Swiper(".swiper", {
+            // Optional parameters
+            effect: "slide",
+            loop: true,
+            speed: 1000,
 
-      // And if we need scrollbar
-      scrollbar: {
-        el: ".swiper-scrollbar",
-      },
-    });
-  },
-};
-</script>
-<style lang="scss">
-.swiper {
-  height: 90%;
-  position: relative;
-  overflow: visible;
-  .swiper-wrapper {
-    .swiper-slide {
-      img {
-        max-width: 100%;
-        max-height: 100%;
-        background-color: white;
-        border-radius: 1rem;
-        padding: 0.5rem;
-      }
+            autoplay: {
+                delay: 10000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+
+            // And if we need scrollbar
+            scrollbar: {
+                el: ".swiper-scrollbar",
+            },
+        });
     }
-  }
-  .swiper-pagination {
-    position: static;
-    height: 50px;
-    .swiper-pagination-bullet {
-      margin: 3px;
-      background-color: rgba(13, 54, 6, 0.386);
-      opacity: 1;
-      width: 10px;
-      height: 10px;
-    }
-    .swiper-pagination-bullet-active {
-      background-color: rgb(13, 54, 6);
-    }
-  }
 }
-@media only screen and (max-width: 1024px) {
-  .swiper {
+</script>
+
+<style lang="scss" >
+.swiper {
+    overflow: hidden;
+
     .swiper-wrapper {
-      .swiper-slide {
-        padding: 0.5rem;
-      }
+        .swiper-slide {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            .opacity {
+                background-color: rgba(0, 0, 0, 0.6);
+            }
+        }
     }
+
     .swiper-pagination {
-      margin-top: 0px;
+        position: absolute;
+        height: 50px;
+        bottom: 0;
+        width: 100%;
+
+        .swiper-pagination-bullet {
+            margin: 3px;
+            background-color: gray;
+            border-radius: 0;
+            opacity: 1;
+            width: 20px;
+            height: 5px;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: rgb(240, 240, 240);
+        }
     }
-  }
+}
+
+@media only screen and (max-width: 1024px) {
+    .swiper {
+        .swiper-wrapper {
+            .swiper-slide {}
+        }
+    }
 }
 </style>

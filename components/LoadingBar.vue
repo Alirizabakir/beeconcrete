@@ -1,8 +1,8 @@
 <template>
-  <div v-if="status ? status : loading" class="loading-page flex a-center j-center">
-    <div class="load flex a-center j-center">
+  <div v-if="status ? status : loading" class="loading-page flex items-center justify-center">
+    <div class="load flex items-center justify-center">
       <div class="outer">
-        <div class="inner flex a-center j-center">
+        <div class="inner flex items-center justify-center">
           <img class="img" :src="require(`~/static/icon.png`)" alt="">
         </div>
       </div>
@@ -60,6 +60,7 @@ export default {
   inset: 0;
   background-color: rgba(173, 173, 173, 0.2);
   z-index: 1000;
+  transition: all .3s;
   .load {
     width: 200px;
     height: 200px;

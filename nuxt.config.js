@@ -26,7 +26,16 @@ export default {
       {
         rel: "stylesheet",
         href: "https://unpkg.com/swiper@8/swiper-bundle.min.css"
-      }
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Ropa+Sans:ital@0;1&display=swap"
+      },
+    
     ],
     script: [
       {
@@ -38,7 +47,7 @@ export default {
         body: true,
       },
       {
-        src: 'https://unpkg.com/swiper@8/swiper-bundle.min.js',
+        src: "https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js",
         body: true,
       },
       {
@@ -50,7 +59,7 @@ export default {
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/css/main.css',
+    '~/assets/css/main.css'
   ],
   loading: '~/components/LoadingBar.vue',
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -62,6 +71,8 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    // https://go.nuxtjs.dev/tailwindcss
+    '@nuxtjs/tailwindcss',
   ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

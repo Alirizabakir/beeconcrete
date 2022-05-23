@@ -125,9 +125,6 @@ export const mutations = {
         state.authKey = false
         state.user = false
     },
-    authUser(state, authUser) {
-
-    },
 };
 
 export const actions = {
@@ -167,6 +164,7 @@ export const actions = {
     addToCart(vuexContext, product) {
         this.$axios.post('/add-to-cart', { product: product })
             .then(response => {
+                console.log('Succes')
                 vuexContext.commit('setCart', response.data.cart.items)
                 vuexContext.commit('setTotalPrice', response.data.cart.bagTotalPrice)
             })
@@ -257,17 +255,11 @@ export const actions = {
             state.user = false
         } else {
             // Do something with the authUser and the claims object...
-            axios.post('http://localhost:3000/api/login', { user: claims })
+            axios.post('https://www.beeconcrete.com.tr/api/login', { user: claims })
                 .then(response => {
                     vuexContext.commit('setUser', response.data.user);
                 })
         }
-    },
-    login(vuexContext, email) {
-        this.$axios.post('/login', { email: email })
-            .then(response => {
-                vuexContext.commit('setUser', response.data.user);
-            })
     },
     initAuth(vuexContext, req) {
         let token;

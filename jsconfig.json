@@ -22,7 +22,10 @@
     "dist"
   ],
   "vueCompilerOptions": {
-    "experimentalDisableTemplateSupport": true,
-    "experimentalShamefullySupportOptionsApi": true
+    "experimentalShamefullySupportOptionsApi": true,
+    "experimentalDisableTemplateSupport": true
+  },
+  "compileOptions": {
+    "jsx": "preserve",
   }
 }
