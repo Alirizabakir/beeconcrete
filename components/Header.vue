@@ -5,8 +5,8 @@
                 <img class="w-14 shadow-show rounded-full" src="icon.png" alt="Bee Concrete Desing">
             </nuxt-link>
             <div :class="{ hamburger: hamburger }"
-                class="header-main lg:w-auto lg:static lg:flex-row lg:h-auto flex flex-col items-center bg-white lg:bg-opacity-0 h-screen w-screen z-10 absolute top-20">
-                <span class="ham w-screen lg:hidden flex items-center justify-end">
+                class="header-main lg:w-auto lg:static lg:flex-row lg:h-auto flex flex-col items-center bg-white lg:bg-opacity-0 h-screen w-full z-10 absolute top-20">
+                <span class="ham w-full lg:hidden flex items-center justify-end">
                     <span @click="hamburger = true" class="bur text-white open w-18 text-right p-2 bg-blue">MENU</span>
                     <span @click="hamburger = false"
                         class="bur text-white close w-18 text-left p-2 bg-pink">CLOSE</span>

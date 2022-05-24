@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ hamburger: hamburger }" class="menu w-8/10 bg-gray-light lg:w-full lg:bg-opacity-0 h-screen lg:h-auto top-20 z-10">
+    <div :class="{ hamburger: hamburger }" class="menu bg-gray-light w-full lg:bg-opacity-0 h-screen lg:h-auto top-20 z-10">
         <Container class="con flex flex-col lg:grid lg:grid-cols-4">
             <div @mouseenter="isActive = 'pot'" @mouseleave="isActive = ''" class="main list-box">
                 <span class="ham cursor-pointer main-list" href="#">POTS
@@ -44,7 +44,7 @@ export default {
 <style lang="scss" scoped>
 .menu {
     position: fixed;
-    right: -80%;
+    right: -100%;
     transition: all .3s;
 
     .con {
@@ -89,7 +89,7 @@ export default {
 }
 
 .hamburger {
-    right: 0;
+    right: calc(0% - 57px);
 }
 
 @media screen and (min-width: 1024px) {
@@ -97,6 +97,7 @@ export default {
         position: static;
 
         .con {
+            width: 80%;
             .main {
                 position: relative;
 
