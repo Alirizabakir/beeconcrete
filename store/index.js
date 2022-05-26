@@ -255,10 +255,10 @@ export const actions = {
             state.user = false
         } else {
             // Do something with the authUser and the claims object...
-            axios.post('https://www.beeconcrete.com.tr/api/login', { user: claims })
-                .then(response => {
-                    vuexContext.commit('setUser', response.data.user);
-                })
+            // axios.post('https://www.beeconcrete.com.tr/api/login', { user: claims })
+            //     .then(response => {
+            //         vuexContext.commit('setUser', response.data.user);
+            //     })
         }
     },
     initAuth(vuexContext, req) {

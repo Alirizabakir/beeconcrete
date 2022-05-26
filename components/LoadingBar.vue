@@ -1,5 +1,5 @@
 <template>
-  <div v-if="status ? status : loading" class="loading-page flex items-center justify-center">
+  <div v-if="status ? status : loading" v-show="false" class="loading-page flex items-center justify-center">
     <div class="load flex items-center justify-center">
       <div class="outer">
         <div class="inner flex items-center justify-center">

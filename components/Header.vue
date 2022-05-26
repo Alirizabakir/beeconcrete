@@ -2,7 +2,7 @@
     <div :class="{ 'bg': scroll }" class="fixed z-50 top-0 h-20 header w-full">
         <Container class="flex items-center justify-between h-20">
             <nuxt-link to="/">
-                <img class="w-14 shadow-show rounded-full" src="icon.png" alt="Bee Concrete Desing">
+                <img class="w-14 shadow-show rounded-full" :src="require('@/static/icon.png')" alt="Bee Concrete Desing">
             </nuxt-link>
             <div :class="{ hamburger: hamburger }"
                 class="header-main lg:w-auto lg:static lg:flex-row lg:h-auto flex flex-col items-center bg-white lg:bg-opacity-0 h-screen w-full z-10 absolute top-20">
@@ -82,7 +82,10 @@ export default {
             } else {
                 this.scroll = false
             }
-        }
+        },
+        // allpro(){
+        //     this.$store.dispatch('allProductUpload', 'pro')
+        // }
     },
     created() {
         if (process.client) {

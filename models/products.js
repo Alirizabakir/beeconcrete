@@ -6,14 +6,16 @@ const productsSchema = new Schema({
         type: String,
     },
     src: {
-        a: {
-            type: String,
-        },
-        b: {
-            type: String,
-        },
+        type: String,
     },
-    big: {
+    sizeType: {
+        xsmall: Boolean,
+        small: Boolean,
+        normal: Boolean,
+        large: Boolean,
+        xLarge: Boolean
+    },
+    sizes: {
         width: {
             type: Number,
         },
@@ -47,53 +49,18 @@ const productsSchema = new Schema({
         weight: {
             type: Number,
         },
-        newPrice: {
-            type: Number,
-        },
-        oldPrice: {
-            type: Number,
-        }
     },
-    small: {
-        width: {
-            type: Number,
-        },
-        widthtop: {
-            type: Number,
-        },
-        widthunder: {
-            type: Number,
-        },
-        height: {
-            type: Number,
-        },
-        heighttop: {
-            type: Number,
-        },
-        heightunder: {
-            type: Number,
-        },
-        depth: {
-            type: Number,
-        },
-        depthtop: {
-            type: Number,
-        },
-        depthunder: {
-            type: Number,
-        },
-        diameter: {
-            type: Number,
-        },
-        weight: {
-            type: Number,
-        },
-        newPrice: {
-            type: Number,
-        },
-        oldPrice: {
-            type: Number,
-        }
+    newPrice: {
+        type: Number,
+    },
+    oldPrice: {
+        type: Number,
+    },
+    stock: {
+        type: Number,
+    },
+    objectType: {
+        type: String
     },
     collectionName: {
         type: String,
@@ -102,10 +69,14 @@ const productsSchema = new Schema({
         type: Number,
     },
     color: {
-        type: Boolean
+        white: Boolean,
+        gray: Boolean,
+        darkGray: Boolean,
     },
     rub: {
-        type: Boolean
+        smooth: Boolean,
+        rough: Boolean,
+        roughter: Boolean,
     },
 }, { timestamps: true, supressReservedKeysWarning: true })
 

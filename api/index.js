@@ -242,17 +242,17 @@ app.post('/add-to-cart', (req, res) => {
 
         if (itemIndex > -1) {
             cart[itemIndex].count += product.count
-            cart[itemIndex].totalPrice = cart[itemIndex].count * cart[itemIndex].big.newPrice
+            cart[itemIndex].totalPrice = cart[itemIndex].count * cart[itemIndex].newPrice
         } else {
             cart.push({
                 ...product,
-                totalPrice: product.count * product.big.newPrice
+                totalPrice: product.count * product.newPrice
             })
         }
     } else {
         cart.push({
             ...product,
-            totalPrice: product.count * product.big.newPrice
+            totalPrice: product.count * product.newPrice
         })
     }
 
@@ -286,7 +286,7 @@ app.post('/change-count', (req, res) => {
 
         if (itemIndex > -1) {
             cart[itemIndex].count = product.newCount
-            cart[itemIndex].totalPrice = cart[itemIndex].count * cart[itemIndex].big.newPrice
+            cart[itemIndex].totalPrice = cart[itemIndex].count * cart[itemIndex].newPrice
         }
     }
 
@@ -339,55 +339,45 @@ app.post('/remove-cart', (req, res) => {
 app.post('/new-product', (req, res) => {
 
     let product = req.body.product
-    let imgName1 = product.name.split(' ').join('_') + '_a.jpg'
-    let imgName2 = product.name.split(' ').join('_') + '_b.jpg'
+    let imgName = product.name.split(' ').join('_') + '.jpg'
     let img = req.body.product.file
     let data = img.replace(/^data:image\/\w+;base64,/, "");
     let buf = Buffer.from(data, 'base64');
-    let resizeAdrees = 'static/resize/' + imgName1
-    let smallAdrees = 'static/small/' + imgName1
-
+    let resizeAdrees = 'static/resize/' + imgName
+    let smallAdrees = 'static/small/' + imgName
+    let sizeAdrees = 'static/size/' + imgName
 
     const productAdd = new Products({
         name: product.name,
-        src: {
-            a: imgName1,
-            b: imgName2
+        src: imgName,
+        sizes: {
+            width: product.sizes.width,
+            widthtop: product.sizes.widthtop,
+            widthunder: product.sizes.widthunder,
+            height: product.sizes.height,
+            heighttop: product.sizes.heighttop,
+            heightunder: product.sizes.heightunder,
+            depth: product.sizes.depth,
+            depthtop: product.sizes.depthtop,
+            depthunder: product.sizes.depthunder,
+            diameter: product.sizes.diameter,
+            weight: product.sizes.weight,
         },
-        big: {
-            width: product.big.width,
-            widthtop: product.big.widthtop,
-            widthunder: product.big.widthunder,
-            height: product.big.height,
-            heighttop: product.big.heighttop,
-            heightunder: product.big.heightunder,
-            depth: product.big.depth,
-            depthtop: product.big.depthtop,
-            depthunder: product.big.depthunder,
-            diameter: product.big.diameter,
-            weight: product.big.weight,
-            newPrice: product.big.newPrice,
-            oldPrice: product.big.oldPrice
-        },
-        small: {
-            width: product.small.width,
-            widthtop: product.small.widthtop,
-            widthunder: product.small.widthunder,
-            height: product.small.height,
-            heighttop: product.small.heighttop,
-            heightunder: product.small.heightunder,
-            depth: product.small.depth,
-            depthtop: product.small.depthtop,
-            depthunder: product.small.depthunder,
-            diameter: product.small.diameter,
-            weight: product.small.weight,
-            newPrice: product.small.newPrice,
-            oldPrice: product.small.oldPrice
-        },
+        newPrice: product.newPrice,
+        oldPrice: product.oldPrice,
+        stock: product.stock,
         collectionName: product.collectionName,
-        fav: 3802,
-        color: product.color,
-        rub: product.rub
+        fav: 0,
+        color: {
+            white: product.color.white,
+            gray: product.color.gray,
+            darkGray: product.color.darkGray,
+        },
+        rub: {
+            smooth: product.rub.smooth,
+            rough: product.rub.darkGroughray,
+            roughter: product.rub.roughter,
+        },
     })
     // Image Upload
 
@@ -398,6 +388,11 @@ app.post('/new-product', (req, res) => {
             }
         });
         const upTwo = await fs.writeFile(smallAdrees, buf, (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+        const upThree = await fs.writeFile(sizeAdrees, buf, (err) => {
             if (err) {
                 console.log(err);
             }
@@ -423,44 +418,35 @@ app.post('/update-product', (req, res) => {
         {
             $set: {
                 name: product.name,
-                src: {
-                    a: product.src.a,
-                    b: product.src.b,
+                src: product.src,
+                sizes: {
+                    width: product.sizes.width,
+                    widthtop: product.sizes.widthtop,
+                    widthunder: product.sizes.widthunder,
+                    height: product.sizes.height,
+                    heighttop: product.sizes.heighttop,
+                    heightunder: product.sizes.heightunder,
+                    depth: product.sizes.depth,
+                    depthtop: product.sizes.depthtop,
+                    depthunder: product.sizes.depthunder,
+                    diameter: product.sizes.diameter,
+                    weight: product.sizes.weight,
                 },
-                big: {
-                    width: product.big.width,
-                    widthtop: product.big.widthtop,
-                    widthunder: product.big.widthunder,
-                    height: product.big.height,
-                    heighttop: product.big.heighttop,
-                    heightunder: product.big.heightunder,
-                    depth: product.big.depth,
-                    depthtop: product.big.depthtop,
-                    depthunder: product.big.depthunder,
-                    diameter: product.big.diameter,
-                    weight: product.big.weight,
-                    newPrice: product.big.newPrice,
-                    oldPrice: product.big.oldPrice
-                },
-                small: {
-                    width: product.small.width,
-                    widthtop: product.small.widthtop,
-                    widthunder: product.small.widthunder,
-                    height: product.small.height,
-                    heighttop: product.small.heighttop,
-                    heightunder: product.small.heightunder,
-                    depth: product.small.depth,
-                    depthtop: product.small.depthtop,
-                    depthunder: product.small.depthunder,
-                    diameter: product.small.diameter,
-                    weight: product.small.weight,
-                    newPrice: product.small.newPrice,
-                    oldPrice: product.small.oldPrice
-                },
+                newPrice: product.newPrice,
+                oldPrice: product.oldPrice,
+                stock: product.stock,
                 collectionName: product.collectionName,
-                fav: 3802,
-                color: product.color,
-                rub: product.rub
+                fav: 0,
+                color: {
+                    white: product.color.white,
+                    gray: product.color.gray,
+                    darkGray: product.color.darkGray,
+                },
+                rub: {
+                    smooth: product.rub.smooth,
+                    rough: product.rub.darkGroughray,
+                    roughter: product.rub.roughter,
+                },
             }
         },
         {
@@ -501,9 +487,7 @@ app.post('/new-slider', (req, res) => {
 
     const sliderAdd = new Sliders({
         name: slide.name,
-        src: {
-            a: slide.src.a
-        }
+        src: slide.src
     })
     sliderAdd.save()
         .then((result) => {
@@ -787,23 +771,6 @@ app.post('/favItem', (req, res) => {
         }
     })
 })
-// Contact 
-
-// Users
-
-// Search Product
-// app.get('/products/:id', (req, res) => {
-//     const id = req.params.id
-//     Products.findById(id)
-//         .then((result) => {
-//             res.status(200).json({
-//                 cart: {
-//                     items: result
-//                 }
-//             })
-//         })
-//         .catch((err)=> console.log(err, 'Olmadı'))
-// })
 
 module.exports = {
     path: '/api',

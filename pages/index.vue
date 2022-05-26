@@ -57,7 +57,7 @@ export default {
     productsSpecial() {
       const clone = [...this.$store.getters.getProducts];
       clone.sort((a, b) => {
-        return b.big.newPrice - a.big.newPrice;
+        return b.newPrice - a.newPrice;
       });
       return clone.slice(0, 4);
 
@@ -72,7 +72,7 @@ export default {
     productsOffer() {
       const clone = [...this.$store.getters.getProducts];
       clone.sort((a, b) => {
-        return a.big.newPrice - b.big.newPrice;
+        return a.newPrice - b.newPrice;
       });
       return clone.slice(0, 4);
 

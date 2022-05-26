@@ -1,10 +1,10 @@
 <template>
     <!-- Slider main container -->
-    <div class="swiper w-full h-144">
+    <div class="swiper w-full">
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper w-full">
             <!-- Slides -->
-            <div class="swiper-slide" :style="{ backgroundImage: 'url(small/' + item.src.a + ')' }"
+            <div class="swiper-slide" :style="{ backgroundImage: `url(${require(`@/static/small/${item.src.a}`)})` }"
                 v-for="(item, index) in products" :key="index">
                 <div class="opacity w-full h-full justify-center items-center flex flex-col ">
                     <Container class="pt-20 sm:px-2">
@@ -63,7 +63,7 @@ export default {
 <style lang="scss" >
 .swiper {
     overflow: hidden;
-
+    height: 45vh;
     .swiper-wrapper {
         .swiper-slide {
             background-position: center;

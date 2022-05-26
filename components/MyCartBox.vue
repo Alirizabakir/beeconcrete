@@ -6,7 +6,7 @@
                 <span class="text-xl">{{ item.totalPrice }} TL</span>
             </div>
             <div class="flex p-2 border border-gray-light border-t-0 rounded-b-sm">
-                <img class="w-1/2" :src="'small/' + item.src.a" alt="">
+                <img class="w-1/2" :src="require(`@/static/small/${item.src}`)" alt="">
                 <div class="flex flex-1 flex-col justify-between p-2">
                     <div>
                         <div>{{ item.selectColor }}</div>

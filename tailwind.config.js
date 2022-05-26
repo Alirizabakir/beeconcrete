@@ -36,6 +36,8 @@ module.exports = {
       },
       height: {
         '9/10': '90%',
+        'screen/9': '90vh',
+        'screen/8': '80vh'
       },
       borderRadius: {
         '4xl': '2rem',

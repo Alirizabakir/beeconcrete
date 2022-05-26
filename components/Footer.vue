@@ -1,7 +1,7 @@
 <template>
     <div class="bg-gray-dark mt-20">
         <Container class="grid grid-cols-2 gap-4 md:grid-cols-6 p-10">
-            <img class="w-20 h-20" src="icon.png" alt="">
+            <img class="w-20 h-20" :src="require(`@/static/icon.png`)" alt="">
             <div class="flex flex-col">
                 <nuxt-link class="text-white" to="/products#pots">Tüm Ürünler</nuxt-link>
                 <nuxt-link class="text-white" to="/products#pots">Bee Collection</nuxt-link>

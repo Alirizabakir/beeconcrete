@@ -6,11 +6,11 @@
         <div class="social">
             <div class="anime shadow-show mb-10 flex flex-col rounded-sm p-2 relative" v-for="(i, index) in getSocial"
                 :key="index">
-                <img class="mb-4" :src="'../../instagram/' + i.src.a">
+                <img class="mb-4" :src="require(`@/static/instagram/${i.src.a}`)">
                 <p class="flex flex-wrap"><strong class="mr-2">beeconcretedesing</strong>{{ i.name }}</p>
                 <span class="absolute top-0 right-0">
                     <a :href="i.link" target="_blank">
-                        <img class="w-14 p-3" src="instagram.png" alt="">
+                        <img class="w-14 p-3" :src="require(`@/static/instagram.png`)" alt="">
                     </a>
                 </span>
             </div>
