@@ -18,11 +18,11 @@
                     </div>
                 </div>
                 <div class="image-show flex w-3/4">
-                    <div v-if="isActive" class="">
-                        <img class="" :src="require(`@/static/resize/${product.src}`)">
+                    <div :class="{'fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center p-2 bg-gray bg-opacity-50': bigImage}" v-if="isActive" class="img-box">
+                        <img @click="bigImage = !bigImage" class="max-h-full max-w-full" :src="require(`@/static/resize/${product.src}`)">
                     </div>
-                    <div v-else class="">
-                        <img class="" :src="require(`@/static/size/${product.src}`)">
+                    <div :class="{'fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center p-2 bg-gray bg-opacity-50': bigImage}" v-else class="img-box">
+                        <img @click="bigImage = !bigImage" class="max-h-full max-w-full" :src="require(`@/static/size/${product.src}`)">
                     </div>
                 </div>
             </div>
@@ -83,6 +83,7 @@ export default {
         return {
             scroll: false,
             isActive: true,
+            bigImage: false,
             selectColor: '',
             selectRub: '',
         }
@@ -129,5 +130,6 @@ export default {
     .select {
         background-color: rgb(0, 166, 255);
     }
+  
 }
 </style>

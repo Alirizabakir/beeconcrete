@@ -1,11 +1,11 @@
 <template>
-    <div class="grid grid-cols-2 gap-4">
-        <div class="shadow-show" v-for="(item, index) in getCart" :key="index">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div class="shadow-show flex flex-col" v-for="(item, index) in getCart" :key="index">
             <div class="flex items-center justify-between border border-gray-light rounded-t-sm p-2">
                 <h2>{{ item.name }}</h2>
                 <span class="text-xl">{{ item.totalPrice }} TL</span>
             </div>
-            <div class="flex p-2 border border-gray-light border-t-0 rounded-b-sm">
+            <div class="flex flex-1 p-2 border border-gray-light border-t-0 rounded-b-sm">
                 <img class="w-1/2" :src="require(`@/static/small/${item.src}`)" alt="">
                 <div class="flex flex-1 flex-col justify-between p-2">
                     <div>
