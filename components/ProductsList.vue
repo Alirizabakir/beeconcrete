@@ -1,40 +1,17 @@
 <template>
-    <div :class="{ hamburger: hamburger }" class="w-56 -right-60 menu">
+    <div :class="{ hamburger: hamburger }" class="w-56 h-screen bg-gray mt-20 ml-4 menu">
         <div class="ham cursor-pointer lg:hidden" href="#">
             <span v-show="!hamburger" @click="hamburger = true"
                 class="bur text-white open w-18 text-left p-2 bg-blue">COLLECTIONS</span>
             <span v-show="hamburger" @click="hamburger = false"
                 class="bur text-white close w-18 text-right p-2 bg-pink">CLOSE</span>
         </div>
-        <div class="main list-box">
-            <span class="cursor-pointer main-list" href="#">POTS</span>
+        <div v-for="(item, index) in getLang.collectionList" :key="index" class="main list-box">
+            <span class="cursor-pointer main-list" href="#">{{ item.title }}</span>
             <div class="sub flex flex-col">
-                <a @click="hamburger = false" class="sub-list" href="#bee">Bee Collection</a>
-                <a @click="hamburger = false" class="sub-list" href="#hive">Hive Collection</a>
-                <a @click="hamburger = false" class="sub-list" href="#honeycomb">HoneyComb Collection</a>
-                <a @click="hamburger = false" class="sub-list" href="#cube">Cube Collection</a>
-                <a @click="hamburger = false" class="sub-list" href="#vase">Vase Collection</a>
-                <a @click="hamburger = false" class="sub-list" href="#long">Long Collection</a>
-                <a @click="hamburger = false" class="sub-list" href="#smallseries">Small Series</a>
+                <a v-for="(subItem, indexSub) in item.subList" :key="indexSub" @click="hamburger = false"
+                    class="sub-list" :href="'#' + subItem.link">{{ subItem.title }}</a>
             </div>
-        </div>
-        <div class="main list-box">
-            <span class="cursor-pointer main-list" href="#">FURNITURE</span>
-            <div class="sub flex flex-col">
-                <a @click="hamburger = false" class="sub-list" href="#column">Column Collection</a>
-                <a @click="hamburger = false" class="sub-list" href="#table">Table Collection</a>
-                <a @click="hamburger = false" class="sub-list" href="#stool">Stool Collection</a>
-                <a @click="hamburger = false" class="sub-list" href="#ball">Ball Collection</a>
-            </div>
-        </div>
-        <div class="list-box">
-            <a @click="hamburger = false" class="main-list" href="#covering">COVERING</a>
-        </div>
-        <div class="list-box">
-            <a @click="hamburger = false" class="main-list" href="#oven">OVEN</a>
-        </div>
-        <div class="list-box">
-            <a @click="hamburger = false" class="main-list" href="#fiber">FIBER</a>
         </div>
     </div>
 </template>
@@ -47,14 +24,20 @@ export default {
             isActive: ''
         }
     },
+    computed: {
+        getLang() {
+            return this.$store.getters.getLang
+        }
+    },
 }
 </script>
 <style lang="scss" scoped>
 .menu {
     position: fixed;
     transition: all .3s;
-    top: 0px;
+    top: 32px;
     z-index: 10;
+    right: -225px;
     .ham {
         position: relative;
 
@@ -83,7 +66,7 @@ export default {
         position: -webkit-sticky;
         /* Safari */
         position: sticky;
-        top: 0px;
+        top: 80px;
     }
 }
 </style>

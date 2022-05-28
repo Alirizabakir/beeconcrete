@@ -43,9 +43,7 @@ export default {
         PositiveSvg,
         NegativeSvg
     },
-    created() {
-        console.log(this.getCart)
-    },
+  
     computed: {
         getCart() {
             return this.$store.getters.getCart

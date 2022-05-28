@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ 'bg': scroll }" class="fixed z-50 top-0 h-20 header w-full">
+    <div :class="{ 'bg': scroll }" class="fixed z-50 top-8 h-20 header w-full">
         <Container class="flex items-center justify-between h-20">
             <nuxt-link to="/">
                 <img class="w-14 shadow-show rounded-full" :src="require('@/static/icon.png')" alt="Bee Concrete Desing">
@@ -11,37 +11,15 @@
                     <span @click="hamburger = false"
                         class="bur text-white close w-18 text-left p-2 bg-pink">CLOSE</span>
                 </span>
-                <div @click="hamburger = false" class="header-main-item">
-                    <nuxt-link :class="{ 'border-white border-b': $route.name == 'index' }"
-                        to="/">
-                        ANA SAYFA
+                <div 
+                @click="hamburger = false"  
+                class="header-main-item"
+                v-for="(item, index) in getLang.headerList" :key="index"
+                >
+                    <nuxt-link :to="'/' + item.link">
+                        {{item.title}}
                     </nuxt-link>
                 </div>
-                <div @click="hamburger = false" class="header-main-item">
-                    <nuxt-link :class="{ 'border-white border-b': $route.name == 'products' }"
-                        to="/products">
-                        ÜRÜNLER
-                    </nuxt-link>
-                </div>
-                <div @click="hamburger = false" class="header-main-item">
-                    <nuxt-link :class="{ 'border-white border-b': $route.name == 'social' }"
-                        to="/social">
-                        SOSYAL
-                    </nuxt-link>
-                </div>
-                <div @click="hamburger = false" class="header-main-item">
-                    <nuxt-link :class="{ 'border-white border-b': $route.name == 'about-us' }"
-                        to="/about-us">
-                        HAKKIMIZDA
-                    </nuxt-link>
-                </div>
-                <div @click="hamburger = false" class="header-main-item">
-                    <nuxt-link :class="{ 'border-white border-b': $route.name == 'contact' }"
-                        to="/contact">
-                        İLETİŞİM
-                    </nuxt-link>
-                </div>
-
             </div>
             <div class="flex items-center">
                 <nuxt-link class="header-svg" to="/my-favorites">
@@ -73,6 +51,11 @@ export default {
         return {
             hamburger: false,
             scroll: false
+        }
+    },
+    computed: {
+        getLang(){
+            return this.$store.getters.getLang
         }
     },
     methods: {

@@ -4,20 +4,17 @@
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper w-full">
             <!-- Slides -->
-            <div class="swiper-slide" :style="{ backgroundImage: `url(${require(`@/static/small/${item.src.a}`)})` }"
-                v-for="(item, index) in products" :key="index">
+            <div class="swiper-slide" :style="{ backgroundImage: `url(${require(`@/static/small/${item.src}`)})` }"
+                v-for="(item, index) in getLang.slider" :key="index">
                 <div class="opacity w-full h-full justify-center items-center flex flex-col ">
                     <Container class="pt-20 sm:px-2">
-                        <h1 class="text-3xl font-bold mb-4 text-white">{{ item.name.split(' ')[0] }} Collection</h1>
-                        <p class="lg:w-144 sm:w-auto mb-4 text-white ">Lorem ipsum, dolor sit amet consectetur
-                            adipisicing elit. Inventore
-                            exercitationem ab sit
-                            nostrum!
-                            Nemo modi impedit et ex qui mollitia voluptatum, fuga cupiditate? Velit saepe, at maiores
-                            voluptas
-                            adipisci porro.</p>
-                        <nuxt-link :to="'/products#' + item.name.split(' ')[0].toLowerCase()"
-                            class="w-32 h-10 block text-center leading-10 bg-green rounded-sm text-white">Go Collection</nuxt-link>
+                        <h1 class="text-2xl sm:text-3xl font-bold mb-4 text-white">{{ item.title}}</h1>
+                        <p class="lg:w-144 text-sm sm:text-base sm:w-auto mb-4 text-white ">
+                        {{item.text}}
+                        </p>
+                        <nuxt-link :to="'/products#' + item.link"
+                            class="w-32 h-10 block text-center leading-10 bg-green rounded-sm text-white">{{getLang.button.goCollection}}
+                        </nuxt-link>
                     </Container>
                 </div>
             </div>
@@ -30,7 +27,11 @@
 
 <script>
 export default {
-    props: ['products'],
+    computed: {
+        getLang(){
+            return this.$store.getters.getLang
+        },
+    },
     mounted() {
         const swiper = new Swiper(".swiper", {
             // Optional parameters
@@ -63,7 +64,8 @@ export default {
 <style lang="scss" >
 .swiper {
     overflow: hidden;
-    height: 45vh;
+    height: 50vh;
+
     .swiper-wrapper {
         .swiper-slide {
             background-position: center;
