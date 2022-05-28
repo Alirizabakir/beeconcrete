@@ -18,10 +18,190 @@ export const state = () => ({
     user: null,
     admin: false,
     displayForm: false,
+    lang: {
+        headerList: [
+            {
+                title: 'HOME',
+                link: ''
+            },
+            {
+                title: 'PRODUCTS',
+                link: 'products'
+            },
+            {
+                title: 'SOCIAL',
+                link: 'social'
+            },
+            {
+                title: 'ABOUT US',
+                link: 'about-us'
+            },
+            {
+                title: 'CONTACT',
+                link: 'contact'
+            },
+        ],
+        collectionList: [
+            {
+                title: 'Pots',
+                link: 'pots',
+                subList:
+                    [
+                        {
+                            title: 'Bee Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'bee'
+                        },
+                        {
+                            title: 'Hive Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'hive'
+                        },
+                        {
+                            title: 'HoneyComb Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'honeycomb'
+                        },
+                        {
+                            title: 'Cube Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'cube'
+                        },
+                        {
+                            title: 'Vase Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'vase'
+                        },
+                        {
+                            title: 'Long Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'long'
+                        },
+                        {
+                            title: 'Small Series',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'small'
+                        }
+                    ]
+            },
+            {
+                title: 'Furniture',
+                link: 'furniture',
+                subList:
+                    [
+                        {
+                            title: 'Column Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'column'
+                        },
+                        {
+                            title: 'Table Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'table'
+                        },
+                        {
+                            title: 'Seat Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'seat'
+                        },
+                        {
+                            title: 'Ball Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'ball'
+                        }
+                    ]
+            },
+            {
+                title: 'Covering',
+                link: 'covering',
+                subList: [
+                ]
+            },
+            {
+                title: 'Oven',
+                link: 'oven',
+                subList: [
+                ]
+            },
+            {
+                title: 'Fiber',
+                link: 'fiber',
+                subList: [
+                ]
+            }
+        ],
+        button: {
+            goCollection: 'Go Collection',
+            addToCart: 'Add To Cart',
+            getAnOffer: 'Get An Offer',
+            cancel: 'Cancel',
+            pay: 'PAY',
+            goBack: 'Go Back',
+            save: 'Save',
+            delete: 'Delete',
+            update: 'Update'
+        },
+        title: {
+            fav: 'Favorite Products',
+            discount: 'Promotional Products',
+            special: 'Special Series'
+        },
+        slider: [
+            {
+                title: 'Bee Collection',
+                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                link: 'bee',
+                src: 'bee_no_4.jpg'
+            },
+            {
+                title: 'Hive Collection',
+                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                link: 'hive',
+                src: 'hive_no_1.jpg'
+            },
+            {
+                title: 'HoneyComb Collection',
+                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                link: 'honeycomb',
+                src: 'honeycomb_no_5.jpg'
+            },
+            {
+                title: 'Column Collection',
+                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                link: 'column',
+                src: 'column_no_2.jpg'
+            },
+            {
+                title: 'Table Collection',
+                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                link: 'table',
+                src: 'table_no_1.jpg'
+            },
+        ],
+        characteristic: {
+            safe: {
+                src: 'safe',
+                title: 'SAFE',
+                text: 'Safe Info',
+            },
+            desing: {
+                src: 'desing',
+                title: 'DESING',
+                text: 'Desing Info',
+            },
+            quality: {
+                src: 'quality',
+                title: 'QUALITY',
+                text: 'Quality Info',
+            },
+        }
+    },
 });
 
 export const mutations = {
-
+    setLang(state, lang) {
+        state.lang = lang
+    },
     // Set iframetoken
     setIframeToken(state, token) {
         state.iframetoken = token
@@ -128,7 +308,13 @@ export const mutations = {
 };
 
 export const actions = {
-
+    // Lang 
+    langMethods(vuexContext, lang) {
+        this.$axios.post('/lang', { lang })
+            .then(response => {
+                vuexContext.commit("setLang", response.data.lang)
+            })
+    },
     // Pay
     payMethods(vuexContext, payData) {
         this.$axios.post('/pay-go', { payData: payData })
@@ -151,6 +337,10 @@ export const actions = {
                 if (response.data.user != null) {
                     vuexContext.commit("setUser", response.data.user);
                 }
+                if (response.data.lang != null) {
+                    vuexContext.commit("setLang", response.data.lang)
+                }
+
             })
     },
     // All Products Upload
@@ -246,6 +436,7 @@ export const actions = {
     favItem(vuexContext, product) {
         this.$axios.post('/favItem', { product: product })
             .then(response => {
+                console.log(response.data.favItem.items)
                 vuexContext.commit("setFavItem", response.data.favItem.items)
             })
     },
@@ -322,12 +513,16 @@ export const actions = {
 };
 
 export const getters = {
+    // Get Lang
+    getLang(state) {
+        return state.lang
+    },
     // Get iframetoken
     getIframeToken(state) {
         return state.iframetoken
     },
     // Get FavItem
-    getFavItem(state) {
+    getFavorites(state) {
         return state.favItem
     },
     // Get About 

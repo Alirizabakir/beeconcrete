@@ -16,10 +16,10 @@ html {
     @apply flex flex-col flex-auto border-r border-gray-light
 }
 .main-list {
-    @apply py-2 text-center bg-gray-dark text-white hover:bg-gray-light hover:text-gray-dark
+    @apply pl-4 py-2 bg-gray-dark text-white hover:bg-gray-light hover:text-gray-dark
 }
 .sub-list {
-    @apply bg-gray text-white py-2 px-6 hover:bg-gray-light hover:text-gray-dark
+    @apply bg-gray text-white py-2 pl-8 hover:bg-gray-light hover:text-gray-dark
 }
 .header-svg {
     @apply flex flex-col text-white items-center

@@ -1,47 +1,23 @@
 <template>
   <div class="home">
-    <Slider :products='slider' />
+    <Slider/>
     <Container>
-      <Show :discount="true" :products="productsOffer">
-        Kampayalı Ürünler
-      </Show>
-      <Show :products="productsFav">
-        Favori Ürünler
+      <Show v-for="(item, index) in getLang.title" :key="index" :type="index">
+        {{ item }}
       </Show>
     </Container>
     <div class="hexagon-box mt-20 py-20">
       <Container class="flex flex-wrap w-full items-center justify-center">
-        <HexagonBox>
+        <HexagonBox :src="item.src" v-for="(item,index) in getLang.characteristic" :key="index">
           <template v-slot:header>
-            Birinci Başlık
+            {{item.title}}
           </template>
           <template v-slot:content>
-            Birinci Açıklama
-          </template>
-        </HexagonBox>
-        <HexagonBox>
-          <template v-slot:header>
-            İkinci Başlık
-          </template>
-          <template v-slot:content>
-            İkinci Açıklama
-          </template>
-        </HexagonBox>
-        <HexagonBox>
-          <template v-slot:header>
-            Üçüncü Başlık
-          </template>
-          <template v-slot:content>
-            Üçüncü Açıklama
+            {{item.text}}
           </template>
         </HexagonBox>
       </Container>
     </div>
-    <Container>
-      <Show class="sm:px-2 mt-20" :products="productsSpecial">
-        Özel Seri
-      </Show>
-    </Container>
   </div>
 </template>
 
@@ -54,54 +30,9 @@ export default {
     }
   },
   computed: {
-    productsSpecial() {
-      const clone = [...this.$store.getters.getProducts];
-      clone.sort((a, b) => {
-        return b.newPrice - a.newPrice;
-      });
-      return clone.slice(0, 4);
-
-      // if (process.client) {
-      //   if (window.screen.width > 1000) {
-      //     return clone.slice(0, 3);
-      //   } else if (window.screen.width < 1000) {
-      //     return clone.slice(0, 3);
-      //   }
-      // }
+    getLang(){
+      return this.$store.getters.getLang
     },
-    productsOffer() {
-      const clone = [...this.$store.getters.getProducts];
-      clone.sort((a, b) => {
-        return a.newPrice - b.newPrice;
-      });
-      return clone.slice(0, 4);
-
-      // if (process.client) {
-      //   if (window.screen.width > 1000) {
-      //     return clone.slice(0, 4);
-      //   } else if (window.screen.width < 1000) {
-      //     return clone.slice(0, 3);
-      //   }
-      // }
-    },
-    productsFav() {
-      const clone = [...this.$store.getters.getProducts];
-      clone.sort((a, b) => {
-        return b.fav - a.fav;
-      });
-      return clone.slice(0, 4);
-
-      // if (process.client) {
-      //   if (window.screen.width > 1000) {
-      //     return clone.slice(0, 4);
-      //   } else if (window.screen.width < 1000) {
-      //     return clone.slice(0, 3);
-      //   }
-      // }
-    },
-    slider() {
-      return this.$store.getters.getSlider;
-    }
   },
   methods: {
     handleScroll() {

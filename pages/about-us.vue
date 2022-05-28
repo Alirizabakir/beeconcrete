@@ -5,29 +5,13 @@
             <AboutUs></AboutUs>
         </Container>
         <div class="hexagon-box mt-20 py-20">
-            <Container class="flex flex-wrap w-full items-center justify-center xl:justify-between ">
-                <HexagonBox>
+            <Container class="flex flex-wrap w-full items-center justify-center">
+                <HexagonBox :src="item.src" v-for="(item, index) in getLang.characteristic" :key="index">
                     <template v-slot:header>
-                        Birinci Başlık
+                        {{ item.title }}
                     </template>
                     <template v-slot:content>
-                        Birinci Açıklama
-                    </template>
-                </HexagonBox>
-                <HexagonBox>
-                    <template v-slot:header>
-                        İkinci Başlık
-                    </template>
-                    <template v-slot:content>
-                        İkinci Açıklama
-                    </template>
-                </HexagonBox>
-                <HexagonBox>
-                    <template v-slot:header>
-                        Üçüncü Başlık
-                    </template>
-                    <template v-slot:content>
-                        Üçüncü Açıklama
+                        {{ item.text }}
                     </template>
                 </HexagonBox>
             </Container>
@@ -40,6 +24,9 @@ export default {
     computed: {
         slider() {
             return this.$store.getters.getSlider;
+        },
+        getLang() {
+            return this.$store.getters.getLang
         },
     }
 }

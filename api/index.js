@@ -27,7 +27,6 @@ const dbURL = 'mongodb+srv://beeconcrete:2547492bkr@beeconcrete.ngeqm.mongodb.ne
 mongoose.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => console.log('Connect'))
 
-
 app.use(session({
     secret: 'b3eSeCret',
     maxAge: 60000,
@@ -218,6 +217,7 @@ app.get('/', (req, res) => {
                                 bagTotalPrice: bagTotalPrice
                             },
                             user: req.session.user,
+                            lang: req.session.lang,
                         })
                     })
                 })
@@ -771,7 +771,370 @@ app.post('/favItem', (req, res) => {
         }
     })
 })
-
+// Lang
+app.post('/lang', (req, res) => {
+    const selectlang = req.body.lang
+    const lang = {
+        tr: {
+            headerList: [
+                {
+                    title: 'ANA SAYFA',
+                    link: ''
+                },
+                {
+                    title: 'ÜRÜNLER',
+                    link: 'products'
+                },
+                {
+                    title: 'SOSYAL',
+                    link: 'social'
+                },
+                {
+                    title: 'HAKKIMIZDA',
+                    link: 'about-us'
+                },
+                {
+                    title: 'İLETİŞİM',
+                    link: 'contact'
+                },
+            ],
+            collectionList: [
+                {
+                    title: 'Saksılar',
+                    link: 'pots',
+                    subList:
+                        [
+                            {
+                                title: 'Arı Koleksiyonu',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'bee'
+                            },
+                            {
+                                title: 'Kovan Koleksiyonu',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'hive'
+                            },
+                            {
+                                title: 'Bal Peteği Koleksiyonu',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'honeycomb'
+                            },
+                            {
+                                title: 'Küp Koleksiyonu',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'cube'
+                            },
+                            {
+                                title: 'Vazo Koleksiyonu',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'vase'
+                            },
+                            {
+                                title: 'Uzun Koleksiyonu',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'long'
+                            },
+                            {
+                                title: 'Küçük Koleksiyonu',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'small series'
+                            }
+                        ]
+                },
+                {
+                    title: 'Mobilyalar',
+                    link: 'furniture',
+                    subList:
+                        [
+                            {
+                                title: 'Kolon Koleksiyonu',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'column'
+                            },
+                            {
+                                title: 'Masa Koleksiyonu',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'table'
+                            },
+                            {
+                                title: 'Tabure Koleksiyonu',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'seat'
+                            },
+                            {
+                                title: 'Küre Koleksiyonu',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'ball'
+                            }
+                        ]
+                },
+                {
+                    title: 'Kaplamalar',
+                    link: 'covering',
+                    subList: []
+                },
+                {
+                    title: 'Fırınlar',
+                    link: 'oven',
+                    subList: []
+                },
+                {
+                    title: 'Fiber',
+                    link: 'fiber',
+                    subList: []
+                }
+            ],
+            button: {
+                goCollection: 'Koleksiyona Git',
+                addToCart: 'Sepete Ekle',
+                getAnOffer: 'Teklif Al',
+                cancel: 'Vazgeç',
+                pay: 'ÖDEMEYE GEÇ',
+                goBack: 'Geri Git',
+                save: 'Kaydet',
+                delete: 'Sil',
+                update: 'Güncelle'
+            },
+            title: {
+                fav: 'Favori Ürünler',
+                discount: 'Kampanyalı Ürünler',
+                special: 'Özel Seri'
+            },
+            slider: [
+                {
+                    title: 'Arı Koleksiyonu',
+                    text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                    link: 'bee',
+                    src: 'bee_no_4.jpg'
+                },
+                {
+                    title: 'Kovan Koleksiyonu',
+                    text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                    link: 'hive',
+                    src: 'hive_no_1.jpg'
+                },
+                {
+                    title: 'Bal Peteği Koleksiyonu',
+                    text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                    link: 'honeycomb',
+                    src: 'honeycomb_no_5.jpg'
+                },
+                {
+                    title: 'Kolon Koleksiyonu',
+                    text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                    link: 'column',
+                    src: 'column_no_2.jpg'
+                },
+                {
+                    title: 'Masa Koleksiyonu',
+                    text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                    link: 'table',
+                    src: 'table_no_1.jpg'
+                },
+            ],
+            characteristic: {
+                safe: {
+                    src: 'safe',
+                    title: 'GÜVEN',
+                    text: 'Güvenlik açıklama',
+                },
+                desing: {
+                    src: 'desing',
+                    title: 'TASARIM',
+                    text: 'Tasarım Açıklama',
+                },
+                quality: {
+                    src: 'quality',
+                    title: 'KALİTE',
+                    text: 'Kalite Açıklama',
+                },
+            }
+        },
+        en: {
+            headerList: [
+                {
+                    title: 'HOME',
+                    link: ''
+                },
+                {
+                    title: 'PRODUCTS',
+                    link: 'products'
+                },
+                {
+                    title: 'SOCIAL',
+                    link: 'social'
+                },
+                {
+                    title: 'ABOUT US',
+                    link: 'about-us'
+                },
+                {
+                    title: 'CONTACT',
+                    link: 'contact'
+                },
+            ],
+            collectionList: [
+                {
+                    title: 'Pots',
+                    link: 'pots',
+                    subList:
+                        [
+                            {
+                                title: 'Bee Collection',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'bee'
+                            },
+                            {
+                                title: 'Hive Collection',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'hive'
+                            },
+                            {
+                                title: 'HoneyComb Collection',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'honeycomb'
+                            },
+                            {
+                                title: 'Cube Collection',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'cube'
+                            },
+                            {
+                                title: 'Vase Collection',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'vase'
+                            },
+                            {
+                                title: 'Long Collection',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'long'
+                            },
+                            {
+                                title: 'Small Series',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'small'
+                            }
+                        ]
+                },
+                {
+                    title: 'Furniture',
+                    link: 'furniture',
+                    subList:
+                        [
+                            {
+                                title: 'Column Collection',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'column'
+                            },
+                            {
+                                title: 'Table Collection',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'table'
+                            },
+                            {
+                                title: 'Seat Collection',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'seat'
+                            },
+                            {
+                                title: 'Ball Collection',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'ball'
+                            }
+                        ]
+                },
+                {
+                    title: 'Covering',
+                    link: 'covering',
+                    subList: []
+                },
+                {
+                    title: 'Oven',
+                    link: 'oven',
+                    subList: []
+                },
+                {
+                    title: 'Fiber',
+                    link: 'fiber',
+                    subList: []
+                }
+            ],
+            button: {
+                goCollection: 'Go Collection',
+                addToCart: 'Add To Cart',
+                getAnOffer: 'Get An Offer',
+                cancel: 'Cancel',
+                pay: 'PAY',
+                goBack: 'Go Back',
+                save: 'Save',
+                delete: 'Delete',
+                update: 'Update'
+            },
+            title: {
+                fav: 'Favorite Products',
+                discount: 'Promotional Products',
+                special: 'Special Series'
+            },
+            slider: [
+                {
+                    title: 'Bee Collection',
+                    text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                    link: 'bee',
+                    src: 'bee_no_4.jpg'
+                },
+                {
+                    title: 'Hive Collection',
+                    text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                    link: 'hive',
+                    src: 'hive_no_1.jpg'
+                },
+                {
+                    title: 'HoneyComb Collection',
+                    text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                    link: 'honeycomb',
+                    src: 'honeycomb_no_5.jpg'
+                },
+                {
+                    title: 'Column Collection',
+                    text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                    link: 'column',
+                    src: 'column_no_2.jpg'
+                },
+                {
+                    title: 'Table Collection',
+                    text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                    link: 'table',
+                    src: 'table_no_1.jpg'
+                },
+            ],
+            characteristic: {
+                safe: {
+                    src: 'safe',
+                    title: 'SAFE',
+                    text: 'Safe Info',
+                },
+                desing: {
+                    src: 'desing',
+                    title: 'DESING',
+                    text: 'Desing Info',
+                },
+                quality: {
+                    src: 'quality',
+                    title: 'QUALITY',
+                    text: 'Quality Info',
+                },
+            }
+        }
+    }
+    if (selectlang) {
+        req.session.lang = lang[selectlang]
+    } else {
+        req.session.lang = lang['en']
+    }
+    res.status(200).json({
+        lang: req.session.lang
+    })
+})
 module.exports = {
     path: '/api',
     handler: app
