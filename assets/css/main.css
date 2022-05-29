@@ -22,7 +22,7 @@ html {
     @apply bg-gray text-white py-2 pl-8 hover:bg-gray-light hover:text-gray-dark
 }
 .header-svg {
-    @apply flex flex-col text-white items-center
+    @apply flex flex-col text-white items-center h-20 flex items-center justify-center
 }
 
 .header-main-item {

@@ -1,52 +1,30 @@
 <template>
-  <div v-if="status ? status : loading" v-show="false" class="loading-page flex items-center justify-center">
-    <div class="load flex items-center justify-center">
-      <div class="outer">
-        <div class="inner flex items-center justify-center">
-          <img class="img" :src="require(`~/static/icon.png`)" alt="">
-        </div>
-      </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        version="1.1"
-        width="160px"
-        height="160px"
-      >
-        <defs>
-          <linearGradient id="GradientColor">
-            <stop offset="0%" stop-color="#717171" />
-            <stop offset="100%" stop-color="#1f4a18" />
-          </linearGradient>
-        </defs>
-        <circle cx="80" cy="80" r="70" stroke-linecap="round" />
-      </svg>
+  <div v-show="getLoading" class="loading-page flex items-center justify-center">
+    <div class="loader">
+      <client-only>
+        <span v-for="(i, index) in 20" :key="index" :style="'--i:' + (index + 1) + ';'"></span>
+        <img class="img" :src="require(`~/static/icon.png`)" alt="">
+      </client-only>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['status'],
+  name: 'LoadingBar',
   data: () => ({
-    loading: false,
-    num: 0,
   }),
+  computed: {
+    getLoading() {
+      return this.$store.getters.getLoading
+    }
+  },
   methods: {
     start() {
-      this.loading = true;
-      setInterval(() => {
-        if (this.num < 100) {
-          this.num += 10;
-        } else {
-          clearInterval();
-          this.num = 0
-        }
-      }, 200);
+      this.$store.commit('setLoading', true)
     },
     finish() {
-      setTimeout(() => {
-        this.loading = false;
-      }, 1000);
+      this.$store.commit('setLoading', false)
     },
   },
 };
@@ -58,56 +36,75 @@ export default {
   height: 100%;
   position: fixed;
   inset: 0;
-  background-color: rgba(173, 173, 173, 0.2);
+  background-color: rgba(255, 255, 255, 0.3);
   z-index: 1000;
-  transition: all .3s;
-  .load {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    position: relative;
-    background-color: #e3edf7;
-    .outer {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      padding: 20px;
-      box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
-        -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
-      .inner {
-        height: 120px;
-        width: 120px;
-        border-radius: 50%;
-        box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
-          inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
-          -0.5px -0.5px 0px rgba(255, 255, 255, 1),
-          -0.5px -0.5px 0px rgba(0, 0, 0, 0.15),
-          0px 12px 10px -10px rgba(255, 255, 255, 0.05);
+  animation: animateBg 10s infinite;
 
-        .img {
-          width: 100px;
+  .loader {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    padding: .5rem;
+
+    .img {
+      background-color: rgba(255, 255, 255, 0.982);
+      border-radius: 50%;
+      padding: 5px;
+    }
+
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: rotate(calc(18deg * var(--i)));
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        transform: scale(0);
+
+        background-color: #3fcb23;
+        box-shadow: 0 0 1px #3ae0244a,
+          0 0 3px #3ae0244a,
+          0 0 5px #3ae0244a,
+          0 0 7px #3ae0244a,
+          0 0 9px #3ae0244a,
+          0 0 11px #3ae0244a,
+          0 0 13px #3ae0244a,
+          0 0 15px #3ae0244a,
+          0 0 17px #3ae0244a;
+        animation: animate 1s linear infinite;
+        animation-delay: calc(0.05s * var(--i));
+      }
+
+      @keyframes animate {
+        0% {
+          transform: scale(1);
+        }
+
+        80%,
+        100% {
+          transform: scale(0);
         }
       }
     }
-    circle {
-      fill: none;
-      stroke: url(#GradientColor);
-      stroke-width: 20px;
-      stroke-dasharray: 472;
-      stroke-dashoffset: 472;
-      animation: anim 2s linear forwards;
-    }
-    svg {
-      position: absolute;
-      top: 40;
-      left: 40;
-    }
   }
-}
 
-@keyframes anim {
-  100% {
-    stroke-dashoffset: 0;
-  }
+  // @keyframes animateBg {
+  //   0% {
+  //     filter: hue-rotate(0deg);
+  //   }
+
+  //   100% {
+  //     filter: hue-rotate(360deg);
+  //   }
+  // }
 }
 </style>

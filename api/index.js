@@ -188,8 +188,17 @@ app.post("/report", function (req, res) {
 // --->>>>
 app.get('/', (req, res) => {
     let cart = []
+    let favItem = []
+
     if (req.session.cart) {
         cart = req.session.cart
+    }else{
+        req.session.cart = cart
+    }
+    if (req.session.favItem) {
+        favItem = req.session.favItem
+    }else{
+        req.session.favItem = favItem
     }
     // bagTotalPrice
     let bagTotalPrice = 0
@@ -350,6 +359,13 @@ app.post('/new-product', (req, res) => {
     const productAdd = new Products({
         name: product.name,
         src: imgName,
+        sizeType: {
+            xsmall: product.sizeType.xsmall,
+            small: product.sizeType.small,
+            normal: product.sizeType.normal,
+            large: product.sizeType.large,
+            xLarge: product.sizeType.xLarge,
+        },
         sizes: {
             width: product.sizes.width,
             widthtop: product.sizes.widthtop,
@@ -366,6 +382,7 @@ app.post('/new-product', (req, res) => {
         newPrice: product.newPrice,
         oldPrice: product.oldPrice,
         stock: product.stock,
+        objectType: product.objectType,
         collectionName: product.collectionName,
         fav: 0,
         color: {
@@ -566,6 +583,7 @@ app.post('/del-social', (req, res) => {
 // User
 app.post('/login', (req, res) => {
     let user = req.body.user
+    let surname = user.name.split(' ').slice(-1)
     Users.findOne({ email: user.email }, (err, docs) => {
         if (docs != null) {
             req.session.user = docs
@@ -575,13 +593,18 @@ app.post('/login', (req, res) => {
         } else {
             const userAdd = new Users({
                 name: user.name,
-                familyName: user.familyName,
+                surname: surname[0],
                 email: user.email,
-                number: null,
-                provience: null,
-                address: null,
-                addressTitle: null,
-                birthday: null
+                areacode: user.areacode,
+                phone: user.phone,
+                day: user.day,
+                month: user.month,
+                year: user.year,
+                country: user.country,
+                ctiy: user.ctiy,
+                town: user.town,
+                district: user.district,
+                address: user.address,
             })
 
             userAdd.save()
@@ -606,13 +629,18 @@ app.post('/update-user', (req, res) => {
         {
             $set: {
                 name: user.name,
-                familyName: user.familyName,
+                surname: user.surname,
                 email: user.email,
-                number: user.number,
-                provience: user.provience,
+                areacode: user.areacode,
+                phone: user.phone,
+                day: user.day,
+                month: user.month,
+                year: user.year,
+                country: user.country,
+                ctiy: user.ctiy,
+                town: user.town,
+                district: user.district,
                 address: user.address,
-                addressTitle: user.addressTitle,
-                birthday: user.birthday
             }
         },
         {

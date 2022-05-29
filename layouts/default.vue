@@ -8,6 +8,7 @@
 </template>
 <script>
 export default {
+  name: 'default',
   middleware: ["session-control"],
 }
 </script>

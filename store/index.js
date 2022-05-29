@@ -2,6 +2,7 @@ import Cookie from 'js-cookie'
 import { getAuth, deleteUser, signOut } from "firebase/auth";
 import axios from "axios";
 export const state = () => ({
+    loading: false,
     products: [],
     showProducts: [],
     sliders: [],
@@ -194,11 +195,237 @@ export const state = () => ({
                 title: 'QUALITY',
                 text: 'Quality Info',
             },
-        }
+        },
+        pageTitle: {
+            social: 'SOCIAL',
+            aboutUs: 'ABOUT US',
+            contact: 'CONTACT',
+            myFavorites: 'MY FAVORITES',
+            myCart: 'MY CART',
+            myProfile: 'MY PROFILE',
+            addressInfo: 'Address information',
+            cartInfo: 'Card Information'
+        },
+        inputData: [
+            {
+                input: [
+                    {
+                        id: 'name',
+                        placeholder: 'Your Name',
+                        title: 'Name',
+                        type: 'text',
+                        data: []
+                    },
+                    {
+                        id: 'surname',
+                        placeholder: 'Your Surname',
+                        title: 'Surname',
+                        type: 'text',
+                        data: []
+                    },
+                ]
+            },
+            {
+                input: [
+                    {
+                        id: 'email',
+                        placeholder: 'Your Email',
+                        title: 'E-mail',
+                        type: 'email',
+                        data: []
+                    }
+                ]
+            },
+            {
+                input: [
+                    {
+                        id: 'areacode',
+                        placeholder: '+90',
+                        title: 'Area Code',
+                        type: 'number',
+                        data: [
+                            '+90'
+                        ]
+                    },
+                    {
+                        id: 'phone',
+                        placeholder: '500 00 00',
+                        title: 'Phone Number',
+                        type: 'tel',
+                        data: []
+                    }
+                ]
+            },
+            {
+                input: [
+                    {
+                        id: 'day',
+                        placeholder: 'Day',
+                        title: 'Day',
+                        type: 'number',
+                        data: [
+                            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
+                        ]
+
+                    },
+                    {
+                        id: 'month',
+                        placeholder: 'Month',
+                        title: 'Month',
+                        type: 'number',
+                        data: [
+                            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
+                        ]
+
+                    },
+                    {
+                        id: 'year',
+                        placeholder: 'Year',
+                        title: 'Year',
+                        type: 'number',
+                        data: []
+
+                    },
+                ]
+            },
+            {
+                input: [
+                    {
+                        id: 'country',
+                        placeholder: 'Your Country',
+                        title: 'Country',
+                        type: 'text',
+                        data: [
+                            'TÜRKİYE'
+                        ]
+                    },
+                    {
+                        id: 'ctiy',
+                        placeholder: 'Your Ctiy',
+                        title: 'City',
+                        type: 'text',
+                        data: [
+                            "ADANA",
+                            "KOCAELİ",
+                            "ADIYAMAN",
+                            "KONYA",
+                            "AFYONKARAHİSAR",
+                            "KÜTAHYA",
+                            "AĞRI",
+                            "MALATYA",
+                            "AMASYA",
+                            "MANİSA",
+                            "ANKARA",
+                            "KAHRAMANMARAŞ",
+                            "ANTALYA",
+                            "MARDİN",
+                            "ARTVİN",
+                            "MUĞLA",
+                            "AYDIN",
+                            "MUŞ",
+                            "BALIKESİR",
+                            "NEVŞEHİR",
+                            "BİLECİK",
+                            "NİĞDE",
+                            "BİNGÖL",
+                            "ORDU",
+                            "BİTLİS",
+                            "RİZE",
+                            "BOLU",
+                            "SAKARYA",
+                            "BURDUR",
+                            "SAMSUN",
+                            "BURSA",
+                            "SİİRT",
+                            "ÇANAKKALE",
+                            "SİNOP",
+                            "ÇANKIRI",
+                            "SİVAS",
+                            "ÇORUM",
+                            "TEKİRDAĞ",
+                            "DENİZLİ",
+                            "TOKAT",
+                            "DİYARBAKIR",
+                            "TRABZON",
+                            "EDİRNE",
+                            "TUNCELİ",
+                            "ELAZIĞ",
+                            "ŞANLIURFA",
+                            "ERZİNCAN",
+                            "UŞAK",
+                            "ERZURUM",
+                            "VAN",
+                            "ESKİŞEHİR",
+                            "YOZGAT",
+                            "GAZİANTEP ZONGULDAK",
+                            "GİRESUN",
+                            "AKSARAY",
+                            "GÜMÜŞHANE",
+                            "BAYBURT",
+                            "HAKKARİ",
+                            "KARAMAN",
+                            "HATAY",
+                            "KIRIKKALE",
+                            "ISPARTA",
+                            "BATMAN",
+                            "MERSİN",
+                            "ŞIRNAK",
+                            "İSTANBUL",
+                            "BARTIN",
+                            "İZMİR",
+                            "ARDAHAN",
+                            "KARS",
+                            "IĞDIR",
+                            "KASTAMONU",
+                            "YALOVA",
+                            "KAYSERİ",
+                            "KARABÜK",
+                            "KIRKLARELİ",
+                            "KİLİS",
+                            "KIRŞEHİR",
+                            "OSMANİYE",
+                            "DÜZCE",
+                        ]
+                    },
+                ]
+            },
+            {
+                input: [
+                    {
+                        id: 'town',
+                        placeholder: 'Your Town',
+                        title: 'Town',
+                        type: 'text',
+                        data: []
+                    },
+                    {
+                        id: 'district',
+                        placeholder: 'Your District',
+                        title: 'District',
+                        type: 'text',
+                        data: []
+                    },
+                ]
+            },
+            {
+                input: [
+                    {
+                        id: 'address',
+                        placeholder: 'Your Address',
+                        title: 'Address',
+                        type: 'text',
+                        data: []
+                    }
+                ]
+            },
+        ]
     },
 });
 
 export const mutations = {
+    setLoading(state, loading) {
+        state.loading = loading
+    },
     setLang(state, lang) {
         state.lang = lang
     },
@@ -239,20 +466,20 @@ export const mutations = {
         state.sliders = sliders
     },
     // Filter ShowProduct
-    filterProducts(state, filterValue) {
-        state.changeHeader = filterValue
-        if (filterValue == 'All Products') {
-            state.showProducts = state.products
-        } else if (filterValue != 'Pot' && filterValue != 'Furniture') {
-            state.showProducts = state.products.filter(a => a.collectionName == filterValue.toLowerCase())
-        } else if (filterValue == 'Pot' || filterValue == 'Furniture') {
-            if (filterValue == 'Pot') {
-                state.showProducts = state.products.filter(a => a.collectionName == 'bee')
-            } else {
-                state.showProducts = state.products.filter(a => a.collectionName == 'table')
-            }
-        }
-    },
+    // filterProducts(state, filterValue) {
+    //     state.changeHeader = filterValue
+    //     if (filterValue == 'All Products') {
+    //         state.showProducts = state.products
+    //     } else if (filterValue != 'Pot' && filterValue != 'Furniture') {
+    //         state.showProducts = state.products.filter(a => a.collectionName == filterValue.toLowerCase())
+    //     } else if (filterValue == 'Pot' || filterValue == 'Furniture') {
+    //         if (filterValue == 'Pot') {
+    //             state.showProducts = state.products.filter(a => a.collectionName == 'bee')
+    //         } else {
+    //             state.showProducts = state.products.filter(a => a.collectionName == 'table')
+    //         }
+    //     }
+    // },
     removeProduct(state, id) {
         let index = state.products.findIndex(a => a._id == id)
         state.products.splice(index, 1)
@@ -352,11 +579,15 @@ export const actions = {
     },
     // Session Methods
     addToCart(vuexContext, product) {
+        vuexContext.commit('setLoading', true)
         this.$axios.post('/add-to-cart', { product: product })
             .then(response => {
                 console.log('Succes')
                 vuexContext.commit('setCart', response.data.cart.items)
                 vuexContext.commit('setTotalPrice', response.data.cart.bagTotalPrice)
+                setTimeout(() => {
+                    vuexContext.commit('setLoading', false)
+                }, 1000);
             })
     },
     removeCart(vuexContext, product) {
@@ -445,11 +676,20 @@ export const actions = {
         if (!authUser) {
             state.user = false
         } else {
-            // Do something with the authUser and the claims object...
-            // axios.post('https://www.beeconcrete.com.tr/api/login', { user: claims })
+            vuexContext.commit('setLoading', true)
+            axios.post('https://www.beeconcrete.com.tr/api/login', { user: claims })
+                .then(response => {
+                    vuexContext.commit('setUser', response.data.user);
+                    vuexContext.commit('setLoading', false)
+
+                })
+            // 
+            // axios.post('http://localhost:3000/api/login', { user: claims })
             //     .then(response => {
             //         vuexContext.commit('setUser', response.data.user);
+            //         vuexContext.commit('setLoading', false)
             //     })
+
         }
     },
     initAuth(vuexContext, req) {
@@ -483,9 +723,13 @@ export const actions = {
         vuexContext.commit("setAuthKey", token)
     },
     updateUser(vuexContext, userUpdate) {
+        vuexContext.commit('setLoading', true)
         this.$axios.post('/update-user', { user: userUpdate })
             .then(response => {
                 vuexContext.commit('setUser', response.data.user)
+                setTimeout(() => {
+                    vuexContext.commit('setLoading', false)
+                }, 2000);
             })
     },
     async deleteUser(vuexContext, data) {
@@ -566,5 +810,8 @@ export const getters = {
     },
     getAuthKey(state) {
         return state.authKey
+    },
+    getLoading(state) {
+        return state.loading
     }
 };

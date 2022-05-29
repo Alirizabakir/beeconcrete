@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Slider :products='slider' />
+        <Slider />
         <Container>
             <MyFavBox />
         </Container>
@@ -10,12 +10,7 @@
 <script>
 export default {
     computed: {
-        slider() {
-            return this.$store.getters.getSlider;
-        },
-        getFavorites() {
-            return this.$store.getters.getFavorites;
-        }
+  
     },
 }
 </script>

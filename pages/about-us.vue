@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Slider :products='slider' />
+        <Slider />
         <Container>
             <AboutUs></AboutUs>
         </Container>
@@ -22,9 +22,6 @@
 <script>
 export default {
     computed: {
-        slider() {
-            return this.$store.getters.getSlider;
-        },
         getLang() {
             return this.$store.getters.getLang
         },

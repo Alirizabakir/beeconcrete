@@ -2,7 +2,8 @@
     <div :class="{ 'bg': scroll }" class="fixed z-50 top-8 h-20 header w-full">
         <Container class="flex items-center justify-between h-20">
             <nuxt-link to="/">
-                <img class="w-14 shadow-show rounded-full" :src="require('@/static/icon.png')" alt="Bee Concrete Desing">
+                <img class="w-14 shadow-show rounded-full" :src="require('@/static/icon.png')"
+                    alt="Bee Concrete Desing">
             </nuxt-link>
             <div :class="{ hamburger: hamburger }"
                 class="header-main lg:w-auto lg:static lg:flex-row lg:h-auto flex flex-col items-center bg-white lg:bg-opacity-0 h-screen w-full z-10 absolute top-20">
@@ -11,25 +12,36 @@
                     <span @click="hamburger = false"
                         class="bur text-white close w-18 text-left p-2 bg-pink">CLOSE</span>
                 </span>
-                <div 
-                @click="hamburger = false"  
-                class="header-main-item"
-                v-for="(item, index) in getLang.headerList" :key="index"
-                >
+                <div @click="hamburger = false" class="header-main-item" v-for="(item, index) in getLang.headerList"
+                    :key="index">
                     <nuxt-link :to="'/' + item.link">
-                        {{item.title}}
+                        {{ item.title }}
                     </nuxt-link>
                 </div>
             </div>
             <div class="flex items-center">
                 <nuxt-link class="header-svg" to="/my-favorites">
-                    <FavoritesSvg class="w-6 h-6 mr-4" />
+                    <div class="relative">
+                        <FavoritesSvg class="w-6 h-6 mr-4" />
+                        <span v-show="getFav.length > 0" class="absolute top-0 right-0">{{ getFav.length }}</span>
+                    </div>
                 </nuxt-link>
                 <nuxt-link class="header-svg ml-3" to="/my-cart">
-                    <CartSvg class="w-6 h-6 mr-4" />
+                    <div class="relative">
+                        <CartSvg class="w-6 h-6 mr-4" />
+                        <span v-show="getCart.length > 0" class="absolute top-0 right-0">{{ getCart.length }}</span>
+                    </div>
                 </nuxt-link>
-                <nuxt-link class="header-svg ml-3" to="/my-profile">
-                    <UserSvg class="w-6 h-6 mr-4" />
+                <nuxt-link class="user-box header-svg ml-3" to="/my-profile">
+                    <div @click="user = !user" class="header-svg">
+                        <UserSvg class="w-6 h-6 mr-4" />
+                    </div>
+                    <div v-show="user" class="user py-2 px-4 rounded-sm bg-white">
+                        <div class="px-3 m-2 text-center rounded-sm bg-green border border-gray">Sign In</div>
+                        <div class="px-3 m-2 text-center rounded-sm bg-blue border border-gray">Sign Up</div>
+                        <div @click="signOut" class="px-3 m-2 text-center rounded-sm bg-gray-dark border border-gray">
+                            Sign Out</div>
+                    </div>
                 </nuxt-link>
             </div>
         </Container>
@@ -50,12 +62,19 @@ export default {
     data() {
         return {
             hamburger: false,
-            scroll: false
+            scroll: false,
+            user: false
         }
     },
     computed: {
-        getLang(){
+        getLang() {
             return this.$store.getters.getLang
+        },
+        getFav() {
+            return this.$store.getters.getFavorites
+        },
+        getCart() {
+            return this.$store.getters.getCart
         }
     },
     methods: {
@@ -68,7 +87,12 @@ export default {
         },
         // allpro(){
         //     this.$store.dispatch('allProductUpload', 'pro')
-        // }
+        // },
+        signOut() {
+            this.$fire.auth.signOut()
+            this.$store.commit('clearAuthKey')
+            this.$router.push('/')
+        },
     },
     created() {
         if (process.client) {
@@ -79,7 +103,8 @@ export default {
         if (process.client) {
             window.removeEventListener('scroll', this.handleScroll);
         }
-    }
+    },
+
 }
 </script>
 
@@ -115,6 +140,17 @@ export default {
     .hamburger {
         left: 0;
     }
+
+    .user-box {
+        position: relative;
+
+        .user {
+            width: 150px;
+            position: absolute;
+            left: calc(50% - 75px);
+            top: 100%;
+        }
+    }
 }
 
 .bg {
@@ -141,6 +177,10 @@ export default {
 
     .header-svg {
         color: var(--first-color) !important;
+
+        .user {
+            color: white;
+        }
     }
 }
 </style>

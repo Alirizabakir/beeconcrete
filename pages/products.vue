@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Slider :products='slider' />
+        <Slider />
         <nuxt-child />
     </div>
 </template>
@@ -8,9 +8,7 @@
 <script>
 export default {
     computed: {
-        slider() {
-            return this.$store.getters.getSlider;
-        },
+      
     }
 }
 </script>

@@ -2,14 +2,14 @@
     <div class="w-full bg-gray-dark h-8">
         <Container class="flex justify-between h-full items-center sm:px-2">
             <div class="flex">
-                <nuxt-link class="text-white flex" to="#">
+                <a class="text-white flex" href="tel:+905337274649">
                     <PhoneSvg class="w-3 mr-1" />
-                    <span>+90 500 00 00</span>
-                </nuxt-link>
-                <nuxt-link class="text-white flex ml-2" to="#">
+                    <span>+90 533 727 46 49</span>
+                </a>
+                <a class="text-white ml-2 hidden sm:flex" href="mailto:beeconcrete@info.com.tr">
                     <PhoneSvg class="w-3 mr-1" />
-                    <span>beeconcrete@info</span>
-                </nuxt-link>
+                    <span >beeconcrete@info.com.tr</span>
+                </a>
             </div>
             <div class="flex">
                 <span @click="changeLang('tr')" class="cursor-pointer"><img class="w-7" src="turkey.png" alt="TR"></span>

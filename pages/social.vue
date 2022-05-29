@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Slider :products='slider' />
+        <Slider />
         <Container>
             <SocialBox>
                 SOCIAL
@@ -12,9 +12,7 @@
 <script>
 export default {
     computed: {
-        slider() {
-            return this.$store.getters.getSlider;
-        },
+   
     }
 }
 </script>

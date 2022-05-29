@@ -5,25 +5,40 @@ const usersSchema = new Schema({
     name: {
         type: String
     },
-    familyName: {
+    surname: {
         type: String
     },
     email: {
         type: String
     },
-    number: {
+    areacode: {
         type: String
     },
-    birthday: {
+    phone: {
         type: String
     },
-    provience: {
+    day: {
+        type: String
+    },
+    month: {
+        type: String
+    },
+    year: {
+        type: String
+    },
+    country: {
+        type: String
+    },
+    ctiy: {
+        type: String
+    },
+    town: {
+        type: String
+    },
+    district: {
         type: String
     },
     address: {
-        type: String
-    },
-    addressTitle: {
         type: String
     },
 }, { timestamps: true, supressReservedKeysWarning: true })
