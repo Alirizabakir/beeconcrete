@@ -506,7 +506,7 @@ export const mutations = {
                     localStorage.setItem('expiresIn', expiresIn)
                 }
                 state.authKey = claims.user_id
-                if (process.client) {
+                if (process.client && claims) {
                     window.location.href = 'https://www.beeconcrete.com.tr/my-profile'
                     // window.location.href = 'http://localhost:3000/my-profile'
                 }
@@ -553,6 +553,7 @@ export const actions = {
     payMethods(vuexContext, payData) {
         this.$axios.post('/pay-go', { payData: payData })
             .then(response => {
+                console.log(response.data.iframetoken);
                 vuexContext.commit("setIframeToken", response.data.iframetoken)
             })
     },
@@ -684,20 +685,13 @@ export const actions = {
         if (!authUser) {
             state.user = false
         } else {
-            vuexContext.commit('setLoading', true)
             axios.post('https://www.beeconcrete.com.tr/api/login', { user: claims })
                 .then(response => {
                     vuexContext.commit('setUser', response.data.user);
-                    vuexContext.commit('setLoading', false)
-
                 })
-            // vuexContext.commit('setLoading', true)
             // axios.post('http://localhost:3000/api/login', { user: claims })
             //     .then(response => {
             //         vuexContext.commit('setUser', response.data.user);
-            //         setTimeout(() => {
-            //             vuexContext.commit('setLoading', false)
-            //         }, 1000);
             //     })
         }
     },

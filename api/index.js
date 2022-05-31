@@ -92,7 +92,7 @@ app.post("/pay-go", function (req, res) {
     const payData = req.body.payData
     user_name = payData.user.name
     user_email = payData.user.email
-    user_phone = payData.user.phonenumber
+    user_phone = payData.user.phone
     user_address = payData.user.address
     merchant_oid = payData.merchant_oid
     basket = JSON.stringify(payData.basket)

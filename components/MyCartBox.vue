@@ -1,5 +1,7 @@
 <template>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div>
+        <p v-show="getCart.length < 1" class="text-2xl">Your Cart is Empty !</p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div class="shadow-show flex flex-col" v-for="(item, index) in getCart" :key="index">
             <div class="flex items-center justify-between border border-gray-light rounded-t-sm p-2">
                 <h2>{{ item.name }}</h2>
@@ -23,13 +25,14 @@
                                 <PositiveSvg class="fill rounded-full w-5 bg-gray-dark p-1" />
                             </span>
                         </div>
-                        <span @click="remove(item)">
+                        <span class="cursor-pointer" @click="remove(item)">
                             <RemoveSvg class="del w-4 ml-auto" />
                         </span>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </template>
 

@@ -23,7 +23,7 @@
                 <span class="num"> {{ getTotalPrice }} ₺</span>
             </div>
             <div class="flex justify-end">
-                <button class="p-2 bg-green w-24 text-white mt-4">PAY</button>
+                <button class="p-2 bg-green w-24 text-white mt-4" @click="open">PAY</button>
             </div>
         </div>
 
@@ -38,11 +38,15 @@ export default {
         }
     },
     computed: {
-
         getTotalPrice() {
             return this.$store.getters.getTotalPrice
         }
-    }
+    },
+    methods: {
+        open(){
+            this.$emit('open', true)
+        }
+    },
 }
 </script>
 

@@ -3,6 +3,7 @@
         <Show :products="'getFavorites'">
             My Favorites
         </Show>
+
     </div>
 </template>
 
