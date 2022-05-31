@@ -13,7 +13,8 @@
 
                 <div class="info flex sm:flex-row flex-col justify-between mb-4">
                     <h3 class="text-left text-md sm:text-lg">
-                        {{ i.name }}
+                        {{ i.name }} <span class="text-sm" v-show="size && index != 'normal'" v-for="(size, index) in i.sizeType"
+                            :key="index">{{ index }}</span>
                     </h3>
                     <p class="text-left text-lg sm:text-2xl">{{ i.newPrice }} TL</p>
                 </div>

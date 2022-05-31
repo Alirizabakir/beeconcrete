@@ -34,9 +34,11 @@
             </div>
             <div class="flex flex-col">
                 <h3 class="text-white">- Email -</h3>
-                <p class="text-sm text-white mb-4">bee@fşgşlg.com</p>
+                <p class="text-sm text-white mb-4">beeconcrete@info.com.tr</p>
                 <h3 class="text-white">- Telefon -</h3>
-                <p class="text-sm text-white">+90 500 00 00</p>
+                <p class="text-sm text-white">+90 533 727 46 49</p>
+                <p class="text-sm text-white">+90 532 321 35 73</p>
+
             </div>
         </Container>
     </div>

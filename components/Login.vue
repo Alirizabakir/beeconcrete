@@ -26,8 +26,12 @@ export default {
             ],
             callbacks: {
                 signInSuccessWithAuthResult() {
-                    window.location.href = 'https://www.beeconcrete.com.tr/my-profile'
-                    // window.location.href = 'http://localhost:3000/my-profile'
+                    // setTimeout(() => {
+                    //     window.location.href = 'http://localhost:3000/my-profile'
+                    // }, 1000);
+                    setTimeout(() => {
+                        window.location.href = 'https://www.beeconcrete.com.tr/my-profile'
+                    }, 1000);
                 }
             }
         }

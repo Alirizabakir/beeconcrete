@@ -1,10 +1,10 @@
 <template>
     <div class="user flex flex-col items-start mt-8">
-        <div class="flex md:w-1/2 w-full" v-for="(item, index) in getLang.inputData" :key="index">
-            <div :class="input.id + '-box'" class="flex w-full flex-col mr-2 md:mx-2 my-4"
+        <div class="flex md:w-1/2 w-full items-center justify-center" v-for="(item, index) in getLang.inputData" :key="index">
+            <div :class="input.id + '-box'" class="flex w-full flex-col px-1 my-4"
                 v-for="(input, inpex) in item.input" :key="inpex">
                 <label :for="input.id">{{ input.title }}*</label>
-                <input :class="input.id" class="text-sm" v-model="userInfo[input.id]"
+                <input :class="input.id" class="text-sm w-full" v-model="userInfo[input.id]"
                     v-if="input.data.length < 1 && input.id != 'address'" :id="input.id" :type="input.type"
                     @change="change(input.id)" :placeholder="input.placeholder + '..'">
                 <select :class="input.id" v-model="userInfo[input.id]" v-else-if="input.id != 'address'"
@@ -109,7 +109,7 @@ export default {
     .email-box {}
 
     .areacode-box {
-        width: 120px;
+        width: 130px;
     }
 
     .phone-box {}
@@ -124,7 +124,7 @@ export default {
     }
 
     .button-box {
-        width: 420px;
+        width: 100%;
     }
 }
 </style>

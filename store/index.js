@@ -2,6 +2,7 @@ import Cookie from 'js-cookie'
 import { getAuth, deleteUser, signOut } from "firebase/auth";
 import axios from "axios";
 export const state = () => ({
+    // Admin
     loading: false,
     products: [],
     showProducts: [],
@@ -64,6 +65,11 @@ export const state = () => ({
                             link: 'honeycomb'
                         },
                         {
+                            title: 'Queen Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'queen'
+                        },
+                        {
                             title: 'Cube Collection',
                             text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
                             link: 'cube'
@@ -81,7 +87,7 @@ export const state = () => ({
                         {
                             title: 'Small Series',
                             text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                            link: 'small'
+                            link: 'small series'
                         }
                     ]
             },
@@ -484,10 +490,7 @@ export const mutations = {
         let index = state.products.findIndex(a => a._id == id)
         state.products.splice(index, 1)
     },
-    // New and Update Form
-    displayForm(state, value) {
-        state.displayForm = value
-    },
+
     // Cookie 
     ON_AUTH_STATE_CHANGED_MUTATION: (state, { authUser, claims }) => {
         if (!authUser) {
@@ -621,6 +624,7 @@ export const actions = {
         this.$axios.post('/update-product', { product: product })
             .then(response => {
                 vuexContext.commit("setProducts", response.data.products)
+                console.log('Update');
             })
     },
     searchProduct(vuexContext, id) {
@@ -683,11 +687,13 @@ export const actions = {
                     vuexContext.commit('setLoading', false)
 
                 })
-            // 
+            // vuexContext.commit('setLoading', true)
             // axios.post('http://localhost:3000/api/login', { user: claims })
             //     .then(response => {
             //         vuexContext.commit('setUser', response.data.user);
-            //         vuexContext.commit('setLoading', false)
+            //         setTimeout(() => {
+            //             vuexContext.commit('setLoading', false)
+            //         }, 1000);
             //     })
 
         }

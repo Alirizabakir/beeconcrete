@@ -78,13 +78,6 @@ export default {
         }
     },
     methods: {
-        handleScroll() {
-            if (window.scrollY > 75) {
-                this.scroll = true
-            } else {
-                this.scroll = false
-            }
-        },
         // allpro(){
         //     this.$store.dispatch('allProductUpload', 'pro')
         // },
@@ -92,6 +85,13 @@ export default {
             this.$fire.auth.signOut()
             this.$store.commit('clearAuthKey')
             this.$router.push('/')
+        },
+        handleScroll() {
+            if (window.scrollY > 75) {
+                this.scroll = true
+            } else {
+                this.scroll = false
+            }
         },
     },
     created() {

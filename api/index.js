@@ -453,7 +453,7 @@ app.post('/update-product', (req, res) => {
                 oldPrice: product.oldPrice,
                 stock: product.stock,
                 collectionName: product.collectionName,
-                fav: 0,
+                fav: product.fav,
                 color: {
                     white: product.color.white,
                     gray: product.color.gray,

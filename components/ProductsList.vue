@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ hamburger: hamburger }" class="w-56 h-screen bg-gray mt-20 ml-4 menu">
+    <div :class="[{ hamburger: hamburger },{'top-0': scroll},{'top-8': !scroll}]" class="w-56 h-full bg-gray mt-20 ml-4 menu">
         <div class="ham cursor-pointer lg:hidden" href="#">
             <span v-show="!hamburger" @click="hamburger = true"
                 class="bur text-white open w-18 text-left p-2 bg-blue">COLLECTIONS</span>
@@ -21,12 +21,32 @@ export default {
     data() {
         return {
             hamburger: false,
-            isActive: ''
+            isActive: '',
+            scroll: false,
         }
     },
     computed: {
         getLang() {
             return this.$store.getters.getLang
+        }
+    },
+    methods: {
+        handleScroll() {
+            if (window.scrollY > 75) {
+                this.scroll = true
+            } else {
+                this.scroll = false
+            }
+        },
+    },
+    created() {
+        if (process.client) {
+            window.addEventListener('scroll', this.handleScroll);
+        }
+    },
+    destroyed() {
+        if (process.client) {
+            window.removeEventListener('scroll', this.handleScroll);
         }
     },
 }
@@ -35,7 +55,6 @@ export default {
 .menu {
     position: fixed;
     transition: all .3s;
-    top: 32px;
     z-index: 10;
     right: -225px;
     .ham {
@@ -63,8 +82,6 @@ export default {
 
 @media screen and (min-width: 1024px) {
     .menu {
-        position: -webkit-sticky;
-        /* Safari */
         position: sticky;
         top: 80px;
     }
