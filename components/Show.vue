@@ -11,7 +11,7 @@
                     <img class="h-full" :src="require(`@/static/small/${i.src}`)">
                 </nuxt-link>
 
-                <div class="info flex sm:flex-row flex-col justify-between mb-4">
+                <div class="info flex md:flex-row flex-col justify-between mb-4">
                     <h3 class="text-left text-md sm:text-lg">
                         {{ i.name }} <span class="text-sm" v-show="size && index != 'normal'" v-for="(size, index) in i.sizeType"
                             :key="index">{{ index }}</span>

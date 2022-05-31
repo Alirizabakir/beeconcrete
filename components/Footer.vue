@@ -29,8 +29,7 @@
             </div>
             <div class="flex flex-col">
                 <h3 class="text-white">- Adress -</h3>
-                <p class="text-sm text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit,
-                    quasi?</p>
+                <p class="text-white">İstasyon Mahallesi, Kahramanmaraş-Adana <br> Yolu No:15, 46800 Türkoğlu/Kahramanmaraş</p>
             </div>
             <div class="flex flex-col">
                 <h3 class="text-white">- Email -</h3>

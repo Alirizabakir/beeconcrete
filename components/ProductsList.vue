@@ -1,10 +1,9 @@
 <template>
-    <div :class="[{ hamburger: hamburger },{'top-0': scroll},{'top-8': !scroll}]" class="w-56 h-full bg-gray mt-20 ml-4 menu">
-        <div class="ham cursor-pointer lg:hidden" href="#">
-            <span v-show="!hamburger" @click="hamburger = true"
-                class="bur text-white open w-18 text-left p-2 bg-blue">COLLECTIONS</span>
-            <span v-show="hamburger" @click="hamburger = false"
-                class="bur text-white close w-18 text-right p-2 bg-pink">CLOSE</span>
+    <div :class="[{ hamburger: hamburger }, { top: scroll }, { 'top-28': !scroll }]"
+        class="w-56 h-full bg-gray lg:mt-20 lg:ml-4 menu">
+        <div class="ham cursor-pointer relative lg:hidden" href="#">
+            <div @click="hamburger = !hamburger" class="bur absolute -left-10"><img class="w-8 rounded-md p-1 bg-blue"
+                    src="hamburgerwhite.png" alt=""></div>
         </div>
         <div v-for="(item, index) in getLang.collectionList" :key="index" class="main list-box">
             <span class="cursor-pointer main-list" href="#">{{ item.title }}</span>
@@ -54,30 +53,16 @@ export default {
 <style lang="scss" scoped>
 .menu {
     position: fixed;
-    transition: all .3s;
     z-index: 10;
-    right: -225px;
-    .ham {
-        position: relative;
+    left: 100%;
+}
 
-        .bur {
-            position: absolute;
-            top: 0;
-        }
-
-        .open {
-            right: 100%;
-        }
-
-        .close {
-            right: 100%;
-        }
-
-    }
+.top {
+    top: 6rem;
 }
 
 .hamburger {
-    right: -15px;
+    left: 50%;
 }
 
 @media screen and (min-width: 1024px) {

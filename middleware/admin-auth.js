@@ -1,6 +1,6 @@
 export default function (context) {
 
-    if (!context.store.state.admin) {
-        context.redirect('/admin-login')
+    if (context.store.state.admin) {
+        context.redirect('/admin')
     }
 }

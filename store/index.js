@@ -506,6 +506,10 @@ export const mutations = {
                     localStorage.setItem('expiresIn', expiresIn)
                 }
                 state.authKey = claims.user_id
+                if (process.client) {
+                    window.location.href = 'https://www.beeconcrete.com.tr/my-profile'
+                    // window.location.href = 'http://localhost:3000/my-profile'
+                }
             }
         }
     },
@@ -695,7 +699,6 @@ export const actions = {
             //             vuexContext.commit('setLoading', false)
             //         }, 1000);
             //     })
-
         }
     },
     initAuth(vuexContext, req) {

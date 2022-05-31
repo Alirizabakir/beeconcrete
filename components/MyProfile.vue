@@ -16,7 +16,7 @@
                     :id="input.id" style="resize: none;" :placeholder="input.placeholder + '..'"></textarea>
             </div>
         </div>
-        <div class="button-box flex justify-around">
+        <div class="button-box w-full lg:w-1/2 flex justify-around">
             <button @click="updateUser" class="button update px-4 py-2 bg-blue rounded-sm text-white font-bold"> {{
                     getLang.button.update
             }}</button>
@@ -59,6 +59,7 @@ export default {
         this.id = this.getID();
     },
     methods: {
+        
         change(id) {
             if (id == 'phone') {
                 if (this.userInfo.phone[0] == '0') {
@@ -123,8 +124,5 @@ export default {
         height: 100px;
     }
 
-    .button-box {
-        width: 100%;
-    }
 }
 </style>

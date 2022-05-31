@@ -7,16 +7,19 @@
                     {{ subList.title }}
                 </Show>
             </div>
-          
             <a v-show="scroll" href="#bee"
-                class="fixed bottom-10 right-10 bg-green text-white text-2xl px-5 py-2 rounded-sm">UP</a>
+                class="up fixed bottom-10 right-10 bg-blue rounded-sm"><Up class="w-10 h-10"/></a>
         </div>
         <ProductsList />
     </Container>
 </template>
 
 <script>
+import Up from '@/components/icon/UpSvg.vue'
 export default {
+    components: {
+        Up
+    },
     data() {
         return {
             scroll: false
@@ -49,4 +52,14 @@ export default {
 
 }
 </script>
+
+<style lang="scss" scoped>
+.flex {
+    .up {
+        svg {
+           fill: white;
+        }
+    }
+}
+</style>
 

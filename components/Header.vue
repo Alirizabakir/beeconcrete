@@ -5,13 +5,14 @@
                 <img class="w-14 shadow-show rounded-full" :src="require('@/static/icon.png')"
                     alt="Bee Concrete Desing">
             </nuxt-link>
-            <div :class="{ hamburger: hamburger }"
-                class="header-main lg:w-auto lg:static lg:flex-row lg:h-auto flex flex-col items-center bg-white lg:bg-opacity-0 h-screen w-full z-10 absolute top-20">
-                <span class="ham w-full lg:hidden flex items-center justify-end">
-                    <span @click="hamburger = true" class="bur text-white open w-18 text-right p-2 bg-blue">MENU</span>
-                    <span @click="hamburger = false"
-                        class="bur text-white close w-18 text-left p-2 bg-pink">CLOSE</span>
-                </span>
+            <div :class="[{ hamburger: hamburger }, { 'top-20': !scroll }, { 'top-24': scroll }]"
+                class="header-main lg:w-auto lg:static lg:flex-row lg:h-auto flex flex-col items-center bg-white lg:bg-opacity-0 h-screen w-full z-10 absolute">
+                <div class="ham w-full lg:hidden flex items-center justify-end">
+                    <div @click="hamburger = true" class="bur flex w-8 h-8 absolute open"><img
+                            class="rounded-md p-1 bg-blue" src="hamburgerwhite.png" alt=""></div>
+                    <div @click="hamburger = false" class="bur text-white close w-18 text-left p-1"><img class="w-8"
+                            src="close.png" alt=""></div>
+                </div>
                 <div @click="hamburger = false" class="header-main-item" v-for="(item, index) in getLang.headerList"
                     :key="index">
                     <nuxt-link :to="'/' + item.link">
@@ -35,12 +36,6 @@
                 <nuxt-link class="user-box header-svg ml-3" to="/my-profile">
                     <div @click="user = !user" class="header-svg">
                         <UserSvg class="w-6 h-6 mr-4" />
-                    </div>
-                    <div v-show="user" class="user py-2 px-4 rounded-sm bg-white">
-                        <div class="px-3 m-2 text-center rounded-sm bg-green border border-gray">Sign In</div>
-                        <div class="px-3 m-2 text-center rounded-sm bg-blue border border-gray">Sign Up</div>
-                        <div @click="signOut" class="px-3 m-2 text-center rounded-sm bg-gray-dark border border-gray">
-                            Sign Out</div>
                     </div>
                 </nuxt-link>
             </div>
@@ -81,11 +76,7 @@ export default {
         // allpro(){
         //     this.$store.dispatch('allProductUpload', 'pro')
         // },
-        signOut() {
-            this.$fire.auth.signOut()
-            this.$store.commit('clearAuthKey')
-            this.$router.push('/')
-        },
+      
         handleScroll() {
             if (window.scrollY > 75) {
                 this.scroll = true
@@ -116,7 +107,6 @@ export default {
 
     .header-main {
         left: -100%;
-        transition: all .3s;
 
         .ham {
             position: relative;
@@ -127,7 +117,7 @@ export default {
             }
 
             .open {
-                left: 100%;
+                left: 103%;
             }
 
             .close {
@@ -141,16 +131,6 @@ export default {
         left: 0;
     }
 
-    .user-box {
-        position: relative;
-
-        .user {
-            width: 150px;
-            position: absolute;
-            left: calc(50% - 75px);
-            top: 100%;
-        }
-    }
 }
 
 .bg {

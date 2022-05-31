@@ -15,7 +15,7 @@
                         <p>+90 533 727 46 49</p>
                         <p>+90 532 321 35 73</p>
                         <h3 class="text-2xl font-bold">Adres</h3>
-                        <p>İstasyon Mahallesi, Kahramanmaraş-Osmaniye <br> Yolu No:15, 46800 Türkoğlu/Kahramanmaraş</p>
+                        <p>İstasyon Mahallesi, Kahramanmaraş-Adana <br> Yolu No:15, 46800 Türkoğlu/Kahramanmaraş</p>
                     </div>
                 </div>
                 <div class="mb-4 md:flex-1 border h-60 md:h-auto border-gray">
