@@ -23,17 +23,17 @@
             <div class="flex items-center">
                 <nuxt-link class="header-svg" to="/my-favorites">
                     <div class="relative">
-                        <FavoritesSvg class="w-6 h-6 mr-4" />
+                        <FavoritesSvg class="w-6 h-6 mr-4 filter drop-shadow-xl" />
                         <span v-show="getFav.length > 0" class="absolute top-0 right-0">{{ getFav.length }}</span>
                     </div>
                 </nuxt-link>
                 <nuxt-link class="header-svg ml-3" to="/my-cart">
                     <div class="relative">
-                        <CartSvg class="w-6 h-6 mr-4" />
+                        <CartSvg class="w-6 h-6 mr-4 filter drop-shadow-xl" />
                         <span v-show="getCart.length > 0" class="absolute top-0 right-0">{{ getCart.length }}</span>
                     </div>
                 </nuxt-link>
-                <nuxt-link class="user-box header-svg ml-3" to="/my-profile">
+                <nuxt-link class="user-box header-svg ml-3 filter drop-shadow-xl" to="/my-profile">
                     <div @click="user = !user" class="header-svg">
                         <UserSvg class="w-6 h-6 mr-4" />
                     </div>

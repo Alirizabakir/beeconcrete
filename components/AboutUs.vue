@@ -1,7 +1,7 @@
 <template>
     <div class="about-us">
         <h2 class="text-3xl text-gray-dark border-b border-gray-dark pt-20 mb-20">
-            About Us
+            {{getLang.pageTitle.aboutUs}}
         </h2>
         <div class="flex">
             <div>
@@ -28,4 +28,14 @@
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    computed: {
+        getLang() {
+            return this.$store.getters.getLang
+        },
+    }
+}
+</script>
 

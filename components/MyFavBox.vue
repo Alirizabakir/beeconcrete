@@ -1,7 +1,7 @@
 <template>
     <div>
         <Show :products="'getFavorites'">
-            My Favorites
+            {{getLang.pageTitle.myFavorites}}
         </Show>
 
     </div>
@@ -22,6 +22,11 @@ export default {
             this.$store.dispatch("removeCart", item);
         },
     },
+    computed: {
+        getLang() {
+            return this.$store.getters.getLang
+        },
+    }
 }
 </script>
 

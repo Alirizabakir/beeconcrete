@@ -8,12 +8,13 @@
                 v-for="(item, index) in getLang.slider" :key="index">
                 <div class="opacity w-full h-full justify-center items-center flex flex-col ">
                     <Container class="pt-20 sm:px-2">
-                        <h1 class="text-2xl sm:text-3xl font-bold mb-4 text-white">{{ item.title}}</h1>
+                        <h1 class="text-2xl sm:text-3xl font-bold mb-4 text-white">{{ item.title }}</h1>
                         <p class="lg:w-144 text-sm sm:text-base sm:w-auto mb-4 text-white ">
-                        {{item.text}}
+                            {{ item.text }}
                         </p>
                         <nuxt-link :to="'/products#' + item.link"
-                            class="w-32 h-10 block text-center leading-10 bg-green rounded-sm text-white">{{getLang.button.goCollection}}
+                            class="w-32 h-10 block text-center leading-10 bg-green rounded-sm text-white">
+                            {{ getLang.button.goCollection }}
                         </nuxt-link>
                     </Container>
                 </div>
@@ -28,7 +29,7 @@
 <script>
 export default {
     computed: {
-        getLang(){
+        getLang() {
             return this.$store.getters.getLang
         },
     },

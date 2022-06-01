@@ -3,7 +3,7 @@
         <div class="flex md:w-1/2 w-full items-center justify-center" v-for="(item, index) in getLang.inputData" :key="index">
             <div :class="input.id + '-box'" class="flex w-full flex-col px-1 my-4"
                 v-for="(input, inpex) in item.input" :key="inpex">
-                <label :for="input.id">{{ input.title }}*</label>
+                <label :for="input.id">{{ getLang.global[input.id] }}*</label>
                 <input :class="input.id" class="text-sm w-full" v-model="userInfo[input.id]"
                     v-if="input.data.length < 1 && input.id != 'address'" :id="input.id" :type="input.type"
                     @change="change(input.id)" :placeholder="input.placeholder + '..'">

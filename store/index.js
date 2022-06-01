@@ -146,7 +146,9 @@ export const state = () => ({
             goBack: 'Go Back',
             save: 'Save',
             delete: 'Delete',
-            update: 'Update'
+            update: 'Update',
+            send: 'Send',
+            pay: 'PAY',
         },
         title: {
             fav: 'Favorite Products',
@@ -210,7 +212,8 @@ export const state = () => ({
             myCart: 'MY CART',
             myProfile: 'MY PROFILE',
             addressInfo: 'Address information',
-            cartInfo: 'Card Information'
+            cartInfo: 'Card Information',
+            login: 'Sign In or Sign Up',
         },
         inputData: [
             {
@@ -424,7 +427,34 @@ export const state = () => ({
                     }
                 ]
             },
-        ]
+        ],
+        global: {
+            name: 'Name',
+            surname: 'Surname',
+            areacode: 'Area Code',
+            phone: 'Phone Number',
+            day: 'Day',
+            month: 'Month',
+            year: 'Year',
+            country: 'Country',
+            ctiy: 'Ctiy',
+            town: 'Town',
+            district: 'District',
+            address: 'Address',
+            subject: 'Subject',
+            message: 'Message',
+            allProducts: 'All Products',
+            epmtyCart: 'Your Cart is Empty !',
+            epmtyFav: 'Your Favorites is Empty !',
+            order: 'Order Summary',
+            discount: 'Discount',
+            productsTotal: 'Products Total',
+            packaging: 'Packaging',
+            total: 'Total',
+            cargo: 'Cargo',
+            addressInfo: 'Address Information'
+        },
+     
     },
 });
 

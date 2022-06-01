@@ -3,33 +3,46 @@
         <Container class="grid grid-cols-2 gap-4 md:grid-cols-6 p-10">
             <img class="w-20 h-20" :src="require(`@/static/icon.png`)" alt="">
             <div class="flex flex-col">
-                <nuxt-link class="text-white" to="/products#pots">Tüm Ürünler</nuxt-link>
-                <nuxt-link class="text-white" to="/products#pots">Bee Collection</nuxt-link>
-                <nuxt-link class="text-white" to="/products#hive">Hive Collection</nuxt-link>
-                <nuxt-link class="text-white" to="/products#honeycomb">HoneyComb Collection</nuxt-link>
-                <nuxt-link class="text-white" to="/products#queen">Queen Collection</nuxt-link>
-                <nuxt-link class="text-white" to="/products#column">Furniture Collection</nuxt-link>
-                <nuxt-link class="text-white" to="/products#column">Column Collection</nuxt-link>
-                <nuxt-link class="text-white" to="/products#table">Table Collection</nuxt-link>
-                <nuxt-link class="text-white" to="/products#covering">Covering Collection</nuxt-link>
+                <nuxt-link class="text-white font-bold text-lg" to="/products#bee">{{ getLang.global.allProducts }}
+                </nuxt-link>
+                <ul>
+                    <li v-for="(collection, index) in getLang.collectionList" :key="index">
+                        <nuxt-link class="text-white font-bold text-lg" :to="'/products#' + collection.link">{{
+                                collection.title
+                        }}
+                        </nuxt-link>
+                        <ul v-if="collection.subList.length > 1">
+                            <li v-for="(subList, subdex) in collection.subList" :key="subdex">
+                                <nuxt-link class="text-white" :to="'/products#' + subList.link">{{ subList.title }}
+                                </nuxt-link>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
             </div>
             <div class="flex flex-col">
-                <nuxt-link class="text-white" to="/">Ana Sayfa</nuxt-link>
-                <nuxt-link class="text-white" to="/products">Ürünler</nuxt-link>
-                <nuxt-link class="text-white" to="/social">Sosyal</nuxt-link>
-                <nuxt-link class="text-white" to="/about-us">Hakkımızda</nuxt-link>
-                <nuxt-link class="text-white" to="/contact">İletişim</nuxt-link>
+                <ul>
+                    <li v-for="(header, index) in getLang.headerList" :key="index">
+                        <nuxt-link class="text-white font-bold text-lg" :to="'/products#' + header.link">{{
+                                header.title
+                        }}
+                        </nuxt-link>
+
+                    </li>
+                </ul>
             </div>
 
             <div class="flex flex-col">
-                <nuxt-link class="text-white" to="/">Kampanyalı Ürünler</nuxt-link>
-                <nuxt-link class="text-white" to="/">Favori Ürünler</nuxt-link>
-                <nuxt-link class="text-white" to="/my-cart">Sepetim</nuxt-link>
-                <nuxt-link class="text-white" to="/my-favorites">Favoriler</nuxt-link>
+                <nuxt-link class="text-white" to="/">{{ getLang.pageTitle.myCart }}</nuxt-link>
+                <nuxt-link class="text-white" to="/">{{ getLang.pageTitle.myFavorites }}</nuxt-link>
+                <nuxt-link class="text-white" to="/">{{ getLang.pageTitle.myProfile }}</nuxt-link>
+
             </div>
             <div class="flex flex-col">
                 <h3 class="text-white">- Adress -</h3>
-                <p class="text-white">İstasyon Mahallesi, Kahramanmaraş-Adana <br> Yolu No:15, 46800 Türkoğlu/Kahramanmaraş</p>
+                <p class="text-white">İstasyon Mahallesi, Kahramanmaraş-Adana <br> Yolu No:15, 46800
+                    Türkoğlu/Kahramanmaraş</p>
             </div>
             <div class="flex flex-col">
                 <h3 class="text-white">- Email -</h3>
@@ -42,3 +55,13 @@
         </Container>
     </div>
 </template>
+
+<script>
+export default {
+    computed: {
+        getLang() {
+            return this.$store.getters.getLang
+        }
+    }
+}
+</script>

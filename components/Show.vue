@@ -5,7 +5,7 @@
             <slot></slot>
         </h2>
         <div>
-            <p v-show="getProducts.length < 1" class="text-2xl pt-4">Your Favorites is Empty !</p>
+            <p v-show="getProducts.length < 1" class="text-2xl pt-4">{{ getLang.global.emptyFav }}</p>
             <div :class="[{ 'lg:grid-cols-4': proPage != 'true' }, { 'lg:grid-cols-3 xl:grid-cols-4': proPage == 'true' }]"
                 class="grid gap-4 grid-cols-2 mt-12">
                 <div class="anime shadow-show mb-4 flex flex-col rounded-sm sm:p-4 p-1 relative"
@@ -26,8 +26,7 @@
                             <FavIcon :product="i" />
                         </div>
                         <button @click="addToCart(i)"
-                            class="w-full sm:w-auto px-4 hover:bg-orange py-1 self-end bg-green text-white">Add To
-                            Cart</button>
+                            class="w-full sm:w-auto px-4 hover:bg-orange py-1 self-end bg-green text-white">{{getLang.button.addToCart}}</button>
                     </div>
 
                     <span v-show="type == 'discount'"
@@ -81,7 +80,9 @@ export default {
                 return this.$store.getters.getProducts.filter(a => a.collectionName == this.products)
             }
         },
-
+        getLang() {
+            return this.$store.getters.getLang
+        },
     }
 }
 </script>

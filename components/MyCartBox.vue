@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p v-show="getCart.length < 1" class="text-2xl">Your Cart is Empty !</p>
+        <p v-show="getCart.length < 1" class="text-2xl">{{getLang.global.emptyCart}}</p>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div class="shadow-show flex flex-col" v-for="(item, index) in getCart" :key="index">
             <div class="flex items-center justify-between border border-gray-light rounded-t-sm p-2">
@@ -15,14 +15,14 @@
                         <div>{{ item.selectRub }}</div>
                     </div>
                     <div class="flex justify-between">
-                        <div class="flex items-center bg-green rounded-full">
+                        <div class="flex items-center bg-green rounded-full shadow-show">
                             <span @click="changeCount(false, item)">
-                                <NegativeSvg class="fill rounded-full w-5 bg-gray-dark p-1" />
+                                <NegativeSvg class="fill rounded-full w-5 bg-gray-dark p-1 cursor-pointer" />
                             </span>
                             <div class="text-md flex items-center text-white justify-center w-5 h5">
                                 {{ item.count }}</div>
                             <span class="rounded-full" @click="changeCount(true, item)">
-                                <PositiveSvg class="fill rounded-full w-5 bg-gray-dark p-1" />
+                                <PositiveSvg class="fill rounded-full w-5 bg-gray-dark p-1 cursor-pointer" />
                             </span>
                         </div>
                         <span class="cursor-pointer" @click="remove(item)">
@@ -50,7 +50,10 @@ export default {
     computed: {
         getCart() {
             return this.$store.getters.getCart
-        }
+        },
+        getLang() {
+            return this.$store.getters.getLang
+        },
     },
     methods: {
         changeCount(status, item) {

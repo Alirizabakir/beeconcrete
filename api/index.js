@@ -848,6 +848,11 @@ app.post('/lang', (req, res) => {
                                 link: 'honeycomb'
                             },
                             {
+                                title: 'Kraliçe Koleksiyonu',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'queen'
+                            },
+                            {
                                 title: 'Küp Koleksiyonu',
                                 text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
                                 link: 'cube'
@@ -921,7 +926,9 @@ app.post('/lang', (req, res) => {
                 goBack: 'Geri Git',
                 save: 'Kaydet',
                 delete: 'Sil',
-                update: 'Güncelle'
+                update: 'Güncelle',
+                send: 'Gönder',
+                pay: 'ÖDEMEYİ TAMAMLA',
             },
             title: {
                 fav: 'Favori Ürünler',
@@ -976,7 +983,258 @@ app.post('/lang', (req, res) => {
                     title: 'KALİTE',
                     text: 'Kalite Açıklama',
                 },
-            }
+            },
+            pageTitle: {
+                social: 'SOSYAL',
+                aboutUs: 'HAKKIMIZDA',
+                contact: 'İLETİŞİM',
+                myFavorites: 'FAVORİLERİM',
+                myCart: 'SEPETİM',
+                myProfile: 'PROFİLİM',
+                addressInfo: 'Adres Bilgileri',
+                cartInfo: 'Sepet Bilgileri',
+                login: 'Giriş Yapın Yada Kaydolun',
+            },
+            inputData: [
+                {
+                    input: [
+                        {
+                            id: 'name',
+                            placeholder: 'Adınızı Yazınız',
+                            title: 'Adınız',
+                            type: 'text',
+                            data: []
+                        },
+                        {
+                            id: 'surname',
+                            placeholder: 'Soyadınızı Yazınız',
+                            title: 'Soyadınız',
+                            type: 'text',
+                            data: []
+                        },
+                    ]
+                },
+                {
+                    input: [
+                        {
+                            id: 'email',
+                            placeholder: 'Email',
+                            title: 'E-mail',
+                            type: 'email',
+                            data: []
+                        }
+                    ]
+                },
+                {
+                    input: [
+                        {
+                            id: 'areacode',
+                            placeholder: '+90',
+                            title: 'Alan Kodu',
+                            type: 'number',
+                            data: [
+                                '+90'
+                            ]
+                        },
+                        {
+                            id: 'phone',
+                            placeholder: '500 00 00',
+                            title: 'Telefon numarası',
+                            type: 'tel',
+                            data: []
+                        }
+                    ]
+                },
+                {
+                    input: [
+                        {
+                            id: 'day',
+                            placeholder: 'Gün',
+                            title: 'Gün',
+                            type: 'number',
+                            data: [
+                                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
+                            ]
+    
+                        },
+                        {
+                            id: 'month',
+                            placeholder: 'Ay',
+                            title: 'Ay',
+                            type: 'number',
+                            data: [
+                                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
+                            ]
+    
+                        },
+                        {
+                            id: 'year',
+                            placeholder: 'Yıl',
+                            title: 'Yıl',
+                            type: 'number',
+                            data: []
+    
+                        },
+                    ]
+                },
+                {
+                    input: [
+                        {
+                            id: 'country',
+                            placeholder: 'Ülke',
+                            title: 'Ülke',
+                            type: 'text',
+                            data: [
+                                'TÜRKİYE'
+                            ]
+                        },
+                        {
+                            id: 'ctiy',
+                            placeholder: 'Şehir',
+                            title: 'Şehir',
+                            type: 'text',
+                            data: [
+                                "ADANA",
+                                "KOCAELİ",
+                                "ADIYAMAN",
+                                "KONYA",
+                                "AFYONKARAHİSAR",
+                                "KÜTAHYA",
+                                "AĞRI",
+                                "MALATYA",
+                                "AMASYA",
+                                "MANİSA",
+                                "ANKARA",
+                                "KAHRAMANMARAŞ",
+                                "ANTALYA",
+                                "MARDİN",
+                                "ARTVİN",
+                                "MUĞLA",
+                                "AYDIN",
+                                "MUŞ",
+                                "BALIKESİR",
+                                "NEVŞEHİR",
+                                "BİLECİK",
+                                "NİĞDE",
+                                "BİNGÖL",
+                                "ORDU",
+                                "BİTLİS",
+                                "RİZE",
+                                "BOLU",
+                                "SAKARYA",
+                                "BURDUR",
+                                "SAMSUN",
+                                "BURSA",
+                                "SİİRT",
+                                "ÇANAKKALE",
+                                "SİNOP",
+                                "ÇANKIRI",
+                                "SİVAS",
+                                "ÇORUM",
+                                "TEKİRDAĞ",
+                                "DENİZLİ",
+                                "TOKAT",
+                                "DİYARBAKIR",
+                                "TRABZON",
+                                "EDİRNE",
+                                "TUNCELİ",
+                                "ELAZIĞ",
+                                "ŞANLIURFA",
+                                "ERZİNCAN",
+                                "UŞAK",
+                                "ERZURUM",
+                                "VAN",
+                                "ESKİŞEHİR",
+                                "YOZGAT",
+                                "GAZİANTEP ZONGULDAK",
+                                "GİRESUN",
+                                "AKSARAY",
+                                "GÜMÜŞHANE",
+                                "BAYBURT",
+                                "HAKKARİ",
+                                "KARAMAN",
+                                "HATAY",
+                                "KIRIKKALE",
+                                "ISPARTA",
+                                "BATMAN",
+                                "MERSİN",
+                                "ŞIRNAK",
+                                "İSTANBUL",
+                                "BARTIN",
+                                "İZMİR",
+                                "ARDAHAN",
+                                "KARS",
+                                "IĞDIR",
+                                "KASTAMONU",
+                                "YALOVA",
+                                "KAYSERİ",
+                                "KARABÜK",
+                                "KIRKLARELİ",
+                                "KİLİS",
+                                "KIRŞEHİR",
+                                "OSMANİYE",
+                                "DÜZCE",
+                            ]
+                        },
+                    ]
+                },
+                {
+                    input: [
+                        {
+                            id: 'town',
+                            placeholder: 'Mahalle',
+                            title: 'Mahalle',
+                            type: 'text',
+                            data: []
+                        },
+                        {
+                            id: 'district',
+                            placeholder: 'Semt',
+                            title: 'Semt',
+                            type: 'text',
+                            data: []
+                        },
+                    ]
+                },
+                {
+                    input: [
+                        {
+                            id: 'address',
+                            placeholder: 'Adres',
+                            title: 'Adres',
+                            type: 'text',
+                            data: []
+                        }
+                    ]
+                },
+            ],
+            global: {
+                name: 'Adınız',
+                surname: 'Soyadınız',
+                areacode: 'Alan Kodu',
+                email: 'Email',
+                phone: 'Telefon Numarası',
+                day: 'Gün',
+                month: 'Ay',
+                year: 'Yıl',
+                country: 'Ülke',
+                ctiy: 'Şehir',
+                town: 'Mahalle',
+                district: 'Semt',
+                address: 'Adres',
+                subject: 'Konu',
+                message: 'Mesaj',
+                allProducts: 'Tüm Ürünler',
+                epmtyCart: 'Sepetiniz ürün bulunmuyor !',
+                epmtyFav: 'Favorilerinizde ürün bulunmuyor !',
+                order: 'Sipariş Özeti',
+                discount: 'İndirim',
+                productsTotal: 'Ürün Toplamı',
+                packaging: 'Paketleme',
+                total: 'Toplam',
+                cargo: 'Kargo',
+                addressInfo: 'Adres Bilgileri'
+            },
         },
         en: {
             headerList: [
@@ -1023,6 +1281,11 @@ app.post('/lang', (req, res) => {
                                 link: 'honeycomb'
                             },
                             {
+                                title: 'Queen Collection',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'queen'
+                            },
+                            {
                                 title: 'Cube Collection',
                                 text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
                                 link: 'cube'
@@ -1040,7 +1303,7 @@ app.post('/lang', (req, res) => {
                             {
                                 title: 'Small Series',
                                 text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                                link: 'small'
+                                link: 'small series'
                             }
                         ]
                 },
@@ -1074,17 +1337,20 @@ app.post('/lang', (req, res) => {
                 {
                     title: 'Covering',
                     link: 'covering',
-                    subList: []
+                    subList: [
+                    ]
                 },
                 {
                     title: 'Oven',
                     link: 'oven',
-                    subList: []
+                    subList: [
+                    ]
                 },
                 {
                     title: 'Fiber',
                     link: 'fiber',
-                    subList: []
+                    subList: [
+                    ]
                 }
             ],
             button: {
@@ -1096,7 +1362,9 @@ app.post('/lang', (req, res) => {
                 goBack: 'Go Back',
                 save: 'Save',
                 delete: 'Delete',
-                update: 'Update'
+                update: 'Update',
+                send: 'Send',
+                pay: 'PAY',
             },
             title: {
                 fav: 'Favorite Products',
@@ -1151,7 +1419,258 @@ app.post('/lang', (req, res) => {
                     title: 'QUALITY',
                     text: 'Quality Info',
                 },
-            }
+            },
+            pageTitle: {
+                social: 'SOCIAL',
+                aboutUs: 'ABOUT US',
+                contact: 'CONTACT',
+                myFavorites: 'MY FAVORITES',
+                myCart: 'MY CART',
+                myProfile: 'MY PROFILE',
+                addressInfo: 'Address information',
+                cartInfo: 'Cart Information',
+                login: 'Sign In or Sign Up',
+            },
+            inputData: [
+                {
+                    input: [
+                        {
+                            id: 'name',
+                            placeholder: 'Your Name',
+                            title: 'Name',
+                            type: 'text',
+                            data: []
+                        },
+                        {
+                            id: 'surname',
+                            placeholder: 'Your Surname',
+                            title: 'Surname',
+                            type: 'text',
+                            data: []
+                        },
+                    ]
+                },
+                {
+                    input: [
+                        {
+                            id: 'email',
+                            placeholder: 'Your Email',
+                            title: 'E-mail',
+                            type: 'email',
+                            data: []
+                        }
+                    ]
+                },
+                {
+                    input: [
+                        {
+                            id: 'areacode',
+                            placeholder: '+90',
+                            title: 'Area Code',
+                            type: 'number',
+                            data: [
+                                '+90'
+                            ]
+                        },
+                        {
+                            id: 'phone',
+                            placeholder: '500 00 00',
+                            title: 'Phone Number',
+                            type: 'tel',
+                            data: []
+                        }
+                    ]
+                },
+                {
+                    input: [
+                        {
+                            id: 'day',
+                            placeholder: 'Day',
+                            title: 'Day',
+                            type: 'number',
+                            data: [
+                                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
+                            ]
+    
+                        },
+                        {
+                            id: 'month',
+                            placeholder: 'Month',
+                            title: 'Month',
+                            type: 'number',
+                            data: [
+                                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
+                            ]
+    
+                        },
+                        {
+                            id: 'year',
+                            placeholder: 'Year',
+                            title: 'Year',
+                            type: 'number',
+                            data: []
+    
+                        },
+                    ]
+                },
+                {
+                    input: [
+                        {
+                            id: 'country',
+                            placeholder: 'Your Country',
+                            title: 'Country',
+                            type: 'text',
+                            data: [
+                                'TÜRKİYE'
+                            ]
+                        },
+                        {
+                            id: 'ctiy',
+                            placeholder: 'Your Ctiy',
+                            title: 'City',
+                            type: 'text',
+                            data: [
+                                "ADANA",
+                                "KOCAELİ",
+                                "ADIYAMAN",
+                                "KONYA",
+                                "AFYONKARAHİSAR",
+                                "KÜTAHYA",
+                                "AĞRI",
+                                "MALATYA",
+                                "AMASYA",
+                                "MANİSA",
+                                "ANKARA",
+                                "KAHRAMANMARAŞ",
+                                "ANTALYA",
+                                "MARDİN",
+                                "ARTVİN",
+                                "MUĞLA",
+                                "AYDIN",
+                                "MUŞ",
+                                "BALIKESİR",
+                                "NEVŞEHİR",
+                                "BİLECİK",
+                                "NİĞDE",
+                                "BİNGÖL",
+                                "ORDU",
+                                "BİTLİS",
+                                "RİZE",
+                                "BOLU",
+                                "SAKARYA",
+                                "BURDUR",
+                                "SAMSUN",
+                                "BURSA",
+                                "SİİRT",
+                                "ÇANAKKALE",
+                                "SİNOP",
+                                "ÇANKIRI",
+                                "SİVAS",
+                                "ÇORUM",
+                                "TEKİRDAĞ",
+                                "DENİZLİ",
+                                "TOKAT",
+                                "DİYARBAKIR",
+                                "TRABZON",
+                                "EDİRNE",
+                                "TUNCELİ",
+                                "ELAZIĞ",
+                                "ŞANLIURFA",
+                                "ERZİNCAN",
+                                "UŞAK",
+                                "ERZURUM",
+                                "VAN",
+                                "ESKİŞEHİR",
+                                "YOZGAT",
+                                "GAZİANTEP ZONGULDAK",
+                                "GİRESUN",
+                                "AKSARAY",
+                                "GÜMÜŞHANE",
+                                "BAYBURT",
+                                "HAKKARİ",
+                                "KARAMAN",
+                                "HATAY",
+                                "KIRIKKALE",
+                                "ISPARTA",
+                                "BATMAN",
+                                "MERSİN",
+                                "ŞIRNAK",
+                                "İSTANBUL",
+                                "BARTIN",
+                                "İZMİR",
+                                "ARDAHAN",
+                                "KARS",
+                                "IĞDIR",
+                                "KASTAMONU",
+                                "YALOVA",
+                                "KAYSERİ",
+                                "KARABÜK",
+                                "KIRKLARELİ",
+                                "KİLİS",
+                                "KIRŞEHİR",
+                                "OSMANİYE",
+                                "DÜZCE",
+                            ]
+                        },
+                    ]
+                },
+                {
+                    input: [
+                        {
+                            id: 'town',
+                            placeholder: 'Your Town',
+                            title: 'Town',
+                            type: 'text',
+                            data: []
+                        },
+                        {
+                            id: 'district',
+                            placeholder: 'Your District',
+                            title: 'District',
+                            type: 'text',
+                            data: []
+                        },
+                    ]
+                },
+                {
+                    input: [
+                        {
+                            id: 'address',
+                            placeholder: 'Your Address',
+                            title: 'Address',
+                            type: 'text',
+                            data: []
+                        }
+                    ]
+                },
+            ],
+            global: {
+                name: 'Name',
+                surname: 'Surname',
+                areacode: 'Area Code',
+                email: 'Email',
+                phone: 'Phone Number',
+                day: 'Day',
+                month: 'Month',
+                year: 'Year',
+                country: 'Country',
+                ctiy: 'Ctiy',
+                town: 'Town',
+                district: 'District',
+                address: 'Address',
+                subject: 'Subject',
+                message: 'Message',
+                allProducts: 'All Products',
+                epmtyCart: 'Your Cart is Empty !',
+                epmtyFav: 'Your Favorites is Empty !',
+                order: 'Order Summary',
+                discount: 'Discount',
+                productsTotal: 'Products Total',
+                packaging: 'Packaging',
+                total: 'Total',
+                cargo: 'Cargo',
+                addressInfo: 'Address Information'
+            },
         }
     }
     if (selectlang) {

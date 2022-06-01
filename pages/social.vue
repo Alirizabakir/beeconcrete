@@ -3,7 +3,7 @@
         <Slider />
         <Container>
             <SocialBox>
-                SOCIAL
+                {{getLang.pageTitle.social}}
             </SocialBox>
         </Container>
     </div>
@@ -12,7 +12,9 @@
 <script>
 export default {
     computed: {
-   
+        getLang() {
+            return this.$store.getters.getLang
+        },
     }
 }
 </script>

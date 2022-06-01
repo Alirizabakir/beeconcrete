@@ -3,18 +3,18 @@
         <Slider />
         <Container>
             <h2 class="text-3xl text-gray-dark border-b border-gray-dark pt-20 mb-20">
-                Contact
+                {{ getLang.pageTitle.contact }}
             </h2>
             <div class="flex flex-col md:flex-row justify-between">
                 <div class="flex flex-1 flex-col md:mr-8">
                     <ContactBox></ContactBox>
                     <div class="mb-4 p-2">
-                        <h3 class="text-2xl font-bold">Email</h3>
+                        <h3 class="text-2xl font-bold">{{getLang.global.email}}</h3>
                         <p>beeconcrete@info.com.tr</p>
-                        <h3 class="text-2xl font-bold">Telefon</h3>
+                        <h3 class="text-2xl font-bold">{{getLang.global.phone}}</h3>
                         <p>+90 533 727 46 49</p>
                         <p>+90 532 321 35 73</p>
-                        <h3 class="text-2xl font-bold">Adres</h3>
+                        <h3 class="text-2xl font-bold">{{getLang.global.address}}</h3>
                         <p>İstasyon Mahallesi, Kahramanmaraş-Adana <br> Yolu No:15, 46800 Türkoğlu/Kahramanmaraş</p>
                     </div>
                 </div>
@@ -32,8 +32,9 @@
 <script>
 export default {
     computed: {
-
-    },
-
+        getLang() {
+            return this.$store.getters.getLang
+        },
+    }
 }
 </script>
