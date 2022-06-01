@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Slider />
         <Container>
             <div class="flex justify-between border-b border-gray-dark pt-20 pb-2">
                 <h1 class="text-3xl text-gray-dark">{{getLang.pageTitle.myProfile}}</h1>

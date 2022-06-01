@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Slider />
         <nuxt-child />
     </div>
 </template>

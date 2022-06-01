@@ -24,16 +24,15 @@ export default {
                 this.$fireModule.auth.FacebookAuthProvider.PROVIDER_ID,
                 this.$fireModule.auth.TwitterAuthProvider.PROVIDER_ID
             ],
-            // callbacks: {
-            //     signInSuccessWithAuthResult() {
-            //         setTimeout(() => {
-            //             window.location.href = 'http://localhost:3000/my-profile'
-            //         }, 1000);
-            //         // setTimeout(() => {
-            //         //     window.location.href = 'https://www.beeconcrete.com.tr/my-profile'
-            //         // }, 1000);
-            //     }
-            // }
+            callbacks: {
+                signInSuccessWithAuthResult() {
+                    if (process.client) {
+                        // window.location.href = 'http://localhost:3000/my-profile'
+                        window.location.href = 'https://www.beeconcrete.com.tr/my-profile'
+
+                    }
+                }
+            }
         }
         ui.start('#firebaseui-auth-container', config)
     },

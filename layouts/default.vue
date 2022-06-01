@@ -2,6 +2,7 @@
   <div class="home w-full">
     <SubHeader />
     <Header />
+    <Slider/>
     <Nuxt />
     <Footer />
   </div>

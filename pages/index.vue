@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <Slider/>
     <Container>
       <Show v-for="(item, index) in getLang.title" :key="index" :type="index">
         {{ item }}

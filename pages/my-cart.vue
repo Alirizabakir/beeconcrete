@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Slider />
         <Container>
             <h1 id="pots" class="text-3xl text-gray-dark border-b border-gray-dark pt-20">{{getLang.pageTitle.myCart}}</h1>
             <div class="w-full flex">

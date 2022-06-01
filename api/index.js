@@ -69,10 +69,10 @@ var user_phone = '05301783802'; // Müşterinizin sitenizde kayıtlı veya form 
 
 // Başarılı ödeme sonrası müşterinizin yönlendirileceği sayfa
 // Bu sayfa siparişi onaylayacağınız sayfa değildir! Yalnızca müşterinizi bilgilendireceğiniz sayfadır!
-var merchant_ok_url = 'https://www.beeconcrete.com.tr/products';
+var merchant_ok_url = 'https://www.beeconcrete.com.tr/order-ok';
 // Ödeme sürecinde beklenmedik bir hata oluşması durumunda müşterinizin yönlendirileceği sayfa
 // Bu sayfa siparişi iptal edeceğiniz sayfa değildir! Yalnızca müşterinizi bilgilendireceğiniz sayfadır!
-var merchant_fail_url = 'https://www.beeconcrete.com.tr/failed';
+var merchant_fail_url = 'https://www.beeconcrete.com.tr/order-failed';
 var timeout_limit = 30; // İşlem zaman aşımı süresi - dakika cinsinden
 var debug_on = 1; // Hata mesajlarının ekrana basılması için entegrasyon ve test sürecinde 1 olarak bırakın. Daha sonra 0 yapabilirsiniz.
 var lang = 'tr'; // Türkçe için tr veya İngilizce için en gönderilebilir. Boş gönderilirse tr geçerli olur.
@@ -192,12 +192,12 @@ app.get('/', (req, res) => {
 
     if (req.session.cart) {
         cart = req.session.cart
-    }else{
+    } else {
         req.session.cart = cart
     }
     if (req.session.favItem) {
         favItem = req.session.favItem
-    }else{
+    } else {
         req.session.favItem = favItem
     }
     // bagTotalPrice
@@ -334,6 +334,22 @@ app.post('/remove-cart', (req, res) => {
         bagTotalPrice += item.totalPrice
     });
     req.session.cart = cart
+
+    res.status(200).json({
+        cart: {
+            items: req.session.cart,
+            bagTotalPrice: bagTotalPrice
+        }
+    })
+
+})
+app.post('/empty-cart', (req, res) => {
+    let product = req.body.product
+
+    // bagTotalPrice
+    let bagTotalPrice = 0
+   
+    req.session.cart = []
 
     res.status(200).json({
         cart: {
@@ -994,6 +1010,22 @@ app.post('/lang', (req, res) => {
                 addressInfo: 'Adres Bilgileri',
                 cartInfo: 'Sepet Bilgileri',
                 login: 'Giriş Yapın Yada Kaydolun',
+                orderOk:
+                {
+                    header: 'Siparişiniz alınmıştır.',
+                    title: 'Siparişiniz başarıyla tamamlanmıştır. \
+                Ürününüz kargoya verildiğinde SMS ile bilgilendirileceksiniz. \
+                Faturanız ürün paketinizin içerisinde tarafınıza ulaştırılacak. \
+                Bizi tercih ettiğiniz için teşekkür eder , iyi günler dileriz.',
+                    redirect: 'Anasayfaya yönlendiriliyorsunuz . Beklememek için buraya tıklayınız..'
+                },
+                orderFailed:
+                {
+                    header: 'Siparişiniz tamamlanamadı !',
+                    title: 'Siparişiniz oluşturulurken bir sorunla karşılaşıldı . \
+                    Lütfen yeniden deneyiniz yada destek almak için iletişim sayfasında bulunan telefon numarası ile bize ulaşabilirsiniz. İyi alışverişler dileriz .',
+                    redirect: 'Seperim sayfasına yönlendiriliyorsunuz . Beklememek için buraya tıklayınız..'
+                },
             },
             inputData: [
                 {
@@ -1055,7 +1087,7 @@ app.post('/lang', (req, res) => {
                             data: [
                                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
                             ]
-    
+
                         },
                         {
                             id: 'month',
@@ -1065,7 +1097,7 @@ app.post('/lang', (req, res) => {
                             data: [
                                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
                             ]
-    
+
                         },
                         {
                             id: 'year',
@@ -1073,7 +1105,7 @@ app.post('/lang', (req, res) => {
                             title: 'Yıl',
                             type: 'number',
                             data: []
-    
+
                         },
                     ]
                 },
@@ -1225,8 +1257,8 @@ app.post('/lang', (req, res) => {
                 subject: 'Konu',
                 message: 'Mesaj',
                 allProducts: 'Tüm Ürünler',
-                epmtyCart: 'Sepetiniz ürün bulunmuyor !',
-                epmtyFav: 'Favorilerinizde ürün bulunmuyor !',
+                emptyCart: 'Sepetinizde ürün bulunmuyor !',
+                emptyFav: 'Favorilerinizde ürün bulunmuyor !',
                 order: 'Sipariş Özeti',
                 discount: 'İndirim',
                 productsTotal: 'Ürün Toplamı',
@@ -1430,6 +1462,22 @@ app.post('/lang', (req, res) => {
                 addressInfo: 'Address information',
                 cartInfo: 'Cart Information',
                 login: 'Sign In or Sign Up',
+                orderOk:
+                {
+                    header: 'Your order has been completed',
+                    title: 'Your Order Has Been Successfully Completed. \
+                You will be informed by sms when your product is shipped. \
+                Your invoice will reach you in the package with your products. \
+                For choosing us thank you and have a nice day.',
+                    redirect: 'You are being redirected to the homepage. Click here to not wait..'
+                },
+                orderFailed:
+                {
+                    header: 'Your order has not been completed !',
+                    title: 'Your order encountered a problem that you requested . \
+                Please try again or contact us at the phone number on the contact page for support. We wish you well.',
+                    redirect: 'You are being redirected to the My Cart page. Click here to not wait.'
+                },
             },
             inputData: [
                 {
@@ -1491,7 +1539,7 @@ app.post('/lang', (req, res) => {
                             data: [
                                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
                             ]
-    
+
                         },
                         {
                             id: 'month',
@@ -1501,7 +1549,7 @@ app.post('/lang', (req, res) => {
                             data: [
                                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
                             ]
-    
+
                         },
                         {
                             id: 'year',
@@ -1509,7 +1557,7 @@ app.post('/lang', (req, res) => {
                             title: 'Year',
                             type: 'number',
                             data: []
-    
+
                         },
                     ]
                 },
@@ -1661,8 +1709,8 @@ app.post('/lang', (req, res) => {
                 subject: 'Subject',
                 message: 'Message',
                 allProducts: 'All Products',
-                epmtyCart: 'Your Cart is Empty !',
-                epmtyFav: 'Your Favorites is Empty !',
+                emptyCart: 'Your Cart is Empty !',
+                emptyFav: 'Your Favorites is Empty !',
                 order: 'Order Summary',
                 discount: 'Discount',
                 productsTotal: 'Products Total',

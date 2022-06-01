@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Slider />
         <Container>
             <h2 class="text-3xl text-gray-dark border-b border-gray-dark pt-20 mb-20">
                 {{ getLang.pageTitle.contact }}

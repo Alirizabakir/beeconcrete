@@ -153,7 +153,7 @@ export const state = () => ({
         title: {
             fav: 'Favorite Products',
             discount: 'Promotional Products',
-            special: 'Special Series'
+            special: 'Special Series',
         },
         slider: [
             {
@@ -214,6 +214,22 @@ export const state = () => ({
             addressInfo: 'Address information',
             cartInfo: 'Card Information',
             login: 'Sign In or Sign Up',
+            orderOk:
+            {
+                header: 'Your order has been completed !',
+                title: 'Your Order Has Been Successfully Completed. \
+                You will be informed by sms when your product is shipped. \
+                Your invoice will reach you in the package with your products. \
+                For choosing us thank you and have a nice day.',
+                redirect: 'You are being redirected to the homepage. Click here to not wait..'
+            },
+            orderFailed:
+            {
+                header: 'Your order has not been completed !',
+                title: 'Your order encountered a problem that you requested . \
+                Please try again or contact us at the phone number on the contact page for support. We wish you well.',
+                redirect: 'You are being redirected to the My Cart page. Click here to not wait.'
+            },
         },
         inputData: [
             {
@@ -444,17 +460,17 @@ export const state = () => ({
             subject: 'Subject',
             message: 'Message',
             allProducts: 'All Products',
-            epmtyCart: 'Your Cart is Empty !',
-            epmtyFav: 'Your Favorites is Empty !',
+            emptyCart: 'Your Cart is Empty !',
+            emptyFav: 'Your Favorites is Empty !',
             order: 'Order Summary',
             discount: 'Discount',
             productsTotal: 'Products Total',
             packaging: 'Packaging',
             total: 'Total',
             cargo: 'Cargo',
-            addressInfo: 'Address Information'
+            addressInfo: 'Address Information',
         },
-     
+
     },
 });
 
@@ -525,6 +541,7 @@ export const mutations = {
     ON_AUTH_STATE_CHANGED_MUTATION: (state, { authUser, claims }) => {
         if (!authUser) {
             state.user = false
+            state.loginKey = false
         } else {
             // Do something with the authUser and the claims object...
             if (!state.user) {
@@ -536,10 +553,7 @@ export const mutations = {
                     localStorage.setItem('expiresIn', expiresIn)
                 }
                 state.authKey = claims.user_id
-                if (process.client && claims) {
-                    window.location.href = 'https://www.beeconcrete.com.tr/my-profile'
-                    // window.location.href = 'http://localhost:3000/my-profile'
-                }
+               
             }
         }
     },
@@ -635,6 +649,13 @@ export const actions = {
                 vuexContext.commit('setTotalPrice', response.data.cart.bagTotalPrice)
             })
     },
+    emptyCart(vuexContext, product){
+        this.$axios.post('/empty-cart', product)
+        .then(response => {
+            vuexContext.commit("setCart", response.data.cart.items)
+            vuexContext.commit('setTotalPrice', response.data.cart.bagTotalPrice)
+        })
+    },
     changeCount(vuexContext, product) {
         this.$axios.post('/change-count', { product: product })
             .then(response => {
@@ -655,6 +676,7 @@ export const actions = {
                 vuexContext.commit("setProducts", response.data.products)
             })
     },
+    
     updateProduct(vuexContext, product) {
         this.$axios.post('/update-product', { product: product })
             .then(response => {

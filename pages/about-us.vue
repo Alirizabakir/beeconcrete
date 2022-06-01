@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Slider />
         <Container>
             <AboutUs></AboutUs>
         </Container>
