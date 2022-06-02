@@ -21,7 +21,7 @@
                     getLang.button.update
             }}</button>
             <button @click="deleteUser" class="button delete px-4 py-2 bg-pink rounded-sm text-white font-bold">
-                {{ getLang.button.delete }}
+                {{ getLang.button.delAccount }}
             </button>
         </div>
     </div>

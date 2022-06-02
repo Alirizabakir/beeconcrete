@@ -7,16 +7,17 @@
     </Container>
     <div class="hexagon-box mt-20 py-20">
       <Container class="flex flex-wrap w-full items-center justify-center">
-        <HexagonBox :src="item.src" v-for="(item,index) in getLang.characteristic" :key="index">
+        <HexagonBox :src="item.src" v-for="(item, index) in getLang.characteristic" :key="index">
           <template v-slot:header>
-            {{item.title}}
+            {{ item.title }}
           </template>
           <template v-slot:content>
-            {{item.text}}
+            {{ item.text }}
           </template>
         </HexagonBox>
       </Container>
     </div>
+    <Popup />
   </div>
 </template>
 
@@ -29,7 +30,7 @@ export default {
     }
   },
   computed: {
-    getLang(){
+    getLang() {
       return this.$store.getters.getLang
     },
   },

@@ -126,7 +126,7 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
+      lang: 'tr'
     },
     icon: {
       source: './client/static/icon.png'
@@ -142,7 +142,7 @@ export default {
     }
   },
   serverMiddleware: [
-    bodyParser.json({ limit: "50mb" }),
+    bodyParser.json({ limit: "10mb" }),
     "~/api"
   ],
   env: {

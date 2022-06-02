@@ -4,6 +4,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
 
     computed: {
@@ -25,12 +26,15 @@ export default {
                 this.$fireModule.auth.TwitterAuthProvider.PROVIDER_ID
             ],
             callbacks: {
-                signInSuccessWithAuthResult() {
-                    if (process.client) {
-                        // window.location.href = 'http://localhost:3000/my-profile'
-                        window.location.href = 'https://www.beeconcrete.com.tr/my-profile'
-
-                    }
+                signInSuccessWithAuthResult(user) {
+                    axios.post('https://www.beeconcrete.com.tr/api/login', { user: claims })
+                        .then(response => {
+                         window.location.href = 'https://www.beeconcrete.com.tr/my-cart'
+                        })
+                    // axios.post('http://localhost:3000/api/login', { user: user.additionalUserInfo.profile })
+                    //     .then(response => {
+                    //         window.location.href = 'http://localhost:3000/my-profile'
+                    //     })
                 }
             }
         }

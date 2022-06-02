@@ -1,8 +1,9 @@
 <template>
-    <div :class="{ 'bg': scroll }" class="fixed z-50 top-8 h-20 header w-full">
-        <Container class="flex items-center justify-between h-20">
+    <div :class="[{ 'bg h-12': scroll }, { 'h-20': !scroll }]" class="fixed z-50 top-8  header w-full">
+        <Container :class="[{ 'h-12': scroll }, { 'h-20': !scroll }]" class="flex items-center justify-between">
             <nuxt-link to="/">
-                <img class="w-14 shadow-show rounded-full" :src="require('@/static/icon.png')"
+                <img :class="[{ 'w-10': scroll }, { 'w-12': !scroll }]"
+                    class="shadow-show bg-white opacity-100 rounded-full" :src="require('@/static/icon.png')"
                     alt="Bee Concrete Desing">
             </nuxt-link>
             <div :class="[{ hamburger: hamburger }, { 'top-20': !scroll }, { 'top-24': scroll }]"
@@ -15,7 +16,7 @@
                 </div>
                 <div @click="hamburger = false" class="header-main-item" v-for="(item, index) in getLang.headerList"
                     :key="index">
-                    <nuxt-link :to="'/' + item.link">
+                    <nuxt-link :to="'/' + item.link" class="link border-b-2">
                         {{ item.title }}
                     </nuxt-link>
                 </div>
@@ -76,7 +77,7 @@ export default {
         // allpro(){
         //     this.$store.dispatch('allProductUpload', 'pro')
         // },
-      
+
         handleScroll() {
             if (window.scrollY > 75) {
                 this.scroll = true
@@ -125,6 +126,14 @@ export default {
             }
 
         }
+
+        .link {
+            border-color: transparent;
+
+            &:hover {
+                border-color: white;
+            }
+        }
     }
 
     .hamburger {
@@ -134,11 +143,13 @@ export default {
 }
 
 .bg {
-    background-image: url(~/static/bg/hex.jpg) !important;
-    background-position-x: left;
-    background-position-y: center;
-    background-repeat: no-repeat;
-    background-color: #F7F7F7 !important;
+    // background-image: url(~/static/bg/hex.jpg) !important;
+    // background-position-x: left;
+    // background-position-y: center;
+    // background-repeat: no-repeat;
+    // background-color: #F7F7F7 !important;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .9) 39%, rgba(247, 247, 247, 0) 100%);
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
     top: 0;
 

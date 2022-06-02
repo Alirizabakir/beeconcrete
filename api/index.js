@@ -226,7 +226,7 @@ app.get('/', (req, res) => {
                                 bagTotalPrice: bagTotalPrice
                             },
                             user: req.session.user,
-                            lang: req.session.lang,
+                            lang: req.session.lang
                         })
                     })
                 })
@@ -235,7 +235,7 @@ app.get('/', (req, res) => {
     })
 })
 app.post('/add-to-cart', (req, res) => {
-
+    
     let product = req.body.product
 
     let cart = []
@@ -279,6 +279,8 @@ app.post('/add-to-cart', (req, res) => {
         }
     })
 })
+
+
 app.post('/change-count', (req, res) => {
     let product = req.body.product
 
@@ -348,7 +350,7 @@ app.post('/empty-cart', (req, res) => {
 
     // bagTotalPrice
     let bagTotalPrice = 0
-   
+
     req.session.cart = []
 
     res.status(200).json({
@@ -945,6 +947,9 @@ app.post('/lang', (req, res) => {
                 update: 'Güncelle',
                 send: 'Gönder',
                 pay: 'ÖDEMEYİ TAMAMLA',
+                signOut: 'Oturumu Kapat',
+                delAccount: 'Hesabı Sil',
+                ok: 'TAMAM'
             },
             title: {
                 fav: 'Favori Ürünler',
@@ -1267,6 +1272,22 @@ app.post('/lang', (req, res) => {
                 cargo: 'Kargo',
                 addressInfo: 'Adres Bilgileri'
             },
+            aboutUs: {
+                header: 'BEE CONCRETE DESING',
+                titleOne: "Bee Concrete Design, beton saksılardan beton kaplama\
+                 bileşenlerine kadar beton tasarımları ve ilgili ürünleri geliştiren ve satan Türk kökenli yeni bir markadır.",
+                titleTwo: "Şirketin genel merkezi, showroomu ve deposu Türkiye Kahramanmaraş'ta bulunmaktadır.\
+                2012 yılındaki kuruluşumuzdan bu yana, tasarımın herkes için erişilebilir \
+                olması gerektiği inancına dayanan geniş bir ürün yelpazesini hedefliyoruz. \
+                Bu yüzden her zaman tasarım, kalite ve fiyat arasındaki mükemmel dengeyi arıyoruz.\
+                Her Arı Beton ürünü, sade ama zarif bir bakış açısıyla tasarlanmıştır.\
+                Sıkıcı olduğunu düşünmeden temel formlara ve şekillere inanıyoruz."
+            },
+            popup: {
+                addCart: 'Product added to cart !',
+                addFav: 'Product added to favorites !',
+                goodShopping: 'Good shopping !'
+            }
         },
         en: {
             headerList: [
@@ -1397,6 +1418,9 @@ app.post('/lang', (req, res) => {
                 update: 'Update',
                 send: 'Send',
                 pay: 'PAY',
+                signOut: 'Sign Out',
+                delAccount: 'Delete Account',
+                ok: 'OK'
             },
             title: {
                 fav: 'Favorite Products',
@@ -1466,16 +1490,16 @@ app.post('/lang', (req, res) => {
                 {
                     header: 'Your order has been completed',
                     title: 'Your Order Has Been Successfully Completed. \
-                You will be informed by sms when your product is shipped. \
-                Your invoice will reach you in the package with your products. \
-                For choosing us thank you and have a nice day.',
+                    You will be informed by sms when your product is shipped. \
+                    Your invoice will reach you in the package with your products. \
+                    For choosing us thank you and have a nice day.',
                     redirect: 'You are being redirected to the homepage. Click here to not wait..'
                 },
                 orderFailed:
                 {
                     header: 'Your order has not been completed !',
                     title: 'Your order encountered a problem that you requested . \
-                Please try again or contact us at the phone number on the contact page for support. We wish you well.',
+                    Please try again or contact us at the phone number on the contact page for support. We wish you well.',
                     redirect: 'You are being redirected to the My Cart page. Click here to not wait.'
                 },
             },
@@ -1719,6 +1743,23 @@ app.post('/lang', (req, res) => {
                 cargo: 'Cargo',
                 addressInfo: 'Address Information'
             },
+            aboutUs: {
+                header: 'BEE CONCRETE DESING',
+                titleOne: "Bee Concrete Design is a new brand with Turkish root,\
+                developing and selling concrete designes and related products,\
+                from concrete pots to concrete covering components.",
+                titleTwo: "The company has its headquarter, showroom and warehouse in Kahramanmaraş,\
+                the Turkey. Since our foundation in 2012, we aim for an extensive assortment that is\
+                based on the belief that design should be available for everyone.\
+                That is why we are always looking for the perfect balance between design,\
+                quality and price. Every Bee Concrete product is designed from a simple but\
+                elegant perspective. We believe in basic forms and shapes, without thinking of it as boring."
+            },
+            popup: {
+                addCart: 'Product added to cart !',
+                addFav: 'Product added to favorites !',
+                goodShopping: 'Good shopping !'
+            }
         }
     }
     if (selectlang) {

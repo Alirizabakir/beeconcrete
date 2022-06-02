@@ -2,6 +2,9 @@ import Cookie from 'js-cookie'
 import { getAuth, deleteUser, signOut } from "firebase/auth";
 import axios from "axios";
 export const state = () => ({
+    // Popup
+    favPopup: false,
+    popup: false,
     // Admin
     loading: false,
     products: [],
@@ -149,6 +152,9 @@ export const state = () => ({
             update: 'Update',
             send: 'Send',
             pay: 'PAY',
+            signOut: 'Sign Out',
+            delAccount: 'Delete Account',
+            ok: 'OK',
         },
         title: {
             fav: 'Favorite Products',
@@ -212,24 +218,35 @@ export const state = () => ({
             myCart: 'MY CART',
             myProfile: 'MY PROFILE',
             addressInfo: 'Address information',
-            cartInfo: 'Card Information',
+            cartInfo: 'Cart Information',
             login: 'Sign In or Sign Up',
             orderOk:
             {
-                header: 'Your order has been completed !',
+                header: 'Your order has been completed',
                 title: 'Your Order Has Been Successfully Completed. \
-                You will be informed by sms when your product is shipped. \
-                Your invoice will reach you in the package with your products. \
-                For choosing us thank you and have a nice day.',
+            You will be informed by sms when your product is shipped. \
+            Your invoice will reach you in the package with your products. \
+            For choosing us thank you and have a nice day.',
                 redirect: 'You are being redirected to the homepage. Click here to not wait..'
             },
             orderFailed:
             {
                 header: 'Your order has not been completed !',
                 title: 'Your order encountered a problem that you requested . \
-                Please try again or contact us at the phone number on the contact page for support. We wish you well.',
+            Please try again or contact us at the phone number on the contact page for support. We wish you well.',
                 redirect: 'You are being redirected to the My Cart page. Click here to not wait.'
             },
+            aboutUs: {
+                header: 'BEE CONCRETE DESING',
+                titleOne: "Bee Concrete Design, beton saksılardan beton kaplama\
+                 bileşenlerine kadar beton tasarımları ve ilgili ürünleri geliştiren ve satan Türk kökenli yeni bir markadır.",
+                titleTwo: "Şirketin genel merkezi, showroomu ve deposu Türkiye Kahramanmaraş'ta bulunmaktadır.\
+                2012 yılındaki kuruluşumuzdan bu yana, tasarımın herkes için erişilebilir \
+                olması gerektiği inancına dayanan geniş bir ürün yelpazesini hedefliyoruz. \
+                Bu yüzden her zaman tasarım, kalite ve fiyat arasındaki mükemmel dengeyi arıyoruz.\
+                Her Arı Beton ürünü, sade ama zarif bir bakış açısıyla tasarlanmıştır.\
+                Sıkıcı olduğunu düşünmeden temel formlara ve şekillere inanıyoruz."
+            }
         },
         inputData: [
             {
@@ -470,11 +487,23 @@ export const state = () => ({
             cargo: 'Cargo',
             addressInfo: 'Address Information',
         },
-
+        popup: {
+            addCart: 'Product added to cart !',
+            addFav: 'Product added to favorites !',
+            goodShopping: 'Good shopping !'
+        }
     },
 });
 
 export const mutations = {
+    // Set Popup
+    setPopup(state, popup) {
+        if (popup.type == 'addCart') {
+            state.popup = popup.status
+        } else if (popup.type == 'addFav') {
+            state.favPopup = popup.status
+        }
+    },
     setLoading(state, loading) {
         state.loading = loading
     },
@@ -536,7 +565,6 @@ export const mutations = {
         let index = state.products.findIndex(a => a._id == id)
         state.products.splice(index, 1)
     },
-
     // Cookie 
     ON_AUTH_STATE_CHANGED_MUTATION: (state, { authUser, claims }) => {
         if (!authUser) {
@@ -553,7 +581,7 @@ export const mutations = {
                     localStorage.setItem('expiresIn', expiresIn)
                 }
                 state.authKey = claims.user_id
-               
+
             }
         }
     },
@@ -637,9 +665,15 @@ export const actions = {
                 console.log('Succes')
                 vuexContext.commit('setCart', response.data.cart.items)
                 vuexContext.commit('setTotalPrice', response.data.cart.bagTotalPrice)
+                vuexContext.commit('setPopup', { type: 'addCart', status: true })
+
                 setTimeout(() => {
                     vuexContext.commit('setLoading', false)
                 }, 1000);
+
+                setTimeout(() => {
+                    vuexContext.commit('setPopup', { type: 'addCart', status: false })
+                }, 2000);
             })
     },
     removeCart(vuexContext, product) {
@@ -649,12 +683,12 @@ export const actions = {
                 vuexContext.commit('setTotalPrice', response.data.cart.bagTotalPrice)
             })
     },
-    emptyCart(vuexContext, product){
+    emptyCart(vuexContext, product) {
         this.$axios.post('/empty-cart', product)
-        .then(response => {
-            vuexContext.commit("setCart", response.data.cart.items)
-            vuexContext.commit('setTotalPrice', response.data.cart.bagTotalPrice)
-        })
+            .then(response => {
+                vuexContext.commit("setCart", response.data.cart.items)
+                vuexContext.commit('setTotalPrice', response.data.cart.bagTotalPrice)
+            })
     },
     changeCount(vuexContext, product) {
         this.$axios.post('/change-count', { product: product })
@@ -676,7 +710,7 @@ export const actions = {
                 vuexContext.commit("setProducts", response.data.products)
             })
     },
-    
+
     updateProduct(vuexContext, product) {
         this.$axios.post('/update-product', { product: product })
             .then(response => {
@@ -728,8 +762,13 @@ export const actions = {
     favItem(vuexContext, product) {
         this.$axios.post('/favItem', { product: product })
             .then(response => {
-                console.log(response.data.favItem.items)
                 vuexContext.commit("setFavItem", response.data.favItem.items)
+                if (product.status) {
+                    vuexContext.commit('setPopup', { type: 'addFav', status: true })
+                    setTimeout(() => {
+                        vuexContext.commit('setPopup', { type: 'addFav', status: false })
+                    }, 2000);
+                }
             })
     },
     // User Methods
@@ -812,6 +851,14 @@ export const actions = {
 };
 
 export const getters = {
+    // Get favPopup
+    getFavPopup(state) {
+        return state.favPopup
+    },
+    // Get Popup
+    getPopup(state) {
+        return state.popup
+    },
     // Get Lang
     getLang(state) {
         return state.lang

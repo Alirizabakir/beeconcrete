@@ -7,10 +7,12 @@
                     {{ subList.title }}
                 </Show>
             </div>
-            <a v-show="scroll" href="#bee"
-                class="up fixed bottom-10 right-10 bg-blue rounded-sm"><Up class="w-10 h-10"/></a>
+            <a v-show="scroll" href="#bee" class="up fixed bottom-10 right-10 bg-blue rounded-sm">
+                <Up class="w-10 h-10" />
+            </a>
         </div>
         <ProductsList />
+        <Popup/>
     </Container>
 </template>
 
@@ -57,7 +59,7 @@ export default {
 .flex {
     .up {
         svg {
-           fill: white;
+            fill: white;
         }
     }
 }

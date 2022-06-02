@@ -1,5 +1,5 @@
 <template>
-  <div v-show="getLoading" class="loading-page flex items-center justify-center">
+  <div :class="{active: getLoading}" class="loading-page flex items-center justify-center">
     <div class="loader">
       <client-only>
         <span v-for="(i, index) in 20" :key="index" :style="'--i:' + (index + 1) + ';'"></span>
@@ -38,8 +38,11 @@ export default {
   inset: 0;
   background-color: rgba(255, 255, 255, 0.3);
   z-index: 1000;
-  animation: animateBg 10s infinite;
 
+  opacity: 0;
+  visibility: hidden;
+
+  transition: all .3s;
   .loader {
     width: 120px;
     height: 120px;
@@ -96,15 +99,9 @@ export default {
       }
     }
   }
-
-  // @keyframes animateBg {
-  //   0% {
-  //     filter: hue-rotate(0deg);
-  //   }
-
-  //   100% {
-  //     filter: hue-rotate(360deg);
-  //   }
-  // }
+}
+.active {
+  opacity: 1;
+  visibility: visible;
 }
 </style>

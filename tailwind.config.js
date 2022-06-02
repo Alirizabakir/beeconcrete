@@ -8,14 +8,16 @@ module.exports = {
     },
     colors: {
       'blue': '#1fb6ff',
+      'blue-dark': '#004EFF',
       'pink': '#ff49db',
       'orange': '#ff7849',
       'green': '#0C3C10',
+      'red': '#DC0917',
       'gray-dark': '#5e5e5e',
       'gray': '#8492a6',
       'gray-light': '#d3dce6',
       'gray-100': '#fafafa',
-      'white': '#fff'
+      'white': '#fff',
     },
     fontFamily: {
       'sans': ['Ropa Sans'],
