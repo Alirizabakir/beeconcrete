@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <Header/>
-    <nuxt-child class="flex-1 ml-28" />
+    <nuxt-child />
   </div>
 </template>
 <script>

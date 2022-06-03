@@ -6,7 +6,7 @@
                     <PhoneSvg class="w-3 mr-1" />
                     <span>+90 533 727 46 49</span>
                 </a>
-                <a class="text-white ml-2 hidden sm:flex" href="mailto:beeconcrete@info.com.tr">
+                <a class="text-white ml-2 opacity-0 sm:opacity-100" href="mailto:beeconcrete@info.com.tr">
                     <PhoneSvg class="w-3 mr-1" />
                     <span >beeconcrete@info.com.tr</span>
                 </a>

@@ -1,5 +1,5 @@
 <template>
-  <div class="form fixed  top-0 inset-0 flex items-center justify-center">
+  <div class="form fixed top-0 inset-0 flex items-center justify-center">
     <div class="box w-3/4 flex flex-col bg-gray-light">
       <header class="py-2 px-8 bg-gray-dark" v-if="post == null">New Product</header>
       <header class="py-2 px-8 bg-gray-dark" v-else>Update Product</header>
@@ -87,9 +87,8 @@
             @file="(a) => (product.file = a)" class="h-56 w-56 m-auto" />
         </div>
       </div>
-
       <div class="button-box flex justify-center">
-        <button v-if="isMethods" @click="add" type="submit" class="px-3 py-1 bg-blue m-4 text-white text-lg rounded-sm">
+        <button v-if="!post" @click="add" type="submit" class="px-3 py-1 bg-blue m-4 text-white text-lg rounded-sm">
           Add
         </button>
         <button v-else @click="save" class="px-3 py-1 bg-blue m-4 text-white text-lg rounded-sm">Save</button>
@@ -129,7 +128,7 @@ export default {
       isMethods: false,
       page: "info",
       objectType: ['pot', 'furniture', 'covering', 'oven', 'fiber'],
-      collectionName: ['bee', 'honeycomb', 'hive', 'cube', 'vase', 'long', 'small series', 'column', 'table', 'seat', 'ball', 'covering', 'oven', 'fiber'],
+      collectionName: ['bee', 'honeycomb', 'hive', 'cube','queen', 'vase', 'long', 'small series', 'column', 'table', 'seat', 'ball', 'covering', 'oven', 'fiber'],
       product: {
         file: null,
         name: null,
@@ -141,16 +140,10 @@ export default {
         },
         sizes: {
           depth: 0,
-          depthtop: 0,
-          depthunder: 0,
           diameter: 0,
           height: 0,
-          heighttop: 0,
-          heightunder: 0,
           weight: 0,
           width: 0,
-          widthtop: 0,
-          widthunder: 0,
         },
         fav: 0,
         newPrice: '0',
@@ -173,7 +166,7 @@ export default {
           this.collectionInvalid = false;
           if (this.product.file != "") {
             this.$store.dispatch("newProduct", { ...this.product });
-            this.$store.commit("displayForm", false);
+            this.$emit("close", false);
             this.imgInvalid = false;
           } else {
             this.imgInvalid = true;

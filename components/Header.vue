@@ -2,7 +2,7 @@
     <div :class="[{ 'bg h-12': scroll }, { 'h-20': !scroll }]" class="fixed z-50 top-8  header w-full">
         <Container :class="[{ 'h-12': scroll }, { 'h-20': !scroll }]" class="flex items-center justify-between">
             <nuxt-link to="/">
-                <img :class="[{ 'w-10': scroll }, { 'w-12': !scroll }]"
+                <img :class="[{ 'w-10': scroll }, { 'w-14': !scroll }]"
                     class="shadow-show bg-white opacity-100 rounded-full" :src="require('@/static/icon.png')"
                     alt="Bee Concrete Desing">
             </nuxt-link>

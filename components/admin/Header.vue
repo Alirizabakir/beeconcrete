@@ -1,5 +1,8 @@
 <template>
-  <div class="header w-28 fixed top-0 h-screen flex flex-col items-center justify-center">
+  <div class="header w-28 z-50 fixed top-0 h-screen flex flex-col items-center justify-center">
+    <div @click="newProduct = !newProduct" class="cursor-pointer">
+      <PlusSvg class="w-8" />
+    </div>
     <nuxt-link class="border-r-4 border-blue" to="/admin/home">
       <HomeSvg class="w-8" />
     </nuxt-link>
@@ -18,6 +21,7 @@
     <nuxt-link to="/admin/home/user">
       <UserSvg class="w-8" />
     </nuxt-link>
+    <UpdateForm @close='a => newProduct = a' v-if="newProduct" :post='null' />
   </div>
 </template>
 
@@ -29,6 +33,8 @@ import ContactSvg from "@/components/icon/ContactSvg";
 import PhoneSvg from "@/components/icon/PhoneSvg";
 import UserSvg from "@/components/icon/UserSvg";
 import PlusSvg from "@/components/icon/PlusSvg";
+import UpdateForm from '@/components/admin/UpdateForm'
+
 
 export default {
   components: {
@@ -39,10 +45,12 @@ export default {
     DataSvg,
     UserSvg,
     PlusSvg,
+    UpdateForm,
   },
   data() {
     return {
       header: "",
+      newProduct: false,
     };
   },
   // created() {
@@ -60,9 +68,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .header {
-  a {
+
+  a,
+  div {
     padding: .5rem 1rem;
     margin: .5rem 0;
+
     svg {
       fill: rgb(65, 65, 65);
     }

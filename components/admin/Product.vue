@@ -1,12 +1,12 @@
 <template>
-  <div class="py-10">
-    <h2 class="sm:text-4xl text-3xl text-gray-dark text-center">
+  <div class="py-5">
+    <h2 class="sm:text-2xl text-gray-dark text-center">
       <slot></slot>
     </h2>
-    <div class="product-list grid gap-4 grid-cols-4 mt-12 px-10">
+    <div class="product-list grid gap-4 grid-cols-5 mt-6 px-10">
       <div class="product" v-for="(item, index) in getProducts" :key="index">
         <div class="name">{{ item.name }} <span class="text-sm" v-show="size && index != 'normal'"
-            v-for="(size, index) in item.sizeType" :key="index">{{ index }}</span></div>
+            v-for="(size, index) in item.sizeType" :key="index">({{ index }})</span></div>
         <img @mouseenter="enter(item._id)" class="h-full" :src="'../../small/' + item.src" alt="" />
         <div :class="{ active: isActive == item._id }" @mouseleave="leave"
           class="settings w-full h-full flex items-center justify-around">
@@ -97,11 +97,10 @@ export default {
   .product {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.563);
     border-radius: 5px;
-
     position: relative;
-
+    overflow: hidden;
     .name {
-      padding: 0.5rem 1rem;
+      padding: 0.3rem .5rem;
       position: absolute;
       top: 0;
       color: #183a0d;
@@ -110,6 +109,7 @@ export default {
       letter-spacing: 1px;
       background-color: #ffffff96;
       width: 100%;
+      font-weight: bold;
     }
 
 
@@ -125,14 +125,19 @@ export default {
 
       span {
         transition: all 0.3s;
-        width: 50px;
-        height: 50px;
+        width: 35px;
+        height: 35px;
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgba(83, 119, 173, 0.7);
+        }
 
         svg {
-          width: 30px;
-          height: 30px;
+          width: 20px;
+          height: 20px;
           fill: #183a0d;
         }
       }
