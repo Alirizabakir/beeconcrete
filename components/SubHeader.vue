@@ -2,11 +2,11 @@
     <div class="w-full bg-gray-dark h-8">
         <Container class="flex justify-between h-full items-center sm:px-2">
             <div class="flex">
-                <a class="text-white flex" href="tel:+905337274649">
+                <a class="text-white flex items-center justify-center" href="tel:+905337274649">
                     <PhoneSvg class="w-3 mr-1" />
                     <span>+90 533 727 46 49</span>
                 </a>
-                <a class="text-white ml-2 opacity-0 sm:opacity-100" href="mailto:beeconcrete@info.com.tr">
+                <a class="text-white items-center justify-center ml-2 hidden sm:flex" href="mailto:beeconcrete@info.com.tr">
                     <PhoneSvg class="w-3 mr-1" />
                     <span >beeconcrete@info.com.tr</span>
                 </a>

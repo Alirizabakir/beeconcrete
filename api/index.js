@@ -205,7 +205,6 @@ app.get('/', (req, res) => {
     cart.forEach(item => {
         bagTotalPrice += item.totalPrice
     });
-
     Products.find({}, (err, products) => {
         Sliders.find({}, (err, sliders) => {
             Abouts.find({}, (err, about) => {
@@ -235,7 +234,7 @@ app.get('/', (req, res) => {
     })
 })
 app.post('/add-to-cart', (req, res) => {
-    
+
     let product = req.body.product
 
     let cart = []
@@ -366,34 +365,34 @@ app.post('/empty-cart', (req, res) => {
 app.post('/new-product', (req, res) => {
 
     let product = req.body.product
-    let imgName = product.name.split(' ').join('_') + '.jpg'
-    let img = req.body.product.file
-    let data = img.replace(/^data:image\/\w+;base64,/, "");
-    let buf = Buffer.from(data, 'base64');
-    let resizeAdrees = 'static/resize/' + imgName
-    let smallAdrees = 'static/small/' + imgName
-    let sizeAdrees = 'static/size/' + imgName
+    let src = product.name.toLowerCase().split(' ').join('_') + '.jpg'
+    let img0 = req.body.product.file0
+    let img1 = req.body.product.file1
+    let img2 = req.body.product.file2
+    let data0 = img0.replace(/^data:image\/\w+;base64,/, "");
+    let data1 = img1.replace(/^data:image\/\w+;base64,/, "");
+    let data2 = img2.replace(/^data:image\/\w+;base64,/, "");
+    let buf0 = Buffer.from(data0, 'base64');
+    let buf1 = Buffer.from(data1, 'base64');
+    let buf2 = Buffer.from(data2, 'base64');
+    let resizeAdrees = 'static/resize/' + src
+    let smallAdrees = 'static/small/' + src
+    let sizeAdrees = 'static/size/' + src
 
     const productAdd = new Products({
         name: product.name,
-        src: imgName,
+        src: src,
         sizeType: {
             xsmall: product.sizeType.xsmall,
             small: product.sizeType.small,
             normal: product.sizeType.normal,
             large: product.sizeType.large,
-            xLarge: product.sizeType.xLarge,
+            xlarge: product.sizeType.xlarge,
         },
         sizes: {
             width: product.sizes.width,
-            widthtop: product.sizes.widthtop,
-            widthunder: product.sizes.widthunder,
             height: product.sizes.height,
-            heighttop: product.sizes.heighttop,
-            heightunder: product.sizes.heightunder,
             depth: product.sizes.depth,
-            depthtop: product.sizes.depthtop,
-            depthunder: product.sizes.depthunder,
             diameter: product.sizes.diameter,
             weight: product.sizes.weight,
         },
@@ -410,24 +409,24 @@ app.post('/new-product', (req, res) => {
         },
         rub: {
             smooth: product.rub.smooth,
-            rough: product.rub.darkGroughray,
+            rough: product.rub.rough,
             roughter: product.rub.roughter,
         },
     })
     // Image Upload
 
     async function upImg() {
-        const upOne = await fs.writeFile(resizeAdrees, buf, (err) => {
+        const upOne = await fs.writeFile(resizeAdrees, buf0, (err) => {
             if (err) {
                 console.log(err);
             }
         });
-        const upTwo = await fs.writeFile(smallAdrees, buf, (err) => {
+        const upTwo = await fs.writeFile(smallAdrees, buf1, (err) => {
             if (err) {
                 console.log(err);
             }
         });
-        const upThree = await fs.writeFile(sizeAdrees, buf, (err) => {
+        const upThree = await fs.writeFile(sizeAdrees, buf2, (err) => {
             if (err) {
                 console.log(err);
             }
@@ -449,27 +448,64 @@ app.post('/new-product', (req, res) => {
 app.post('/update-product', (req, res) => {
     const product = req.body.product
     const id = product._id
+    let src = product.name.toLowerCase().split(' ').join('_') + '.jpg'
+    let img0 = req.body.product.file0
+    let img1 = req.body.product.file1
+    let img2 = req.body.product.file2
+    if (img0 != null) {
+        let data0 = img0.replace(/^data:image\/\w+;base64,/, "");
+        let data1 = img1.replace(/^data:image\/\w+;base64,/, "");
+        let data2 = img2.replace(/^data:image\/\w+;base64,/, "");
+        let buf0 = Buffer.from(data0, 'base64');
+        let buf1 = Buffer.from(data1, 'base64');
+        let buf2 = Buffer.from(data2, 'base64');
+        let resizeAdrees = 'static/resize/' + src
+        let smallAdrees = 'static/small/' + src
+        let sizeAdrees = 'static/size/' + src
+
+        async function upImg() {
+            const upOne = await fs.writeFile(resizeAdrees, buf0, (err) => {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            const upTwo = await fs.writeFile(smallAdrees, buf1, (err) => {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            const upThree = await fs.writeFile(sizeAdrees, buf2, (err) => {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+        upImg()
+    }
+
     Products.findOneAndUpdate({ _id: id },
         {
             $set: {
                 name: product.name,
-                src: product.src,
+                src: src,
+                sizeType: {
+                    xsmall: product.sizeType.xsmall,
+                    small: product.sizeType.small,
+                    normal: product.sizeType.normal,
+                    large: product.sizeType.large,
+                    xlarge: product.sizeType.xlarge,
+                },
                 sizes: {
                     width: product.sizes.width,
-                    widthtop: product.sizes.widthtop,
-                    widthunder: product.sizes.widthunder,
                     height: product.sizes.height,
-                    heighttop: product.sizes.heighttop,
-                    heightunder: product.sizes.heightunder,
                     depth: product.sizes.depth,
-                    depthtop: product.sizes.depthtop,
-                    depthunder: product.sizes.depthunder,
                     diameter: product.sizes.diameter,
                     weight: product.sizes.weight,
                 },
                 newPrice: product.newPrice,
                 oldPrice: product.oldPrice,
                 stock: product.stock,
+                objectType: product.objectType,
                 collectionName: product.collectionName,
                 fav: product.fav,
                 color: {
@@ -479,7 +515,7 @@ app.post('/update-product', (req, res) => {
                 },
                 rub: {
                     smooth: product.rub.smooth,
-                    rough: product.rub.darkGroughray,
+                    rough: product.rub.rough,
                     roughter: product.rub.roughter,
                 },
             }
@@ -1771,6 +1807,7 @@ app.post('/lang', (req, res) => {
         lang: req.session.lang
     })
 })
+
 module.exports = {
     path: '/api',
     handler: app

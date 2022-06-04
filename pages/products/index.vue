@@ -1,6 +1,6 @@
 <template>
-    <Container class="flex items-start justify-start">
-        <div class="flex-1">
+    <Container class="cont">
+        <div>
             <div v-for="(lang, index) in  getLang.collectionList" :key="index">
                 <Show v-for="(subList, index) in  lang.subList" :key="index" :proPage='"true"' :id="subList.link"
                     :products="subList.link">
@@ -12,7 +12,7 @@
             </a>
         </div>
         <ProductsList />
-        <Popup/>
+        <Popup />
     </Container>
 </template>
 
@@ -56,11 +56,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.flex {
-    .up {
-        svg {
-            fill: white;
-        }
+.cont {
+    display: block;
+}
+@media screen and (min-width: 1024px) {
+    .cont {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        grid-template-rows: 1fr;
+        grid-column-gap: 1rem;
+        grid-row-gap: 0px;
     }
 }
 </style>

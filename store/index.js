@@ -125,18 +125,33 @@ export const state = () => ({
                 title: 'Covering',
                 link: 'covering',
                 subList: [
+                    {
+                        title: 'Covering Collection',
+                        text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                        link: 'covering'
+                    }
                 ]
             },
             {
                 title: 'Oven',
                 link: 'oven',
                 subList: [
+                    {
+                        title: 'Oven Collection',
+                        text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                        link: 'oven'
+                    }
                 ]
             },
             {
                 title: 'Fiber',
                 link: 'fiber',
                 subList: [
+                    {
+                        title: 'Fiber Collection',
+                        text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                        link: 'fiber'
+                    }
                 ]
             }
         ],

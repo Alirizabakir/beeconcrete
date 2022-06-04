@@ -1,14 +1,12 @@
 <template>
     <div>
-        <Container>
-            <div v-for="(lang, index) in  getLang.collectionList" :key="index">
-            <Product v-for="(subList, index) in  lang.subList" :key="index"
-                :products="subList.link" @updateProduct='update'>
+        <div v-for="(lang, index) in  getLang.collectionList" :key="index">
+            <Product v-for="(subList, index) in  lang.subList" :key="index" :products="subList.link"
+                @updateProduct='update'>
                 {{ subList.title }}
             </Product>
         </div>
-        </Container>
-        <UpdateForm @close='a => this.updatePost = a' v-if="updatePost" :post='updatePost'/>
+        <UpdateForm @close='a => this.updatePost = a' v-if="updatePost" :post='updatePost' />
     </div>
 </template>
 
@@ -32,9 +30,9 @@ export default {
         },
     },
     methods: {
-        update(a){
+        update(a) {
             this.updatePost = a
-        }
+        },
     },
 }
 </script>

@@ -1,7 +1,9 @@
 <template>
   <div class="flex">
-    <Header/>
-    <nuxt-child />
+    <Header />
+    <Container>
+      <nuxt-child />
+    </Container>
   </div>
 </template>
 <script>
@@ -38,13 +40,11 @@ export default {
   //   }
   // },
   methods: {
-   
-   
+
+
   },
 };
 </script>
 <style lang="scss" scoped>
-.content {
-  
-}
+.content {}
 </style>

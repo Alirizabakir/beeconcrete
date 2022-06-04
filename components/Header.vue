@@ -6,7 +6,7 @@
                     class="shadow-show bg-white opacity-100 rounded-full" :src="require('@/static/icon.png')"
                     alt="Bee Concrete Desing">
             </nuxt-link>
-            <div :class="[{ hamburger: hamburger }, { 'top-20': !scroll }, { 'top-24': scroll }]"
+            <div :class="[{ hamburger: hamburger }, { 'top-20': !scroll }, { 'top-16': scroll }]"
                 class="header-main lg:w-auto lg:static lg:flex-row lg:h-auto flex flex-col items-center bg-white lg:bg-opacity-0 h-screen w-full z-10 absolute">
                 <div class="ham w-full lg:hidden flex items-center justify-end">
                     <div @click="hamburger = true" class="bur flex w-8 h-8 absolute open"><img

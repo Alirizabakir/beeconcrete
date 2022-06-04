@@ -1,5 +1,5 @@
 <template>
-    <div class="show pt-20">
+    <div class="show w-full pt-20">
         <div>
             <h2 :class="[{ 'text-center': products != 'getFavorites' }, { 'border-b border-gray text-left pb-2': products == 'getFavorites' }]"
                 class="sm:text-4xl text-3xl text-gray-dark ">

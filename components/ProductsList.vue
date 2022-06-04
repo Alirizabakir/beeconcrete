@@ -1,15 +1,17 @@
 <template>
-    <div :class="[{ hamburger: hamburger }, { top: scroll }, { 'top-28': !scroll }]"
-        class="w-56 h-full bg-gray lg:mt-20 lg:ml-4 menu">
-        <div class="ham cursor-pointer relative lg:hidden" href="#">
-            <div @click="hamburger = !hamburger" class="bur absolute -left-10"><img class="w-8 rounded-md p-1 bg-blue"
-                    src="hamburgerwhite.png" alt=""></div>
+    <div :class="[{ '-right-2/3': !hamburger }, { 'right-0': hamburger }, { 'lg:top-12 top-16 active-h': scroll }, { 'top-28 disable-h': !scroll }]"
+        class="list-box w-2/3 lg:w-full bg-blue lg:sticky fixed z-10">
+        <div class="cursor-pointer relative lg:hidden" href="#">
+            <div @click="hamburger = !hamburger" class="bur -left-11 absolute z-20"><img
+                    class="w-8 rounded-md p-1 bg-blue" src="hamburgerwhite.png" alt=""></div>
         </div>
-        <div v-for="(item, index) in getLang.collectionList" :key="index" class="main list-box">
-            <span class="cursor-pointer main-list" href="#">{{ item.title }}</span>
-            <div class="sub flex flex-col">
-                <a v-for="(subItem, indexSub) in item.subList" :key="indexSub" @click="hamburger = false"
-                    class="sub-list" :href="'#' + subItem.link">{{ subItem.title }}</a>
+        <div class="list bg-blue overflow-y-scroll lg:overflow-visible">
+            <div v-for="(item, index) in getLang.collectionList" :key="index">
+                <div class="main-list cursor-pointer" href="#">{{ item.title }}</div>
+                <div class="flex flex-col">
+                    <a v-for="(subItem, indexSub) in item.subList" :key="indexSub" @click="hamburger = false"
+                        class="sub-list" :href="'#' + subItem.link">{{ subItem.title }}</a>
+                </div>
             </div>
         </div>
     </div>
@@ -51,24 +53,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.menu {
-    position: fixed;
-    z-index: 10;
-    left: 100%;
+.list-box {}
+
+.active-h {
+    height: calc(100vh - 4rem);
 }
 
-.top {
-    top: 6rem;
-}
-
-.hamburger {
-    left: 50%;
-}
-
-@media screen and (min-width: 1024px) {
-    .menu {
-        position: sticky;
-        top: 80px;
-    }
+.disable-h {
+    height: calc(100vh - 7rem);
 }
 </style>

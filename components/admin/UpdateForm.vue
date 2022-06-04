@@ -83,8 +83,23 @@
               </div>
             </li>
           </ul>
-          <SimpleUpload :imgInvalid="imgInvalid" :src="post ? post.src : 'default.jpg'"
-            @file="(a) => (product.file = a)" class="h-56 w-56 m-auto" />
+          <div class="grid grid-cols-3 gap-2">
+            <div>
+              <h3>File 0</h3>
+              <SimpleUpload :imgInvalid="imgInvalid" :src="post ? post.src : 'default.jpg'"
+                @file="(a) => (product.file0 = a)" class="w-full" />
+            </div>
+            <div>
+              <h3>File 1</h3>
+              <SimpleUpload2 :imgInvalid="imgInvalid" :src="post ? post.src : 'default.jpg'"
+                @file="(a) => (product.file1 = a)" class="w-full" />
+            </div>
+            <div>
+              <h3>File 2</h3>
+              <SimpleUpload3 :imgInvalid="imgInvalid" :src="post ? post.src : 'default.jpg'"
+                @file="(a) => (product.file2 = a)" class="w-full" />
+            </div>
+          </div>
         </div>
       </div>
       <div class="button-box flex justify-center">
@@ -100,23 +115,33 @@
 <script>
 import CheckSvg from "@/components/icon/CheckSvg.vue";
 import SimpleUpload from "@/components/admin/SimpleUpload.vue";
+import SimpleUpload2 from "@/components/admin/SimpleUpload2.vue";
+import SimpleUpload3 from "@/components/admin/SimpleUpload3.vue";
 export default {
   components: {
     CheckSvg,
-    SimpleUpload
+    SimpleUpload,
+    SimpleUpload2,
+    SimpleUpload3
   },
   props: ['post'],
   created() {
+    console.log(this.post.sizeType);
+
     if (this.post != null) {
       this.product = {
         ...this.post,
-        file: null,
+        file0: null,
+        file1: null,
+        file2: null,
         sizes: { ...this.post.sizes },
         color: { ...this.post.color },
-        rub: { ...this.post.rub },
+        rub: { rough: true, ...this.post.rub },
         sizeType: { ...this.post.sizeType },
       }
     }
+
+    console.log(this.product.sizeType);
     // Header Change
     this.isMethods = this.post ? false : true;
   },
@@ -127,10 +152,12 @@ export default {
       imgInvalid: false,
       isMethods: false,
       page: "info",
-      objectType: ['pot', 'furniture', 'covering', 'oven', 'fiber'],
-      collectionName: ['bee', 'honeycomb', 'hive', 'cube','queen', 'vase', 'long', 'small series', 'column', 'table', 'seat', 'ball', 'covering', 'oven', 'fiber'],
+      objectType: ['pot', 'furniture', 'covering', 'oven', 'fiber', 'plate'],
+      collectionName: ['bee', 'honeycomb', 'hive', 'cube', 'queen', 'vase', 'long', 'small series', 'column', 'table', 'seat', 'ball', 'covering', 'oven', 'fiber'],
       product: {
-        file: null,
+        file0: null,
+        file1: null,
+        file2: null,
         name: null,
         collectionName: null,
         color: {
@@ -166,6 +193,7 @@ export default {
           this.collectionInvalid = false;
           if (this.product.file != "") {
             this.$store.dispatch("newProduct", { ...this.product });
+            console.log(this.product);
             this.$emit("close", false);
             this.imgInvalid = false;
           } else {

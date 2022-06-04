@@ -13,34 +13,16 @@ const productsSchema = new Schema({
         small: Boolean,
         normal: Boolean,
         large: Boolean,
-        xLarge: Boolean
+        xlarge: Boolean
     },
     sizes: {
         width: {
             type: Number,
         },
-        widthtop: {
-            type: Number,
-        },
-        widthunder: {
-            type: Number,
-        },
         height: {
             type: Number,
         },
-        heighttop: {
-            type: Number,
-        },
-        heightunder: {
-            type: Number,
-        },
         depth: {
-            type: Number,
-        },
-        depthtop: {
-            type: Number,
-        },
-        depthunder: {
             type: Number,
         },
         diameter: {
