@@ -1,6 +1,6 @@
 <template>
-    <div :class="[{ '-right-2/3': !hamburger }, { 'right-0': hamburger }, { 'lg:top-12 top-16 active-h': scroll }, { 'top-28 disable-h': !scroll }]"
-        class="list-box w-2/3 lg:w-full bg-blue lg:sticky fixed z-10">
+    <div :class="[{ '-right-2/3': !hamburger }, { 'right-0': hamburger }, { 'lg:top-12 top-16 active-h': scroll }, { 'top-30 disable-h': !scroll }]"
+        class="list-box w-2/3 lg:w-full bg-gray-dark lg:sticky fixed z-10">
         <div class="cursor-pointer relative lg:hidden" href="#">
             <div @click="hamburger = !hamburger" class="bur -left-11 absolute z-20"><img
                     class="w-8 rounded-md p-1 bg-blue" src="hamburgerwhite.png" alt=""></div>

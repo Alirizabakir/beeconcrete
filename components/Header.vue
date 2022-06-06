@@ -1,5 +1,5 @@
 <template>
-    <div :class="[{ 'bg h-12': scroll }, { 'h-20': !scroll }]" class="fixed z-50 top-8  header w-full">
+    <div :class="[{ 'bg h-12': scroll }, { 'h-20': !scroll }]" class="fixed z-50 top-10  header w-full">
         <Container :class="[{ 'h-12': scroll }, { 'h-20': !scroll }]" class="flex items-center justify-between">
             <nuxt-link to="/">
                 <img :class="[{ 'w-10': scroll }, { 'w-14': !scroll }]"
@@ -96,7 +96,9 @@ export default {
             window.removeEventListener('scroll', this.handleScroll);
         }
     },
-
+    mounted() {
+        this.handleScroll()
+    },
 }
 </script>
 
@@ -149,7 +151,7 @@ export default {
     // background-repeat: no-repeat;
     // background-color: #F7F7F7 !important;
     background: rgb(255, 255, 255);
-    background: linear-gradient(180deg, rgba(255, 255, 255, .9) 39%, rgba(247, 247, 247, 0) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .9) 100%, rgba(247, 247, 247, 0) 100%);
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
     top: 0;
 

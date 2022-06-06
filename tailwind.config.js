@@ -27,6 +27,7 @@ module.exports = {
     },
     extend: {
       spacing: {
+        '30': '7.5rem',
         '128': '32rem',
         '144': '36rem',
       },
@@ -43,7 +44,7 @@ module.exports = {
       },
       borderRadius: {
         '4xl': '2rem',
-      }
+      },
     },
     content: [
       './pages/**/*.vue',

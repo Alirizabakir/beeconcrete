@@ -31,6 +31,9 @@ const productsSchema = new Schema({
         weight: {
             type: Number,
         },
+        volume: {
+            type: Number,
+        },
     },
     newPrice: {
         type: Number,

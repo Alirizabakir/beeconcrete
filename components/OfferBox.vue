@@ -1,0 +1,104 @@
+<template>
+    <div class="offer-box fixed inset-0 bg-gray bg-opacity-25 z-50 flex items-center justify-center">
+        <div class="offer lg:w-1/2 w-full h-screen/8 flex bg-gray-100 p-6 rounded-sm shadow-show">
+            <div class="flex-1 p-2">
+                <div class="flex flex-col mb-3">
+                    <label for="name">
+                        {{ getLang.global.name }}
+                    </label>
+                    <input class="px-2 py-1 border border-gray-light rounded-sm" id="name" type="text">
+                </div>
+                <div class="flex flex-col mb-3">
+                    <label for="email">
+                        Email
+                    </label>
+                    <input class="px-2 py-1 border border-gray-light rounded-sm" id="email" type="email">
+                </div>
+                <div class="flex flex-col mb-3">
+                    <label for="phone">
+                        {{ getLang.global.phone }}
+                    </label>
+                    <input class="px-2 py-1 border border-gray-light rounded-sm" id="name" type="tel">
+                </div>
+                <div class="flex flex-col mb-3">
+                    <label for="offer">
+                        {{ getLang.global.yourOffer }}
+                    </label>
+                    <input class="px-2 py-1 border border-gray-light rounded-sm" id="offer" type="number">
+                </div>
+                <div class="flex flex-col mb-6">
+                    <label for="message">
+                        {{ getLang.global.message }}
+                    </label>
+                    <textarea class="px-2 py-1 border h-30 border-gray-light rounded-sm" name="message" id="message"
+                        style="resize: none;" :placeholder="getLang.global.message">
+                    </textarea>
+                </div>
+                <div class="flex">
+                    <button class="p-2 flex-1 mr-1 text-white bg-blue">{{ getLang.button.getOffer }}</button>
+                    <button @click="cancel" class="p-2 flex-1 ml-1 text-white bg-red">{{ getLang.button.cancel }}</button>
+                </div>
+            </div>
+            <div class="offer-info-box w-1/2 flex flex-col p-2">
+                <p class="text-lg text-left mb-2 border-b border-gray">{{ getLang.global.selectedProducts }}</p>
+                <div class="info overflow-y-scroll max-h-full mr-4">
+                    <div class="selected flex justify-between px-2" v-for="(item, index) in getFav" :key="index">
+                        <p>{{ item.name }}</p>
+                        <p>{{ item.newPrice }} TL</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between mt-4 p-2 border-t border-gray">
+                    <p>Total Price</p>
+                    <p class="text-lg font-bold">{{ getFavTotal }} TL</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+        }
+    },
+    computed: {
+        getFavTotal() {
+           return this.$store.getters.getFavTotalPrice
+        },
+        getFav() {
+            return this.$store.getters.getFavorites
+        },
+        getLang() {
+            return this.$store.getters.getLang
+        }
+    },
+    methods: {
+        cancel(){
+            this.$emit('close', false)
+        }
+    },
+}
+</script>
+
+<style lang="scss" scoped>
+.offer-box {
+
+    .offer {
+        .offer-info-box {
+            .info {
+                &::-webkit-scrollbar {
+                    width: 3px;
+                    height: 3px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: #565656;
+                }
+
+
+            }
+        }
+    }
+}
+</style>

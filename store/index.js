@@ -5,6 +5,7 @@ export const state = () => ({
     // Popup
     favPopup: false,
     popup: false,
+    emptyFav: false,
     // Admin
     loading: false,
     products: [],
@@ -18,6 +19,7 @@ export const state = () => ({
     bigProduct: null,
     cart: null,
     totalPrice: 0.0,
+    favTotalPrice: 0.0,
     changeHeader: 'All Products',
     authKey: null,
     user: null,
@@ -170,6 +172,8 @@ export const state = () => ({
             signOut: 'Sign Out',
             delAccount: 'Delete Account',
             ok: 'OK',
+            getOffer: 'Get Offer'
+
         },
         title: {
             fav: 'Favorite Products',
@@ -251,17 +255,6 @@ export const state = () => ({
             Please try again or contact us at the phone number on the contact page for support. We wish you well.',
                 redirect: 'You are being redirected to the My Cart page. Click here to not wait.'
             },
-            aboutUs: {
-                header: 'BEE CONCRETE DESING',
-                titleOne: "Bee Concrete Design, beton saksılardan beton kaplama\
-                 bileşenlerine kadar beton tasarımları ve ilgili ürünleri geliştiren ve satan Türk kökenli yeni bir markadır.",
-                titleTwo: "Şirketin genel merkezi, showroomu ve deposu Türkiye Kahramanmaraş'ta bulunmaktadır.\
-                2012 yılındaki kuruluşumuzdan bu yana, tasarımın herkes için erişilebilir \
-                olması gerektiği inancına dayanan geniş bir ürün yelpazesini hedefliyoruz. \
-                Bu yüzden her zaman tasarım, kalite ve fiyat arasındaki mükemmel dengeyi arıyoruz.\
-                Her Arı Beton ürünü, sade ama zarif bir bakış açısıyla tasarlanmıştır.\
-                Sıkıcı olduğunu düşünmeden temel formlara ve şekillere inanıyoruz."
-            }
         },
         inputData: [
             {
@@ -501,11 +494,33 @@ export const state = () => ({
             total: 'Total',
             cargo: 'Cargo',
             addressInfo: 'Address Information',
+            selectedProducts: 'Selected Products',
+            yourOffer: 'Your Offer'
+        },
+        aboutUs: {
+            header: 'BEE CONCRETE DESING',
+            titleOne: "Bee Concrete Design is a new brand with Turkish root,\
+            developing and selling concrete designes and related products,\
+            from concrete pots to concrete covering components.",
+            titleTwo: "The company has its headquarter, showroom and warehouse in Kahramanmaraş,\
+            the Turkey. Since our foundation in 2012, we aim for an extensive assortment that is\
+            based on the belief that design should be available for everyone.\
+            That is why we are always looking for the perfect balance between design,\
+            quality and price. Every Bee Concrete product is designed from a simple but\
+            elegant perspective. We believe in basic forms and shapes, without thinking of it as boring."
         },
         popup: {
             addCart: 'Product added to cart !',
             addFav: 'Product added to favorites !',
-            goodShopping: 'Good shopping !'
+            goodShopping: 'Good shopping !',
+            emptyFav: 'Add a product first !'
+        },
+        userList: {
+            myProfile: 'My Profile',
+            myOrders: 'My Orders',
+            addresInfo: 'Address Information',
+            myFavorites: 'My Favorites',
+            myOffers: 'My Offers'
         }
     },
 });
@@ -517,6 +532,8 @@ export const mutations = {
             state.popup = popup.status
         } else if (popup.type == 'addFav') {
             state.favPopup = popup.status
+        } else if (popup.type = 'empty') {
+            state.emptyFav = popup.status
         }
     },
     setLoading(state, loading) {
@@ -532,6 +549,9 @@ export const mutations = {
     // Set FavItem
     setFavItem(state, favItem) {
         state.favItem = favItem
+    },
+    setFavTotalPrice(state, totalPrice) {
+        state.favTotalPrice = totalPrice
     },
     // Set About
     setAbout(state, about) {
@@ -774,16 +794,32 @@ export const actions = {
         vuexContext.commit('setBigProduct', product)
     },
     // FavItem Methods
-    favItem(vuexContext, product) {
-        this.$axios.post('/favItem', { product: product })
+    liked(vuexContext, product) {
+        this.$axios.post('/liked', { product: product })
             .then(response => {
                 vuexContext.commit("setFavItem", response.data.favItem.items)
+                vuexContext.commit("setFavTotalPrice", response.data.favItem.favTotalPrice)
+                console.log(response.data.favItem.favTotalPrice);
                 if (product.status) {
                     vuexContext.commit('setPopup', { type: 'addFav', status: true })
                     setTimeout(() => {
                         vuexContext.commit('setPopup', { type: 'addFav', status: false })
                     }, 2000);
                 }
+            })
+    },
+    changeLikedCount(vuexContext, product) {
+        this.$axios.post('/change-liked-count', { product: product })
+            .then(response => {
+                vuexContext.commit("setFavItem", response.data.favItem.items)
+                vuexContext.commit("setFavTotalPrice", response.data.favItem.favTotalPrice)
+            })
+    },
+    unliked(vuexContext, product) {
+        this.$axios.post('/unliked', { product: product })
+            .then(response => {
+                vuexContext.commit("setFavItem", response.data.favItem.items)
+                vuexContext.commit("setFavTotalPrice", response.data.favItem.favTotalPrice)
             })
     },
     // User Methods
@@ -866,6 +902,10 @@ export const actions = {
 };
 
 export const getters = {
+    // Get emptyfavPopup
+    getEmptyFavPopup(state) {
+        return state.emptyFav
+    },
     // Get favPopup
     getFavPopup(state) {
         return state.favPopup
@@ -885,6 +925,9 @@ export const getters = {
     // Get FavItem
     getFavorites(state) {
         return state.favItem
+    },
+    getFavTotalPrice(state) {
+        return state.favTotalPrice
     },
     // Get About 
     getAbout(state) {

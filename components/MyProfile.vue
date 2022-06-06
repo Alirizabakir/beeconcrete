@@ -1,6 +1,6 @@
 <template>
-    <div class="user flex flex-col items-start mt-8">
-        <div class="flex md:w-1/2 w-full items-center justify-center" v-for="(item, index) in getLang.inputData" :key="index">
+    <div class="user flex-1 flex flex-col items-start mt-8 px-4">
+        <div class="flex w-full items-center justify-center" v-for="(item, index) in getLang.inputData" :key="index">
             <div :class="input.id + '-box'" class="flex w-full flex-col px-1 my-4"
                 v-for="(input, inpex) in item.input" :key="inpex">
                 <label :for="input.id">{{ getLang.global[input.id] }}*</label>
@@ -16,11 +16,11 @@
                     :id="input.id" style="resize: none;" :placeholder="input.placeholder + '..'"></textarea>
             </div>
         </div>
-        <div class="button-box w-full lg:w-1/2 flex justify-around">
-            <button @click="updateUser" class="button update px-4 py-2 bg-blue rounded-sm text-white font-bold"> {{
+        <div class="button-box w-full flex">
+            <button @click="updateUser" class="button flex-1 update px-4 py-2 mr-1 bg-blue rounded-sm text-white font-bold"> {{
                     getLang.button.update
             }}</button>
-            <button @click="deleteUser" class="button delete px-4 py-2 bg-pink rounded-sm text-white font-bold">
+            <button @click="deleteUser" class="button flex-1 delete px-4 py-2 ml-1 bg-pink rounded-sm text-white font-bold">
                 {{ getLang.button.delAccount }}
             </button>
         </div>

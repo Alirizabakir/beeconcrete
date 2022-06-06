@@ -126,7 +126,7 @@ export default {
   },
   props: ['post'],
   created() {
-    console.log(this.post.sizeType);
+    console.log(this.post.sizes);
 
     if (this.post != null) {
       this.product = {
@@ -141,7 +141,7 @@ export default {
       }
     }
 
-    console.log(this.product.sizeType);
+    console.log(this.product.sizes);
     // Header Change
     this.isMethods = this.post ? false : true;
   },
@@ -171,6 +171,7 @@ export default {
           height: 0,
           weight: 0,
           width: 0,
+          volume: 0,
         },
         fav: 0,
         newPrice: '0',

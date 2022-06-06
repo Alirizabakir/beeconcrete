@@ -3,8 +3,10 @@
         <div>
             <div v-for="(lang, index) in  getLang.collectionList" :key="index">
                 <Show v-for="(subList, index) in  lang.subList" :key="index" :proPage='"true"' :id="subList.link"
-                    :products="subList.link">
-                    {{ subList.title }}
+                    :products="getProducts(subList.link)">
+                    <h2 class="border-b border-gray text-left pb-2 sm:text-4xl text-3xl text-gray-dark">
+                        {{ subList.title }}
+                    </h2>
                 </Show>
             </div>
             <a v-show="scroll" href="#bee" class="up fixed bottom-10 right-10 bg-blue rounded-sm">
@@ -31,6 +33,7 @@ export default {
         getLang() {
             return this.$store.getters.getLang
         },
+
     },
     methods: {
         handleScroll() {
@@ -39,6 +42,15 @@ export default {
             } else {
                 this.scroll = false
             }
+        },
+        getProducts(link) {
+            let products = []
+            this.$store.getters.getProducts.map(a => {
+                if (a.collectionName == link) {
+                    products.push(a)
+                }
+            })
+            return products
         }
     },
     created() {
@@ -58,7 +70,11 @@ export default {
 <style lang="scss" scoped>
 .cont {
     display: block;
+    svg {
+        fill: white;
+    }
 }
+
 @media screen and (min-width: 1024px) {
     .cont {
         display: grid;

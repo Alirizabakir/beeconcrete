@@ -18,6 +18,15 @@
             <button class="bg-red text-white px-2 py-1 rounded-sm" @click="close('addCart')">{{ getLang.button.ok
             }}</button>
         </div>
+        <div :class="{ active: emptyPopup }"
+            class="popup border border-gray-light rounded-sm shadow-show flex flex-col justify-center items-center fixed z-50 bg-white p-4">
+            <div class="text-lg p-2 mb-2">
+                <p class="font-bold text-center">{{ getLang.popup.emptyFav }}</p>
+                <p class="text-center">{{ getLang.popup.goodShopping }}</p>
+            </div>
+            <button class="bg-red text-white px-2 py-1 rounded-sm" @click="close('addCart')">{{ getLang.button.ok
+            }}</button>
+        </div>
     </div>
 </template>
 
@@ -29,6 +38,9 @@ export default {
         },
         favPopup() {
             return this.$store.getters.getFavPopup
+        },
+        emptyPopup() {
+            return this.$store.getters.getEmptyFavPopup
         },
         getLang() {
             return this.$store.getters.getLang

@@ -395,6 +395,7 @@ app.post('/new-product', (req, res) => {
             depth: product.sizes.depth,
             diameter: product.sizes.diameter,
             weight: product.sizes.weight,
+            volume: product.sizes.volume,
         },
         newPrice: product.newPrice,
         oldPrice: product.oldPrice,
@@ -452,7 +453,7 @@ app.post('/update-product', (req, res) => {
     let img0 = req.body.product.file0
     let img1 = req.body.product.file1
     let img2 = req.body.product.file2
-    if (img0 != null) {
+    if (img0 != null && img1 != null && img2 != null) {
         let data0 = img0.replace(/^data:image\/\w+;base64,/, "");
         let data1 = img1.replace(/^data:image\/\w+;base64,/, "");
         let data2 = img2.replace(/^data:image\/\w+;base64,/, "");
@@ -501,6 +502,7 @@ app.post('/update-product', (req, res) => {
                     depth: product.sizes.depth,
                     diameter: product.sizes.diameter,
                     weight: product.sizes.weight,
+                    volume: product.sizes.volume,
                 },
                 newPrice: product.newPrice,
                 oldPrice: product.oldPrice,
@@ -767,91 +769,143 @@ app.post('/update-about', (req, res) => {
 
 })
 // FavItem
-app.post('/favItem', (req, res) => {
+app.post('/liked', (req, res) => {
 
     let product = req.body.product
-    let favItem = []
 
+    let cart = []
+
+    // req.session.title = 'BeeConcrete'
 
     if (req.session.favItem) {
-        favItem = req.session.favItem
+        cart = req.session.favItem
     }
 
-    if (product.status) {
-        if (favItem.length > 0) {
-            let itemIndex = favItem.findIndex(item => item._id == product._id)
+    if (cart.length > 0) {
+        let itemIndex = cart.findIndex(item => item._id == product._id)
 
-            if (itemIndex > -1) {
-                console.log('Push');
-            } else {
-                favItem.push({
-                    ...product,
-                })
-                Products.findOneAndUpdate({ _id: product._id },
-                    {
-                        $set: {
-                            fav: product.fav + 1,
-                        }
-                    },
-                    {
-                        new: true,
-                    },
-                    (err) => {
-                        if (err) {
-                            console.log(err);
-                        }
-
-                    })
-            }
+        if (itemIndex > -1) {
+            cart[itemIndex].count += product.count
+            cart[itemIndex].totalPrice = cart[itemIndex].count * cart[itemIndex].newPrice
+            console.log(cart[itemIndex]);
         } else {
-            favItem.push({
+            cart.push({
                 ...product,
+                totalPrice: product.count * product.newPrice
             })
-            Products.findOneAndUpdate({ _id: product._id },
-                {
-                    $set: {
-                        fav: product.fav + 1,
-                    }
-                },
-                {
-                    new: true,
-                },
-                (err) => {
-                    if (err) {
-                        console.log(err);
-                    }
-
-                })
         }
     } else {
-        if (favItem.length > 0) {
-            let itemIndex = favItem.findIndex(item => item._id == product._id)
-            if (itemIndex > -1) {
-                favItem.splice(itemIndex, 1)
-            }
-            Products.findOneAndUpdate({ _id: product._id },
-                {
-                    $set: {
-                        fav: product.fav - 1,
-                    }
-                },
-                {
-                    new: true,
-                },
-                (err) => {
-                    if (err) {
-                        console.log(err);
-                    }
-
-                })
-        }
+        cart.push({
+            ...product,
+            totalPrice: product.count * product.newPrice
+        })
     }
-    req.session.favItem = favItem
+    Products.findOneAndUpdate({ _id: product._id },
+        {
+            $set: {
+                fav: product.fav,
+            }
+        },
+        {
+            new: true,
+        },
+        (err) => {
+            if (err) {
+                console.log(err);
+            }
+
+        })
+    // bagTotalPrice
+    let favTotalPrice = 0
+    cart.forEach(item => {
+        favTotalPrice += item.totalPrice
+    });
+
+    req.session.favItem = cart
     res.status(200).json({
         favItem: {
-            items: favItem
+            items: req.session.favItem,
+            favTotalPrice: favTotalPrice
         }
     })
+})
+app.post('/change-liked-count', (req, res) => {
+    let product = req.body.product
+
+    let cart = []
+
+    // req.session.title = 'BeeConcrete'
+
+    if (req.session.favItem) {
+        cart = req.session.favItem
+    }
+
+    if (cart.length > 0) {
+        let itemIndex = cart.findIndex(item => item._id == product._id)
+
+        if (itemIndex > -1) {
+            cart[itemIndex].count = product.newCount
+            cart[itemIndex].totalPrice = cart[itemIndex].count * cart[itemIndex].newPrice
+        }
+    }
+
+    // bagTotalPrice
+    let favTotalPrice = 0
+    cart.forEach(item => {
+        favTotalPrice += item.totalPrice
+    });
+    req.session.favItem = cart
+
+    res.status(200).json({
+        favItem: {
+            items: req.session.favItem,
+            favTotalPrice: favTotalPrice
+        }
+    })
+})
+app.post('/unliked', (req, res) => {
+    let product = req.body.product
+    let cart = []
+
+    if (req.session.cart) {
+        cart = req.session.favItem
+    }
+
+    let productIndex = cart.findIndex(item => item._id == product._id)
+
+    if (productIndex > -1) {
+        cart.splice(productIndex, 1)
+        req.session.favItem = cart
+    }
+    Products.findOneAndUpdate({ _id: product._id },
+        {
+            $set: {
+                fav: product.fav,
+            }
+        },
+        {
+            new: true,
+        },
+        (err) => {
+            if (err) {
+                console.log(err);
+            }
+
+        })
+    // bagTotalPrice
+    let favTotalPrice = 0
+    cart.forEach(item => {
+        favTotalPrice += item.totalPrice
+    });
+    req.session.favItem = cart
+
+    res.status(200).json({
+        favItem: {
+            items: req.session.favItem,
+            favTotalPrice: favTotalPrice
+        }
+    })
+
 })
 // Lang
 app.post('/lang', (req, res) => {
@@ -958,17 +1012,35 @@ app.post('/lang', (req, res) => {
                 {
                     title: 'Kaplamalar',
                     link: 'covering',
-                    subList: []
+                    subList: [
+                        {
+                            title: 'Kaplamalar',
+                            text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                            link: 'covering'
+                        }
+                    ]
                 },
                 {
                     title: 'Fırınlar',
                     link: 'oven',
-                    subList: []
+                    subList: [
+                        {
+                            title: 'Fırınlar',
+                            text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                            link: 'oven'
+                        }
+                    ]
                 },
                 {
                     title: 'Fiber',
                     link: 'fiber',
-                    subList: []
+                    subList: [
+                        {
+                            title: 'Fiber Koleksiyonu',
+                            text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                            link: 'fiber'
+                        }
+                    ]
                 }
             ],
             button: {
@@ -985,7 +1057,9 @@ app.post('/lang', (req, res) => {
                 pay: 'ÖDEMEYİ TAMAMLA',
                 signOut: 'Oturumu Kapat',
                 delAccount: 'Hesabı Sil',
-                ok: 'TAMAM'
+                ok: 'TAMAM',
+                getOffer: 'Teklif Al'
+
             },
             title: {
                 fav: 'Favori Ürünler',
@@ -1306,7 +1380,9 @@ app.post('/lang', (req, res) => {
                 packaging: 'Paketleme',
                 total: 'Toplam',
                 cargo: 'Kargo',
-                addressInfo: 'Adres Bilgileri'
+                addressInfo: 'Adres Bilgileri',
+                selectedProducts: 'Seçili Ürünler',
+                yourOffer: 'Tekliniz ?'
             },
             aboutUs: {
                 header: 'BEE CONCRETE DESING',
@@ -1322,7 +1398,15 @@ app.post('/lang', (req, res) => {
             popup: {
                 addCart: 'Product added to cart !',
                 addFav: 'Product added to favorites !',
-                goodShopping: 'Good shopping !'
+                goodShopping: 'Good shopping !',
+                emptyFav: 'Önce bir ürün eklemelisiniz !'
+            },
+            userList: {
+                myProfile: 'Profilim',
+                myOrders: 'Siparişlerim',
+                addresInfo: 'Adres Bilgilerim',
+                myFavorites: 'Favorilerim',
+                myOffers: 'Tekliflerim'
             }
         },
         en: {
@@ -1427,18 +1511,33 @@ app.post('/lang', (req, res) => {
                     title: 'Covering',
                     link: 'covering',
                     subList: [
+                        {
+                            title: 'Covering',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'covering'
+                        }
                     ]
                 },
                 {
                     title: 'Oven',
                     link: 'oven',
                     subList: [
+                        {
+                            title: 'Oven',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'oven'
+                        }
                     ]
                 },
                 {
                     title: 'Fiber',
                     link: 'fiber',
                     subList: [
+                        {
+                            title: 'Fiber Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'fiber'
+                        }
                     ]
                 }
             ],
@@ -1456,7 +1555,9 @@ app.post('/lang', (req, res) => {
                 pay: 'PAY',
                 signOut: 'Sign Out',
                 delAccount: 'Delete Account',
-                ok: 'OK'
+                ok: 'OK',
+                getOffer: 'Get Offer'
+
             },
             title: {
                 fav: 'Favorite Products',
@@ -1777,7 +1878,9 @@ app.post('/lang', (req, res) => {
                 packaging: 'Packaging',
                 total: 'Total',
                 cargo: 'Cargo',
-                addressInfo: 'Address Information'
+                addressInfo: 'Address Information',
+                selectedProducts: 'Selected Products',
+                yourOffer: 'Your Offer ?'
             },
             aboutUs: {
                 header: 'BEE CONCRETE DESING',
@@ -1794,8 +1897,16 @@ app.post('/lang', (req, res) => {
             popup: {
                 addCart: 'Product added to cart !',
                 addFav: 'Product added to favorites !',
-                goodShopping: 'Good shopping !'
-            }
+                goodShopping: 'Good shopping !',
+                emptyFav: 'Add a product first !'
+            },
+            userList: {
+            myProfile: 'My Profile',
+            myOrders: 'My Orders',
+            addresInfo: 'Address Information',
+            myFavorites: 'My Favorites',
+            myOffers: 'My Offers'
+        }
         }
     }
     if (selectlang) {
