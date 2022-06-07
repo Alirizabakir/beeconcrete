@@ -10,9 +10,9 @@
                 class="header-main lg:w-auto lg:static lg:flex-row lg:h-auto flex flex-col items-center bg-white lg:bg-opacity-0 h-screen w-full z-10 absolute">
                 <div class="ham w-full lg:hidden flex items-center justify-end">
                     <div @click="hamburger = true" class="bur flex w-8 h-8 absolute open"><img
-                            class="rounded-md p-1 bg-blue" src="hamburgerwhite.png" alt=""></div>
+                            class="rounded-md p-1 bg-blue" :src='require("@/static/hamburgerwhite.png")' alt=""></div>
                     <div @click="hamburger = false" class="bur text-white close w-18 text-left p-1"><img class="w-8"
-                            src="close.png" alt=""></div>
+                            :src='require("@/static/close.png")' alt=""></div>
                 </div>
                 <div @click="hamburger = false" class="header-main-item" v-for="(item, index) in getLang.headerList"
                     :key="index">

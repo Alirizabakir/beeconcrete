@@ -1,62 +1,53 @@
 <template>
-    <div class="offer-box fixed inset-0 bg-gray bg-opacity-25 z-50 flex items-center justify-center">
-        <div class="offer lg:w-1/2 w-full h-screen/8 flex bg-gray-100 p-6 rounded-sm shadow-show">
-            <div class="flex-1 p-2">
-                <div class="flex flex-col mb-3">
-                    <label for="name">
-                        {{ getLang.global.name }}
-                    </label>
-                    <input v-model="sendOffer.name" class="px-2 py-1 border border-gray-light rounded-sm" id="name"
-                        type="text">
-                </div>
-                <div class="flex flex-col mb-3">
-                    <label for="email">
-                        Email
-                    </label>
-                    <input v-model="sendOffer.email" class="px-2 py-1 border border-gray-light rounded-sm" id="email"
-                        type="email">
-                </div>
-                <div class="flex flex-col mb-3">
-                    <label for="phone">
-                        {{ getLang.global.phone }}
-                    </label>
-                    <input v-model="sendOffer.phone" class="px-2 py-1 border border-gray-light rounded-sm" id="name"
-                        type="tel">
-                </div>
-                <div class="flex flex-col mb-3">
-                    <label for="offer">
-                        {{ getLang.global.yourOffer }}
-                    </label>
-                    <input v-model="sendOffer.yourOffer" class="px-2 py-1 border border-gray-light rounded-sm"
-                        id="offer" type="number">
-                </div>
-                <div class="flex flex-col mb-6">
-                    <label for="message">
-                        {{ getLang.global.message }}
-                    </label>
-                    <textarea v-model="sendOffer.message" class="px-2 py-1 border h-30 border-gray-light rounded-sm"
-                        name="message" id="message" style="resize: none;" :placeholder="getLang.global.message">
-                    </textarea>
-                </div>
-                <div class="flex">
-                    <button @click.prevent="send" class="p-2 flex-1 mr-1 text-white bg-blue">{{ getLang.button.getOffer
-                    }}</button>
-                    <button @click="cancel" class="p-2 flex-1 ml-1 text-white bg-red">{{ getLang.button.cancel
-                    }}</button>
-                </div>
+    <div class="offer-box fixed inset-0 bg-gray bg-opacity-25 z-50 flex items-start lg:items-center justify-center">
+        <div class="offer lg:w-1/2 flex flex-col justify-between w-full h-screen lg:h-auto bg-gray-100 p-6 rounded-sm shadow-show">
+            <div class="flex flex-col mb-3">
+                <label for="name">
+                    {{ getLang.global.name }}
+                </label>
+                <input v-model="sendOffer.name" class="px-2 py-1 border border-gray-light rounded-sm" id="name"
+                    type="text">
             </div>
-            <div class="offer-info-box w-1/2 flex flex-col p-2">
-                <p class="text-lg text-left mb-2 border-b border-gray">{{ getLang.global.selectedProducts }}</p>
-                <div class="info overflow-y-scroll max-h-full mr-4">
-                    <div class="selected flex justify-between px-2" v-for="(item, index) in getFav" :key="index">
-                        <p>{{ item.name }}</p>
-                        <p>{{ item.newPrice }} TL</p>
-                    </div>
-                </div>
+            <div class="flex flex-col mb-3">
+                <label for="email">
+                    Email
+                </label>
+                <input v-model="sendOffer.email" class="px-2 py-1 border border-gray-light rounded-sm" id="email"
+                    type="email">
+            </div>
+            <div class="flex flex-col mb-3">
+                <label for="phone">
+                    {{ getLang.global.phone }}
+                </label>
+                <input v-model="sendOffer.phone" class="px-2 py-1 border border-gray-light rounded-sm" id="name"
+                    type="tel">
+            </div>
+            <div class="flex flex-col mb-3">
+                <label for="offer">
+                    {{ getLang.global.yourOffer }}
+                </label>
+                <input v-model="sendOffer.yourOffer" class="px-2 py-1 border border-gray-light rounded-sm" id="offer"
+                    type="number">
+            </div>
+            <div class="flex flex-col mb-6">
+                <label for="message">
+                    {{ getLang.global.message }}
+                </label>
+                <textarea v-model="sendOffer.message" class="px-2 py-1 border h-30 border-gray-light rounded-sm"
+                    name="message" id="message" style="resize: none;" :placeholder="getLang.global.message">
+                    </textarea>
+            </div>
+            <div class="offer-info-box flex flex-col p-2">
                 <div class="flex items-center justify-between mt-4 p-2 border-t border-gray">
                     <p>Total Price</p>
                     <p class="text-lg font-bold">{{ getFavTotal }} TL</p>
                 </div>
+            </div>
+            <div class="flex">
+                <button @click.prevent="send" class="p-2 flex-1 mr-1 text-white bg-blue">{{ getLang.button.getOffer
+                }}</button>
+                <button @click="cancel" class="p-2 flex-1 ml-1 text-white bg-red">{{ getLang.button.cancel
+                }}</button>
             </div>
         </div>
     </div>
@@ -106,6 +97,7 @@ export default {
                 Body: this.sendOffer.name.toUpperCase() +
                     '<br/>' + this.sendOffer.email + '<br/>'
                     + this.sendOffer.phone + '<br/>' + '<br/>' +
+                    this.sendOffer.yourOffer + '<br/>' +
                     this.sendOffer.message + '<br/>' +
                     this.sendOffer.selected + '<br/>' +
                     this.sendOffer.total,
@@ -117,8 +109,11 @@ export default {
 
 <style lang="scss" scoped>
 .offer-box {
+    overflow-y: scroll;
 
     .offer {
+        min-height: 700px;
+
         .offer-info-box {
             .info {
                 &::-webkit-scrollbar {

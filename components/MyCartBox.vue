@@ -11,8 +11,8 @@
                 <img class="w-1/2" :src="require(`@/static/small/${item.src}`)" alt="">
                 <div class="flex flex-1 flex-col justify-between p-2">
                     <div>
-                        <div>{{ item.selectColor }}</div>
-                        <div>{{ item.selectRub }}</div>
+                        <div class="px-2 py-1 border border-gray-light">{{ item.selectColor }}</div>
+                        <div class="px-2 py-1 border border-gray-light">{{ item.selectRub }}</div>
                     </div>
                     <div class="flex justify-between">
                         <div class="flex items-center bg-green rounded-full shadow-show">

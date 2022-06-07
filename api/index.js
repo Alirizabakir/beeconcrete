@@ -210,8 +210,10 @@ app.get('/', (req, res) => {
     let bagTotalPrice = 0
     cart.forEach(item => {
         bagTotalPrice += item.totalPrice
-        cargoPrice += item.sizes.volume * 2.5 * item.count
-        packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
+        if (item.sizes) {
+            cargoPrice += item.sizes.volume * 2.5 * item.count
+            packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
+        }
     });
     Products.find({}, (err, products) => {
         Sliders.find({}, (err, sliders) => {
@@ -282,8 +284,10 @@ app.post('/add-to-cart', (req, res) => {
     let bagTotalPrice = 0
     cart.forEach(item => {
         bagTotalPrice += item.totalPrice
-        cargoPrice += item.sizes.volume * 2.5 * item.count
-        packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
+        if (item.sizes) {
+            cargoPrice += item.sizes.volume * 2.5 * item.count
+            packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
+        }
     });
 
     req.session.cart = cart
@@ -325,8 +329,10 @@ app.post('/change-count', (req, res) => {
     let bagTotalPrice = 0
     cart.forEach(item => {
         bagTotalPrice += item.totalPrice
-        cargoPrice += item.sizes.volume * 2.5 * item.count
-        packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
+        if (item.sizes) {
+            cargoPrice += item.sizes.volume * 2.5 * item.count
+            packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
+        }
     });
 
     req.session.cart = cart
@@ -361,8 +367,10 @@ app.post('/remove-cart', (req, res) => {
     let bagTotalPrice = 0
     cart.forEach(item => {
         bagTotalPrice += item.totalPrice
-        cargoPrice += item.sizes.volume * 2.5 * item.count
-        packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
+        if (item.sizes) {
+            cargoPrice += item.sizes.volume * 2.5 * item.count
+            packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
+        }
     });
 
     req.session.cart = cart

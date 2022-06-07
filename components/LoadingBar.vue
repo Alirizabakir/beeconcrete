@@ -1,10 +1,8 @@
 <template>
-  <div :class="{active: getLoading}" class="loading-page flex items-center justify-center">
+  <div :class="{ active: getLoading }" class="loading-page flex items-center justify-center">
     <div class="loader">
-      <client-only>
-        <span v-for="(i, index) in 20" :key="index" :style="'--i:' + (index + 1) + ';'"></span>
-        <img class="img" :src="require(`~/static/icon.png`)" alt="">
-      </client-only>
+      <span v-for="(i, index) in 20" :key="index" :style="'--i:' + (index + 1) + ';'"></span>
+      <img class="img" :src="require(`~/static/icon.png`)" alt="">
     </div>
   </div>
 </template>
@@ -32,10 +30,11 @@ export default {
 
 <style lang="scss" scoped>
 .loading-page {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
   background-color: rgba(255, 255, 255, 0.3);
   z-index: 1000;
 
@@ -43,6 +42,7 @@ export default {
   visibility: hidden;
 
   transition: all .3s;
+
   .loader {
     width: 120px;
     height: 120px;
@@ -100,6 +100,7 @@ export default {
     }
   }
 }
+
 .active {
   opacity: 1;
   visibility: visible;

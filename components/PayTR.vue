@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed inset-0 flex items-center justify-center bg-gray bg-opacity-30 top-0 z-50 p-2">
+    <div class="paytr fixed inset-0 flex items-start lg:items-center justify-center bg-gray bg-opacity-30 top-0 z-50 p-2">
         <div v-show="!iframetoken" class="info-box w-full md:w-2/3 lg:w-1/3 bg-gray-light p-8 rounded-md shadow-show">
             <h1 class="text-2xl">{{ getLang.global.addressInfo }}</h1>
             <div class="flex flex-col mb-2" v-for="(info, index) in payData.user" :key="index">
@@ -12,9 +12,9 @@
             <div>
                 <p class="text-right text-lg my-4">{{ getLang.global.total }} : <strong>{{ totalPrice }} TL</strong></p>
             </div>
-            <div class="flex justify-center">
-                <button class="px-4 py-2 m-2 bg-pink rounded-sm text-white" @click="close">{{ getLang.button.cancel }}</button>
-                <button class="px-4 py-2 m-2 bg-blue rounded-sm text-white" @click="payGo">{{ getLang.button.pay }}</button>
+            <div class="flex w-full justify-center">
+                <button class="px-4 flex-1 py-2 m-2 bg-red rounded-sm text-white" @click="close">{{ getLang.button.cancel }}</button>
+                <button class="px-4 flex-1 py-2 m-2 bg-green rounded-sm text-white" @click="payGo">{{ getLang.button.pay }}</button>
             </div>
         </div>
         <div v-show="iframetoken" class="w-full md:w-2/3 lg:w-1/3 bg-white h-screen/8">
@@ -115,3 +115,12 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+.paytr {
+    overflow-y: scroll;
+    .info-box {
+        min-height: 550px;
+    }
+}
+</style>

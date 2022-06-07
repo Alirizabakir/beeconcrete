@@ -475,6 +475,7 @@ export const state = () => ({
         global: {
             name: 'Name',
             surname: 'Surname',
+            email: 'Email',
             areacode: 'Area Code',
             phone: 'Phone Number',
             day: 'Day',

@@ -12,8 +12,8 @@
                 </a>
             </div>
             <div class="flex">
-                <span @click="changeLang('tr')" class="cursor-pointer m-2"><img class="w-7" src="turkey.png" alt="TR"></span>
-                <span @click="changeLang('en')" class="cursor-pointer m-2 mr-0"><img class="w-7" src="united-kingdom.png" alt="ENG"></span>
+                <span @click="changeLang('tr')" class="cursor-pointer m-2"><img class="w-7" :src='require("@/static/turkey.png")' alt="TR"></span>
+                <span @click="changeLang('en')" class="cursor-pointer m-2 mr-0"><img class="w-7" :src='require("@/static/united-kingdom.png")' alt="ENG"></span>
             </div>
         </Container>
     </div>

@@ -1,5 +1,5 @@
 <template>
-    <div class="paybox lg:pt-8 p-2 bg-white lg:bg-opacity-0 lg:w-1/4 lg:static fixed left-0 bottom-0 w-full">
+    <div class="paybox lg:pt-8 lg:p-2 bg-white lg:bg-opacity-0 lg:w-1/4 lg:static fixed left-0 bottom-0 w-full">
         <div :class="{ 'active': isActive }"
             class="order p-4  absolute lg:static lg:bg-opacity-0 bg-white w-full left-0">
             <h3 class="border-b border-gray-light text-bold text-xl mb-4">{{ getLang.global.order }}</h3>
@@ -29,8 +29,8 @@
                 <span class="mr-2">{{ getLang.global.total }}</span>
                 <span class="num"> {{ Math.floor(getTotalPrice) }} ₺</span>
             </div>
-            <div class="flex justify-end">
-                <button class="p-2 bg-green min-w-24 text-white mt-4 shadow-show" @click="open">{{ getLang.button.pay
+            <div class="flex-1 p-2">
+                <button class="p-2 w-full bg-green min-w-24 text-white lg:mt-4 shadow-show" @click="open">{{ getLang.button.pay
                 }}</button>
             </div>
         </div>
@@ -77,12 +77,11 @@ export default {
 <style lang="scss" scoped>
 .paybox {
     .order {
-        transition: all .4s;
-        bottom: -200%;
+        bottom: -250%;
     }
 
     .active {
-        bottom: 99%;
+        bottom: 100%;
     }
 }
 </style>

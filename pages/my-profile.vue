@@ -6,9 +6,9 @@
                 <span @click="signOut"
                     class="bg-red p-2 text-white cursor-pointer rounded-sm">{{ getLang.button.signOut }}</span>
             </div>
-            <div class="flex justify-between relative">
+            <div class="lg:flex justify-between relative">
                 <MyProfile />
-                <UserList />
+                <UserList class="lg:static absolute -left-full z-20 top-0 bottom-0" />
             </div>
         </Container>
     </div>
