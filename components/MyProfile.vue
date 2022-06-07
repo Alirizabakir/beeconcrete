@@ -20,7 +20,7 @@
             <button @click="updateUser" class="button flex-1 update px-4 py-2 mr-1 bg-blue rounded-sm text-white font-bold"> {{
                     getLang.button.update
             }}</button>
-            <button @click="deleteUser" class="button flex-1 delete px-4 py-2 ml-1 bg-pink rounded-sm text-white font-bold">
+            <button @click="deleteUser" v-if="false" class="button flex-1 delete px-4 py-2 ml-1 bg-pink rounded-sm text-white font-bold">
                 {{ getLang.button.delAccount }}
             </button>
         </div>

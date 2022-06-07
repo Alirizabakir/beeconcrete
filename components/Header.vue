@@ -151,7 +151,7 @@ export default {
     // background-repeat: no-repeat;
     // background-color: #F7F7F7 !important;
     background: rgb(255, 255, 255);
-    background: linear-gradient(180deg, rgba(255, 255, 255, .9) 100%, rgba(247, 247, 247, 0) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 100%, rgba(247, 247, 247, 1) 100%);
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
     top: 0;
 
