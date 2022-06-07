@@ -1,8 +1,8 @@
 <template>
     <div class="anime shadow-show flex flex-col rounded-sm sm:p-4 p-1 relative">
-        <nuxt-link class="flex-1 mb-4" :to="'/products/' + product._id">
+        <a class="flex-1 mb-4" :href="'/products/' + product._id">
             <img class="h-full" :src="require(`@/static/small/${product.src}`)">
-        </nuxt-link>
+        </a>
 
         <div class="info flex lg:flex-row flex-col justify-between mb-4">
             <h3 class="text-left text-md sm:text-lg">

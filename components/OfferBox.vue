@@ -6,37 +6,43 @@
                     <label for="name">
                         {{ getLang.global.name }}
                     </label>
-                    <input class="px-2 py-1 border border-gray-light rounded-sm" id="name" type="text">
+                    <input v-model="sendOffer.name" class="px-2 py-1 border border-gray-light rounded-sm" id="name"
+                        type="text">
                 </div>
                 <div class="flex flex-col mb-3">
                     <label for="email">
                         Email
                     </label>
-                    <input class="px-2 py-1 border border-gray-light rounded-sm" id="email" type="email">
+                    <input v-model="sendOffer.email" class="px-2 py-1 border border-gray-light rounded-sm" id="email"
+                        type="email">
                 </div>
                 <div class="flex flex-col mb-3">
                     <label for="phone">
                         {{ getLang.global.phone }}
                     </label>
-                    <input class="px-2 py-1 border border-gray-light rounded-sm" id="name" type="tel">
+                    <input v-model="sendOffer.phone" class="px-2 py-1 border border-gray-light rounded-sm" id="name"
+                        type="tel">
                 </div>
                 <div class="flex flex-col mb-3">
                     <label for="offer">
                         {{ getLang.global.yourOffer }}
                     </label>
-                    <input class="px-2 py-1 border border-gray-light rounded-sm" id="offer" type="number">
+                    <input v-model="sendOffer.yourOffer" class="px-2 py-1 border border-gray-light rounded-sm"
+                        id="offer" type="number">
                 </div>
                 <div class="flex flex-col mb-6">
                     <label for="message">
                         {{ getLang.global.message }}
                     </label>
-                    <textarea class="px-2 py-1 border h-30 border-gray-light rounded-sm" name="message" id="message"
-                        style="resize: none;" :placeholder="getLang.global.message">
+                    <textarea v-model="sendOffer.message" class="px-2 py-1 border h-30 border-gray-light rounded-sm"
+                        name="message" id="message" style="resize: none;" :placeholder="getLang.global.message">
                     </textarea>
                 </div>
                 <div class="flex">
-                    <button class="p-2 flex-1 mr-1 text-white bg-blue">{{ getLang.button.getOffer }}</button>
-                    <button @click="cancel" class="p-2 flex-1 ml-1 text-white bg-red">{{ getLang.button.cancel }}</button>
+                    <button @click.prevent="send" class="p-2 flex-1 mr-1 text-white bg-blue">{{ getLang.button.getOffer
+                    }}</button>
+                    <button @click="cancel" class="p-2 flex-1 ml-1 text-white bg-red">{{ getLang.button.cancel
+                    }}</button>
                 </div>
             </div>
             <div class="offer-info-box w-1/2 flex flex-col p-2">
@@ -60,11 +66,25 @@
 export default {
     data() {
         return {
+            sendOffer: {
+                name: '',
+                phone: '',
+                email: '',
+                yourOffer: '',
+                message: '',
+                selected: '',
+                total: '',
+            }
         }
+    },
+    created() {
+        this.getFav.map((a, index) => this.sendOffer.selected += (index + 1) + ':' + a.name + '<br/>')
+        this.sendOffer.total = this.getFavTotal
+        console.log(this.sendOffer);
     },
     computed: {
         getFavTotal() {
-           return this.$store.getters.getFavTotalPrice
+            return this.$store.getters.getFavTotalPrice
         },
         getFav() {
             return this.$store.getters.getFavorites
@@ -74,9 +94,23 @@ export default {
         }
     },
     methods: {
-        cancel(){
+        cancel() {
             this.$emit('close', false)
-        }
+        },
+        send() {
+            Email.send({
+                SecureToken: "6e985e68-1318-41f7-b631-26ebb3e4fd8c",
+                From: 'aarizabkr@gmail.com',
+                To: this.sendOffer.email,
+                Subject: 'Teklif',
+                Body: this.sendOffer.name.toUpperCase() +
+                    '<br/>' + this.sendOffer.email + '<br/>'
+                    + this.sendOffer.phone + '<br/>' + '<br/>' +
+                    this.sendOffer.message + '<br/>' +
+                    this.sendOffer.selected + '<br/>' +
+                    this.sendOffer.total,
+            }).then((message) => alert(message));
+        },
     },
 }
 </script>

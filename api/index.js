@@ -201,9 +201,17 @@ app.get('/', (req, res) => {
         req.session.favItem = favItem
     }
     // bagTotalPrice
+    let favTotalPrice = 0
+    favItem.forEach(item => {
+        favTotalPrice += item.totalPrice
+    });
+    let packaging = 0
+    let cargoPrice = 0
     let bagTotalPrice = 0
     cart.forEach(item => {
         bagTotalPrice += item.totalPrice
+        cargoPrice += item.sizes.volume * 2.5 * item.count
+        packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
     });
     Products.find({}, (err, products) => {
         Sliders.find({}, (err, sliders) => {
@@ -218,11 +226,15 @@ app.get('/', (req, res) => {
                             sliders: sliders,
                             products: products,
                             favItem: {
-                                items: req.session.favItem
+                                items: req.session.favItem,
+                                favTotalPrice: favTotalPrice
                             },
                             cart: {
                                 items: req.session.cart,
-                                bagTotalPrice: bagTotalPrice
+                                productTotal: bagTotalPrice,
+                                bagTotalPrice: bagTotalPrice + cargoPrice + packaging,
+                                cargoPrice: cargoPrice,
+                                packaging: packaging
                             },
                             user: req.session.user,
                             lang: req.session.lang
@@ -265,16 +277,23 @@ app.post('/add-to-cart', (req, res) => {
     }
 
     // bagTotalPrice
+    let packaging = 0
+    let cargoPrice = 0
     let bagTotalPrice = 0
     cart.forEach(item => {
         bagTotalPrice += item.totalPrice
+        cargoPrice += item.sizes.volume * 2.5 * item.count
+        packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
     });
 
     req.session.cart = cart
     res.status(200).json({
         cart: {
             items: req.session.cart,
-            bagTotalPrice: bagTotalPrice
+            productTotal: bagTotalPrice,
+            bagTotalPrice: bagTotalPrice + cargoPrice + packaging,
+            cargoPrice: cargoPrice,
+            packaging: packaging
         }
     })
 })
@@ -301,16 +320,23 @@ app.post('/change-count', (req, res) => {
     }
 
     // bagTotalPrice
+    let packaging = 0
+    let cargoPrice = 0
     let bagTotalPrice = 0
     cart.forEach(item => {
         bagTotalPrice += item.totalPrice
+        cargoPrice += item.sizes.volume * 2.5 * item.count
+        packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
     });
-    req.session.cart = cart
 
+    req.session.cart = cart
     res.status(200).json({
         cart: {
             items: req.session.cart,
-            bagTotalPrice: bagTotalPrice
+            productTotal: bagTotalPrice,
+            bagTotalPrice: bagTotalPrice + cargoPrice + packaging,
+            cargoPrice: cargoPrice,
+            packaging: packaging
         }
     })
 })
@@ -330,16 +356,23 @@ app.post('/remove-cart', (req, res) => {
     }
 
     // bagTotalPrice
+    let packaging = 0
+    let cargoPrice = 0
     let bagTotalPrice = 0
     cart.forEach(item => {
         bagTotalPrice += item.totalPrice
+        cargoPrice += item.sizes.volume * 2.5 * item.count
+        packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
     });
-    req.session.cart = cart
 
+    req.session.cart = cart
     res.status(200).json({
         cart: {
             items: req.session.cart,
-            bagTotalPrice: bagTotalPrice
+            productTotal: bagTotalPrice,
+            bagTotalPrice: bagTotalPrice + cargoPrice + packaging,
+            cargoPrice: cargoPrice,
+            packaging: packaging
         }
     })
 
@@ -1901,12 +1934,12 @@ app.post('/lang', (req, res) => {
                 emptyFav: 'Add a product first !'
             },
             userList: {
-            myProfile: 'My Profile',
-            myOrders: 'My Orders',
-            addresInfo: 'Address Information',
-            myFavorites: 'My Favorites',
-            myOffers: 'My Offers'
-        }
+                myProfile: 'My Profile',
+                myOrders: 'My Orders',
+                addresInfo: 'Address Information',
+                myFavorites: 'My Favorites',
+                myOffers: 'My Offers'
+            }
         }
     }
     if (selectlang) {

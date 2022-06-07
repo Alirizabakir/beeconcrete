@@ -19,6 +19,9 @@ export const state = () => ({
     bigProduct: null,
     cart: null,
     totalPrice: 0.0,
+    cargoPrice: 0.0,
+    productTotal: 0.0,
+    packaging: 0.0,
     favTotalPrice: 0.0,
     changeHeader: 'All Products',
     authKey: null,
@@ -571,8 +574,17 @@ export const mutations = {
     setCart(state, cart) {
         state.cart = cart
     },
+    setPackaging(state, packaging) {
+        state.packaging = packaging
+    },
     setTotalPrice(state, totalPrice) {
         state.totalPrice = totalPrice
+    },
+    setCargoPrice(state, totalPrice) {
+        state.cargoPrice = totalPrice
+    },
+    setProductPrice(state, totalPrice) {
+        state.productTotal = totalPrice
     },
     setBigProduct(state, id) {
         state.bigProduct = state.products.find(a => a._id == id)
@@ -674,7 +686,11 @@ export const actions = {
                 vuexContext.commit("setAbout", response.data.about)
                 vuexContext.commit("setCart", response.data.cart.items)
                 vuexContext.commit("setTotalPrice", response.data.cart.bagTotalPrice)
+                vuexContext.commit("setCargoPrice", response.data.cart.cargoPrice)
+                vuexContext.commit("setProductPrice", response.data.cart.productTotal)
+                vuexContext.commit("setPackaging", response.data.cart.packaging)
                 vuexContext.commit("setFavItem", response.data.favItem.items)
+                vuexContext.commit("setFavTotalPrice", response.data.favItem.favTotalPrice)
                 vuexContext.state.showProducts = response.data.products
                 if (response.data.user != null) {
                     vuexContext.commit("setUser", response.data.user);
@@ -699,7 +715,10 @@ export const actions = {
             .then(response => {
                 console.log('Succes')
                 vuexContext.commit('setCart', response.data.cart.items)
-                vuexContext.commit('setTotalPrice', response.data.cart.bagTotalPrice)
+                vuexContext.commit("setTotalPrice", response.data.cart.bagTotalPrice)
+                vuexContext.commit("setCargoPrice", response.data.cart.cargoPrice)
+                vuexContext.commit("setProductPrice", response.data.cart.productTotal)
+                vuexContext.commit("setPackaging", response.data.cart.packaging)
                 vuexContext.commit('setPopup', { type: 'addCart', status: true })
 
                 setTimeout(() => {
@@ -715,7 +734,10 @@ export const actions = {
         this.$axios.post('/remove-cart', { product: product })
             .then(response => {
                 vuexContext.commit('setCart', response.data.cart.items)
-                vuexContext.commit('setTotalPrice', response.data.cart.bagTotalPrice)
+                vuexContext.commit("setTotalPrice", response.data.cart.bagTotalPrice)
+                vuexContext.commit("setCargoPrice", response.data.cart.cargoPrice)
+                vuexContext.commit("setProductPrice", response.data.cart.productTotal)
+                vuexContext.commit("setPackaging", response.data.cart.packaging)
             })
     },
     emptyCart(vuexContext, product) {
@@ -729,7 +751,10 @@ export const actions = {
         this.$axios.post('/change-count', { product: product })
             .then(response => {
                 vuexContext.commit('setCart', response.data.cart.items)
-                vuexContext.commit('setTotalPrice', response.data.cart.bagTotalPrice)
+                vuexContext.commit("setTotalPrice", response.data.cart.bagTotalPrice)
+                vuexContext.commit("setCargoPrice", response.data.cart.cargoPrice)
+                vuexContext.commit("setProductPrice", response.data.cart.productTotal)
+                vuexContext.commit("setPackaging", response.data.cart.packaging)
             })
     },
     // MongoDB Product Methods
@@ -957,6 +982,15 @@ export const getters = {
     },
     getTotalPrice(state) {
         return state.totalPrice
+    },
+    getProductTotal(state) {
+        return state.productTotal
+    },
+    getPackaging(state) {
+        return state.packaging
+    },
+    getCargoPrice(state) {
+        return state.cargoPrice
     },
     getHeader(state) {
         return state.changeHeader
