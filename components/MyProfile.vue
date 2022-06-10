@@ -1,5 +1,5 @@
 <template>
-    <div class="user flex-1 flex flex-col items-start mt-8 px-4">
+    <div class="user lg:flex-1 w-full flex flex-col items-start mt-8 px-4">
         <div class="flex w-full items-center justify-center" v-for="(item, index) in getLang.inputData" :key="index">
             <div :class="input.id + '-box'" class="flex w-full flex-col px-1 my-4"
                 v-for="(input, inpex) in item.input" :key="inpex">

@@ -41,6 +41,12 @@ const usersSchema = new Schema({
     address: {
         type: String
     },
+    favorites: {
+        type: Array
+    },
+    cart: {
+        type: Array
+    },
 }, { timestamps: true, supressReservedKeysWarning: true })
 
 const users = mongoose.model('Users', usersSchema)

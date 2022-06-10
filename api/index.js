@@ -184,7 +184,6 @@ app.post("/report", function (req, res) {
 
 });
 
-
 // --->>>>
 app.get('/', (req, res) => {
     let cart = []
@@ -216,6 +215,7 @@ app.get('/', (req, res) => {
         }
     });
     Products.find({}, (err, products) => {
+        req.session.allProducts = products
         Sliders.find({}, (err, sliders) => {
             Abouts.find({}, (err, about) => {
                 Socials.find({}, (err, social) => {
@@ -250,8 +250,13 @@ app.get('/', (req, res) => {
 app.post('/add-to-cart', (req, res) => {
 
     let product = req.body.product
-
+    console.log(product);
     let cart = []
+    let userId = null
+
+    if (req.session.user) {
+        userId = req.session.user._id
+    }
 
     // req.session.title = 'BeeConcrete'
 
@@ -282,14 +287,34 @@ app.post('/add-to-cart', (req, res) => {
     let packaging = 0
     let cargoPrice = 0
     let bagTotalPrice = 0
+    let userCart = []
     cart.forEach(item => {
         bagTotalPrice += item.totalPrice
+        userCart.push({ id: item._id, count: item.count, selectRub: item.selectRub, selectColor: item.selectColor })
+
         if (item.sizes) {
             cargoPrice += item.sizes.volume * 2.5 * item.count
             packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
         }
     });
 
+    if (req.session.user) {
+        Users.findOneAndUpdate({ _id: userId },
+            {
+                $set: {
+                    cart: userCart,
+                }
+            },
+            {
+                new: true,
+            },
+            (err) => {
+                if (err) {
+                    console.log(err);
+                }
+
+            })
+    }
     req.session.cart = cart
     res.status(200).json({
         cart: {
@@ -301,12 +326,15 @@ app.post('/add-to-cart', (req, res) => {
         }
     })
 })
-
-
 app.post('/change-count', (req, res) => {
     let product = req.body.product
 
     let cart = []
+    let userId = null
+
+    if (req.session.user) {
+        userId = req.session.user._id
+    }
 
     // req.session.title = 'BeeConcrete'
 
@@ -327,14 +355,34 @@ app.post('/change-count', (req, res) => {
     let packaging = 0
     let cargoPrice = 0
     let bagTotalPrice = 0
+    let userCart = []
     cart.forEach(item => {
         bagTotalPrice += item.totalPrice
+        userCart.push({ id: item._id, count: item.count, selectColor: item.selectColor, selectRub: item.selectRub })
+
         if (item.sizes) {
             cargoPrice += item.sizes.volume * 2.5 * item.count
             packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
         }
     });
 
+    if (req.session.user) {
+        Users.findOneAndUpdate({ _id: userId },
+            {
+                $set: {
+                    cart: userCart,
+                }
+            },
+            {
+                new: true,
+            },
+            (err) => {
+                if (err) {
+                    console.log(err);
+                }
+
+            })
+    }
     req.session.cart = cart
     res.status(200).json({
         cart: {
@@ -349,6 +397,11 @@ app.post('/change-count', (req, res) => {
 app.post('/remove-cart', (req, res) => {
     let product = req.body.product
     let cart = []
+    let userId = null
+
+    if (req.session.user) {
+        userId = req.session.user._id
+    }
 
     if (req.session.cart) {
         cart = req.session.cart
@@ -362,17 +415,38 @@ app.post('/remove-cart', (req, res) => {
     }
 
     // bagTotalPrice
+
     let packaging = 0
     let cargoPrice = 0
     let bagTotalPrice = 0
+    let userCart = []
     cart.forEach(item => {
         bagTotalPrice += item.totalPrice
+        userCart.push({ id: item._id, count: item.count })
+
         if (item.sizes) {
             cargoPrice += item.sizes.volume * 2.5 * item.count
             packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
         }
     });
 
+    if (req.session.user) {
+        Users.findOneAndUpdate({ _id: userId },
+            {
+                $set: {
+                    cart: userCart,
+                }
+            },
+            {
+                new: true,
+            },
+            (err) => {
+                if (err) {
+                    console.log(err);
+                }
+
+            })
+    }
     req.session.cart = cart
     res.status(200).json({
         cart: {
@@ -678,15 +752,131 @@ app.post('/del-social', (req, res) => {
 })
 
 // User
+app.post('/logOut', (req, res) => {
+    req.session.user = null
+    req.session.cart = []
+    req.session.favItem = []
+
+    res.status(200).json({
+        favItem: {
+            items: req.session.favItem,
+            favTotalPrice: '0'
+        },
+        cart: {
+            items: req.session.cart,
+            productTotal: '0',
+            bagTotalPrice: '0',
+            cargoPrice: '0',
+            packaging: '0'
+        },
+    })
+})
 app.post('/login', (req, res) => {
     let user = req.body.user
     let surname = user.name.split(' ').slice(-1)
+    let userFav = []
+    let userCart = []
+    let fav = []
+    let cart = []
     Users.findOne({ email: user.email }, (err, docs) => {
         if (docs != null) {
             req.session.user = docs
+            userFav = docs.favorites
+            userCart = docs.cart
+
+            userFav.forEach(a => {
+                if (req.session.allProducts) {
+                    req.session.allProducts.find((item, index) => {
+                        if (item._id == a.id) {
+                            let product = { ...item, count: a.count }
+                            if (req.session.favItem) {
+                                fav = req.session.favItem
+                            }
+                            if (fav.length > 0) {
+                                let itemIndex = fav.findIndex(itemI => itemI._id == product._id)
+
+                                if (itemIndex > -1) {
+                                    fav[itemIndex].count = product.count
+                                    fav[itemIndex].totalPrice = fav[itemIndex].count * fav[itemIndex].newPrice
+                                } else {
+                                    fav.push({
+                                        ...product,
+                                        totalPrice: product.count * product.newPrice
+                                    })
+                                }
+                            } else {
+                                fav.push({
+                                    ...product,
+                                    totalPrice: product.count * product.newPrice
+                                })
+                            }
+                        }
+                    })
+                }
+            })
+            userCart.forEach(a => {
+                if (req.session.allProducts) {
+                    req.session.allProducts.find((item, index) => {
+                        if (item._id == a.id) {
+                            let product = { ...item, count: a.count, selectRub: a.selectRub, selectColor: a.selectColor }
+                            if (req.session.cart) {
+                                cart = req.session.cart
+                            }
+                            if (cart.length > 0) {
+                                let itemIndex = cart.findIndex(itemI => itemI._id == product._id)
+
+                                if (itemIndex > -1) {
+                                    cart[itemIndex].count = product.count
+                                    cart[itemIndex].totalPrice = cart[itemIndex].count * cart[itemIndex].newPrice
+                                } else {
+                                    cart.push({
+                                        ...product,
+                                        totalPrice: product.count * product.newPrice
+                                    })
+                                }
+                            } else {
+                                cart.push({
+                                    ...product,
+                                    totalPrice: product.count * product.newPrice
+                                })
+                            }
+                        }
+                    })
+                }
+            })
+           
+            // bagTotalPrice
+            let favTotalPrice = 0
+            fav.forEach(item => {
+                favTotalPrice += item.totalPrice
+            });
+            let packaging = 0
+            let cargoPrice = 0
+            let bagTotalPrice = 0
+            cart.forEach(item => {
+                bagTotalPrice += item.totalPrice
+                if (item.sizes) {
+                    cargoPrice += item.sizes.volume * 2.5 * item.count
+                    packaging += item.sizes.width * item.sizes.height * item.sizes.depth * 1.5 * item.count / 1000
+                }
+            });
+            req.session.favItem = fav
+            req.session.cart = cart
             res.status(200).json({
                 user: req.session.user,
+                favItem: {
+                    items: req.session.favItem,
+                    favTotalPrice: favTotalPrice
+                },
+                cart: {
+                    items: req.session.cart,
+                    productTotal: bagTotalPrice,
+                    bagTotalPrice: bagTotalPrice + cargoPrice + packaging,
+                    cargoPrice: cargoPrice,
+                    packaging: packaging
+                },
             })
+
         } else {
             const userAdd = new Users({
                 name: user.name,
@@ -702,6 +892,8 @@ app.post('/login', (req, res) => {
                 town: user.town,
                 district: user.district,
                 address: user.address,
+                favorites: [],
+                cart: []
             })
 
             userAdd.save()
@@ -715,8 +907,6 @@ app.post('/login', (req, res) => {
                 })
         }
     })
-
-
 })
 
 app.post('/update-user', (req, res) => {
@@ -813,11 +1003,13 @@ app.post('/update-about', (req, res) => {
 app.post('/liked', (req, res) => {
 
     let product = req.body.product
-
+    let userId = null
     let cart = []
 
     // req.session.title = 'BeeConcrete'
-
+    if (req.session.user._id) {
+        userId = req.session.user._id
+    }
     if (req.session.favItem) {
         cart = req.session.favItem
     }
@@ -828,7 +1020,6 @@ app.post('/liked', (req, res) => {
         if (itemIndex > -1) {
             cart[itemIndex].count += product.count
             cart[itemIndex].totalPrice = cart[itemIndex].count * cart[itemIndex].newPrice
-            console.log(cart[itemIndex]);
         } else {
             cart.push({
                 ...product,
@@ -857,11 +1048,27 @@ app.post('/liked', (req, res) => {
 
         })
     // bagTotalPrice
+    let userFav = []
     let favTotalPrice = 0
     cart.forEach(item => {
         favTotalPrice += item.totalPrice
+        userFav.push({ id: item._id, count: item.count })
     });
+    Users.findOneAndUpdate({ _id: userId },
+        {
+            $set: {
+                favorites: userFav,
+            }
+        },
+        {
+            new: true,
+        },
+        (err) => {
+            if (err) {
+                console.log(err);
+            }
 
+        })
     req.session.favItem = cart
     res.status(200).json({
         favItem: {
@@ -874,8 +1081,12 @@ app.post('/change-liked-count', (req, res) => {
     let product = req.body.product
 
     let cart = []
+    let userId = null
 
     // req.session.title = 'BeeConcrete'
+    if (req.session.user._id) {
+        userId = req.session.user._id
+    }
 
     if (req.session.favItem) {
         cart = req.session.favItem
@@ -891,10 +1102,27 @@ app.post('/change-liked-count', (req, res) => {
     }
 
     // bagTotalPrice
+    let userFav = []
     let favTotalPrice = 0
     cart.forEach(item => {
         favTotalPrice += item.totalPrice
+        userFav.push({ id: item._id, count: item.count })
     });
+    Users.findOneAndUpdate({ _id: userId },
+        {
+            $set: {
+                favorites: userFav,
+            }
+        },
+        {
+            new: true,
+        },
+        (err) => {
+            if (err) {
+                console.log(err);
+            }
+
+        })
     req.session.favItem = cart
 
     res.status(200).json({
@@ -906,7 +1134,13 @@ app.post('/change-liked-count', (req, res) => {
 })
 app.post('/unliked', (req, res) => {
     let product = req.body.product
+    let userId = null
     let cart = []
+
+    // req.session.title = 'BeeConcrete'
+    if (req.session.user._id) {
+        userId = req.session.user._id
+    }
 
     if (req.session.cart) {
         cart = req.session.favItem
@@ -934,10 +1168,27 @@ app.post('/unliked', (req, res) => {
 
         })
     // bagTotalPrice
+    let userFav = []
     let favTotalPrice = 0
     cart.forEach(item => {
         favTotalPrice += item.totalPrice
+        userFav.push({ id: item._id, count: item.count })
     });
+    Users.findOneAndUpdate({ _id: userId },
+        {
+            $set: {
+                favorites: userFav,
+            }
+        },
+        {
+            new: true,
+        },
+        (err) => {
+            if (err) {
+                console.log(err);
+            }
+
+        })
     req.session.favItem = cart
 
     res.status(200).json({

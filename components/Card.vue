@@ -1,31 +1,52 @@
 <template>
-    <div class="anime shadow-show flex flex-col rounded-sm sm:p-4 p-1 relative">
-        <a class="flex-1 mb-4" :href="'/products/' + product._id">
-            <img class="h-full" :src="require(`@/static/small/${product.src}`)">
-        </a>
+    <div class="card">
+        <div class="anime shadow-show flex flex-col rounded-sm sm:p-4 p-1 relative">
+            <a class="flex-1 mb-4" :href="'/products/' + product._id">
+                <img class="h-full" :src="require(`@/static/small/${product.src}`)">
+            </a>
 
-        <div class="info flex lg:flex-row flex-col justify-between mb-4">
-            <h3 class="text-left text-md sm:text-lg">
-                {{ product.name }} <span class="text-sm" v-show="size && index != 'normal'"
-                    v-for="(size, index) in product.sizeType" :key="index">{{ index }}</span>
-            </h3>
-            <p class="text-left text-lg sm:text-xl">{{ product.newPrice }} TL</p>
-        </div>
-        <div class="flex lg:flex-row flex-col justify-between">
-            <div class="icon flex absolute top-2 left-2 lg:static">
-                <div class="cont w-6 h-6">
-                    <img @click="liked" v-if="!getFav" class="w-6 h-6" :src="require('@/static/heart.png')" alt="">
-                    <img @click="unliked" v-else :class="{ heartActive: getFav }" class="w-6 h-6"
-                        :src="require('@/static/heart-full.png')" alt="">
-                </div>
-                <div class="numb pl-2">{{ fav }}</div>
+            <div class="info flex lg:flex-row flex-col justify-between mb-4">
+                <h3 class="text-left text-md sm:text-lg">
+                    {{ product.name }} <span class="text-sm" v-show="size && index != 'normal'"
+                        v-for="(size, index) in product.sizeType" :key="index">{{ index }}</span>
+                </h3>
+                <p class="text-left text-lg sm:text-xl">{{ product.newPrice }} TL</p>
             </div>
-            <button @click="addToCart(product)"
-                class="w-full sm:w-auto px-4 hover:bg-orange py-1 self-end bg-green text-white">{{
-                        getLang.button.addToCart
-                }}</button>
+            <div class="flex lg:flex-row flex-col justify-between">
+                <div class="icon flex absolute top-2 left-2 lg:static">
+                    <div class="cont w-6 h-6">
+                        <img @click="liked" v-if="!getFav" class="w-6 h-6" :src="require('@/static/heart.png')" alt="">
+                        <img @click="unliked" v-else :class="{ heartActive: getFav }" class="w-6 h-6"
+                            :src="require('@/static/heart-full.png')" alt="">
+                    </div>
+                    <div class="numb pl-2">{{ fav }}</div>
+                </div>
+                <button @click="select = !select"
+                    class="w-full sm:w-auto px-4 hover:bg-orange py-1 self-end bg-green text-white">{{
+                            getLang.button.addToCart
+                    }}</button>
+            </div>
         </div>
-        <!-- <span v-show="type == 'discount'" class="absolute top-0 right-0 bg-orange p-2 text-white text-md">%50</span> -->
+        <div v-show="select" class="popup bg-white shadow-show p-4">
+            <div>Rub select..</div>
+            <ul class="flex mb-4">
+                <li :class="{'bg-blue text-white': selectRub == index}" @click="selectRub = index" class="lg:w-24 cursor-pointer hover:bg-gray-light px-2 lg:px-0 py-1 m-1 text-center rounded-sm border border-blue" v-for="(rub, index) in product.rub"
+                    :key="index">
+                    {{ index.toUpperCase() }}
+                </li>
+            </ul>
+            <div>Color select..</div>
+            <ul class="flex mb-4">
+                <li :class="{'bg-blue text-white': selectColor == index}" @click="selectColor = index" class="lg:w-24 cursor-pointer hover:bg-gray-light px-2 py-1 m-1 text-center rounded-sm border border-blue"
+                    v-for="(rub, index) in product.color" :key="index">
+                    {{ index.toUpperCase() }}
+                </li>
+            </ul>
+
+            <div class="flex items-center justify-center">
+                <button @click="addToCart(product),select = false" class="w-20 py-1 m-1 text-center rounded-sm border bg-gray-light hover:bg-blue hover:text-white border-blue">OK</button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -35,13 +56,16 @@ export default {
     data() {
         return {
             fav: 0,
+            select: false,
+            selectRub: '',
+            selectColor: '',
         }
     },
     methods: {
         addToCart(product) {
             this.$store.dispatch("addToCart", {
-                selectRub: "Smooth",
-                selectColor: "Gray",
+                selectRub: this.selectRub,
+                selectColor: this.selectColor,
                 count: 1,
                 ...product,
             });
@@ -79,30 +103,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.anime {
-    transition: all .3s;
+.card {
+    .anime {
+        transition: all .3s ease-in-out;
 
-    &:hover {
-        transform: scale(1.03);
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
-    }
-
-    .cont {
-        cursor: pointer;
-    }
-
-    .heartActive {
-        animation: animate 0.5s steps(28) 1;
-    }
-
-    @keyframes animate {
-        0% {
-            transform: scale(1.5);
+        &:hover {
+            transform: scale(1.03);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
         }
 
-        100% {
-            transform: scale(1);
+        .cont {
+            cursor: pointer;
         }
+
+        .heartActive {
+            animation: animate 0.5s steps(28) 1;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: scale(1.5);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+
+    }
+
+    .popup {
+        position: fixed;
+        z-index: 50;
+        top: 0;
+        left: 0;
+        transform: translate(calc(50vw - 50%), calc(50vh - 50%));
     }
 }
 </style>

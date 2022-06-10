@@ -3,7 +3,7 @@
         <Container>
             <div class="flex justify-between border-b border-gray-dark pt-20 pb-2">
                 <h1 class="text-3xl text-gray-dark">{{ getLang.pageTitle.myProfile }}</h1>
-                <span @click="signOut" v-if="false"
+                <span @click="signOut" v-if="true"
                     class="bg-red p-2 text-white cursor-pointer rounded-sm">{{ getLang.button.signOut }}</span>
             </div>
             <div class="lg:flex justify-between relative">
@@ -21,6 +21,7 @@ export default {
         signOut() {
             this.$fire.auth.signOut()
             this.$store.commit('clearAuthKey')
+            this.$store.dispatch('logOut')
             this.$router.push('/')
         },
     },

@@ -71,7 +71,6 @@ export default {
     created() {
         this.getFav.map((a, index) => this.sendOffer.selected += (index + 1) + ':' + a.name + '<br/>')
         this.sendOffer.total = this.getFavTotal
-        console.log(this.sendOffer);
     },
     computed: {
         getFavTotal() {

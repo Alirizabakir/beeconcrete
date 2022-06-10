@@ -34,11 +34,11 @@
                         <span v-show="getCart.length > 0" class="absolute top-0 right-0">{{ getCart.length }}</span>
                     </div>
                 </nuxt-link>
-                <nuxt-link class="user-box header-svg ml-3 filter drop-shadow-xl" to="/my-profile">
+                <a href="/my-profile" class="user-box header-svg ml-3 filter drop-shadow-xl">
                     <div @click="user = !user" class="header-svg">
                         <UserSvg class="w-6 h-6 mr-4" />
                     </div>
-                </nuxt-link>
+                </a>
             </div>
         </Container>
     </div>

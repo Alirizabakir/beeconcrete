@@ -27,14 +27,8 @@ export default {
             ],
             callbacks: {
                 signInSuccessWithAuthResult(user) {
-                    axios.post('https://www.beeconcrete.com.tr/api/login', { user: user.additionalUserInfo.profile })
-                        .then(response => {
-                         window.location.href = 'https://www.beeconcrete.com.tr/my-profile'
-                        })
-                    // axios.post('http://localhost:3000/api/login', { user: user.additionalUserInfo.profile })
-                    //     .then(response => {
-                    //         window.location.href = 'http://localhost:3000/my-profile'
-                    //     })
+                    // window.location.href = 'http://localhost:3000/my-cart'
+                    window.location.href = 'https://www.beeconcrete.com.tr/my-cart'
                 }
             }
         }
