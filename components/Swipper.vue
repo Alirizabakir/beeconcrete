@@ -3,7 +3,7 @@
         <div class="swipper py-2">
             <div class="swip h-full px-2" v-for="(item, index) in products" :key="index"
                 :style="`transform: translateX(${count * -100}%)`">
-                <Card class="h-full" :product="item"></Card>
+                <Card :secret="true" class="h-full" :product="item"></Card>
             </div>
         </div>
         <button class="absolute h-full top-0 left-0" @click="counT(false)">

@@ -853,8 +853,8 @@ export const actions = {
         if (!authUser) {
             state.user = false
         } else {
-            // axios.post('http://localhost:3000/api/login', { user: claims })
-            axios.post('https://www.beeconcrete.com.tr/api/login', { user: claims })
+            axios.post('http://localhost:3000/api/login', { user: claims })
+            // axios.post('https://www.beeconcrete.com.tr/api/login', { user: claims })
                 .then(response => {
                     vuexContext.commit('setUser', response.data.user);
                     vuexContext.commit("setFavItem", response.data.favItem.items)
