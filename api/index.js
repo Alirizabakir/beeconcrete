@@ -492,7 +492,7 @@ app.post('/new-product', (req, res) => {
     let buf2 = Buffer.from(data2, 'base64');
     let resizeAdrees = 'static/resize/' + src
     let smallAdrees = 'static/small/' + src
-    let sizeAdrees = 'static/size/' + src
+    let sizeAdrees = 'static/art/' + src
 
     const productAdd = new Products({
         name: product.name,
@@ -577,7 +577,7 @@ app.post('/update-product', (req, res) => {
         let buf2 = Buffer.from(data2, 'base64');
         let resizeAdrees = 'static/resize/' + src
         let smallAdrees = 'static/small/' + src
-        let sizeAdrees = 'static/size/' + src
+        let sizeAdrees = 'static/art/' + src
 
         async function upImg() {
             const upOne = await fs.writeFile(resizeAdrees, buf0, (err) => {

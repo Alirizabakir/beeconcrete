@@ -14,7 +14,7 @@
                         <img @click="isActive = true" class="" :src="require(`@/static/resize/${product.src}`)">
                     </div>
                     <div class="border border-gray p-2 mb-2">
-                        <img @click="isActive = false" class="" :src="require(`@/static/size/${product.src}`)">
+                        <img @click="isActive = false" class="" :src="require(`@/static/art/${product.src}`)">
                     </div>
                 </div>
                 <div class="image-show flex w-3/4">
@@ -26,7 +26,7 @@
                     <div :class="{ 'fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center p-2 bg-gray bg-opacity-50': bigImage }"
                         v-else class="img-box">
                         <img @click="bigImage = !bigImage" class="max-h-full max-w-full"
-                            :src="require(`@/static/size/${product.src}`)">
+                            :src="require(`@/static/art/${product.src}`)">
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <template>
     <div class="offer-box fixed inset-0 bg-gray bg-opacity-25 z-50 flex items-start lg:items-center justify-center">
-        <div class="offer lg:w-1/2 flex flex-col justify-between w-full h-screen lg:h-auto bg-gray-100 p-6 rounded-sm shadow-show">
+        <div class="offer lg:w-1/2 flex flex-col justify-center w-full h-screen lg:h-auto bg-gray-100 p-6 rounded-sm shadow-show">
             <div class="flex flex-col mb-3">
                 <label for="name">
                     {{ getLang.global.name }}
