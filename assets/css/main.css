@@ -26,7 +26,7 @@ html {
 }
 
 .header-main-item {
-    @apply text-lg lg:text-white m-4 tracking-widest text-green
+    @apply text-lg lg:text-white lg:m-4 m-2 tracking-widest text-green
 }
 /* Variable */
 

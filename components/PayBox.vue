@@ -1,5 +1,5 @@
 <template>
-    <div class="paybox lg:pt-8 lg:p-2 bg-white lg:bg-opacity-0 lg:w-1/4 lg:static fixed left-0 bottom-0 w-full">
+    <div class="paybox lg:pt-8 lg:p-2 bg-white lg:bg-opacity-0 z-30 lg:w-1/4 lg:static fixed left-0 bottom-0 w-full">
         <div :class="{ 'active': isActive }"
             class="order p-4  absolute lg:static lg:bg-opacity-0 bg-white w-full left-0">
             <h3 class="border-b border-gray-light text-bold text-xl mb-4">{{ getLang.global.order }}</h3>

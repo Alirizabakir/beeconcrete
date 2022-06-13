@@ -1,23 +1,22 @@
 <template>
-    <div :class="[{ 'bg h-12': scroll }, { 'h-20': !scroll }]" class="fixed z-50 top-10  header w-full">
+    <div :class="[{ 'bg h-12': scroll }, { 'h-20': !scroll }]" class="fixed z-20 top-10  header w-full">
         <Container :class="[{ 'h-12': scroll }, { 'h-20': !scroll }]" class="flex items-center justify-between">
             <nuxt-link to="/">
                 <img :class="[{ 'w-10': scroll }, { 'w-14': !scroll }]"
                     class="shadow-show bg-white opacity-100 rounded-full" :src="require('@/static/icon.png')"
                     alt="Bee Concrete Desing">
             </nuxt-link>
-            <div :class="[{ hamburger: hamburger }, { 'top-20': !scroll }, { 'top-16': scroll }]"
-                class="header-main lg:w-auto lg:static lg:flex-row lg:h-auto flex flex-col items-center bg-white lg:bg-opacity-0 h-screen w-full z-10 absolute">
-                <div class="ham w-full lg:hidden flex items-center justify-end">
-                    <div @click="hamburger = true" class="bur flex w-8 h-8 absolute open"><img
-                            class="rounded-md p-1 bg-blue" :src='require("@/static/hamburgerwhite.png")' alt=""></div>
-                    <div @click="hamburger = false" class="bur text-white close w-18 text-left p-1"><img class="w-8"
-                            :src='require("@/static/close.png")' alt=""></div>
-                </div>
+            <div
+                class="header-main lg:w-auto w-screen lg:h-auto flex flex-row items-center justify-around bg-white lg:bg-opacity-0 z-20 lg:static fixed left-0 bottom-0 lg:shadow-show-none shadow-show-top">
                 <div @click="hamburger = false" class="header-main-item" v-for="(item, index) in getLang.headerList"
                     :key="index">
                     <nuxt-link :to="'/' + item.link" class="link border-b-2">
-                        {{ item.title }}
+                        <HomeSvg class="lg:hidden inline-block" v-if="item.title == 'HOME'" />
+                        <ProductHuntBrandsSvg class="lg:hidden inline-block" v-else-if="item.title == 'PRODUCTS'" />
+                        <ContactSvg class="lg:hidden inline-block" v-else-if="item.title == 'CONTACT'" />
+                        <SocialSvg class="lg:hidden inline-block" v-else-if="item.title == 'SOCIAL'" />
+                        <InfoSolidSvg class="lg:hidden inline-block" v-else-if="item.title == 'ABOUT US'" />
+                        <span class="lg:inline-block hidden">{{ item.title }}</span>
                     </nuxt-link>
                 </div>
             </div>
@@ -48,12 +47,22 @@
 import FavoritesSvg from "@/components/icon/HeartSolidSvg";
 import UserSvg from "@/components/icon/UserSvg";
 import CartSvg from "@/components/icon/CartSvg";
+import ProductHuntBrandsSvg from "@/components/icon/ProductHuntBrandsSvg";
+import HomeSvg from "@/components/icon/HomeSvg";
+import ContactSvg from "@/components/icon/ContactSvg";
+import SocialSvg from "@/components/icon/SocialSvg";
+import InfoSolidSvg from "@/components/icon/InfoCircleSvg";
 
 export default {
     components: {
         FavoritesSvg,
         UserSvg,
         CartSvg,
+        ProductHuntBrandsSvg,
+        HomeSvg,
+        ContactSvg,
+        SocialSvg,
+        InfoSolidSvg,
     },
     data() {
         return {
@@ -109,38 +118,22 @@ export default {
     }
 
     .header-main {
-        left: -100%;
-
-        .ham {
-            position: relative;
-
-            .bur {
-                position: absolute;
-                top: 0;
-            }
-
-            .open {
-                left: 103%;
-            }
-
-            .close {
-                right: 0;
-            }
-
-        }
-
         .link {
             border-color: transparent;
 
             &:hover {
                 border-color: white;
             }
+
+            svg {
+                width: 25px;
+                height: 25px;
+                fill: rgb(8, 69, 8);
+            }
         }
     }
 
-    .hamburger {
-        left: 0;
-    }
+
 
 }
 

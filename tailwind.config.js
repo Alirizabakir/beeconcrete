@@ -24,6 +24,8 @@ module.exports = {
     },
     boxShadow: {
       'show': '0px 3px 5px rgba(0, 0, 0, 0.4)',
+      'show-top': '0px -3px 5px rgba(0, 0, 0, 0.4)',
+      'show-none': '0px 0px 0px rgba(0, 0, 0, 0)',
     },
     extend: {
       spacing: {
