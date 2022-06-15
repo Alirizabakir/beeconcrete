@@ -6,10 +6,10 @@
             </a>
 
             <div class="info mb-4">
-                <h3 class="text-left text-md sm:text-lg">
+                <p class="header text-left text-md sm:text-lg">
                     {{ product.name }} <span class="text-sm" v-show="size && index != 'normal'"
                         v-for="(size, index) in product.sizeType" :key="index">{{ index }}</span>
-                </h3>
+                </p>
                 <p v-show="!secret" class="text-right text-lg sm:text-xl">{{ product.newPrice }} TL</p>
             </div>
             <div class="flex lg:flex-row flex-col justify-between">
@@ -121,6 +121,13 @@ export default {
             box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
         }
 
+        .info {
+            .header {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
         .cont {
             cursor: pointer;
         }

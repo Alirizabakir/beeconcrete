@@ -1,20 +1,15 @@
 <template>
     <div class="swipper-box relative w-full py-2">
         <div class="swipper py-2">
-            <div class="swip h-full px-2" v-for="(item, index) in products" :key="index"
-                :style="`transform: translateX(${count * -100}%)`">
+            <div class="swip h-full px-2" v-for="(item, index) in products" :key="index">
                 <Card :secret="true" class="h-full" :product="item"></Card>
             </div>
         </div>
-        <button class="absolute h-full top-0 left-0" @click="counT(false)">
-            <div class="rounded-lg py-1 bg-green bg-opacity-95">
-                <UpSvg class="w-8 h-8 transform -rotate-90" />
-            </div>
+        <button class="absolute -left-0 lg:-left-10" @click="counT(false)">
+            <UpSvg class="lg:w-10 w-8 h-8 lg:h-10 transform -rotate-90" />
         </button>
-        <button class="absolute h-full top-0 right-0" @click="counT(true)">
-            <div class="rounded-lg py-1 bg-green bg-opacity-95">
-                <UpSvg class="w-8 h-8 transform rotate-90" />
-            </div>
+        <button class="absolute -right-0 lg:-right-10" @click="counT(true)">
+            <UpSvg class="lg:w-10 w-8 h-8 lg:h-10 transform rotate-90" />
         </button>
     </div>
 </template>
@@ -34,16 +29,14 @@ export default {
     methods: {
         counT(status) {
             if (status) {
-                if (screen.width > 1024 && this.count + 4 <= 19) {
-                    this.count++
-                } else if (screen.width < 1024 && this.count + 2 <= 19) {
-                    this.count++
+                if (this.count < 50) {
+                    this.count += 2
+                    this.$emit('swip', this.count)
                 }
             } else {
-                if (screen.width > 1024 && this.count > 0) {
-                    this.count--
-                } else if (screen.width < 1024 && this.count > 0) {
-                    this.count--
+                if (this.count > 0) {
+                    this.count -= 2
+                    this.$emit('swip', this.count)
                 }
             }
         }
@@ -56,21 +49,21 @@ export default {
 
     .swipper {
         display: grid;
-        grid-template-columns: repeat(20, minmax(50%, 1fr));
+        grid-template-columns: repeat(2, minmax(50%, 1fr));
         align-items: center;
         justify-content: flex-start;
-        overflow: hidden;
 
-        .swip {
-            transition: all .2s linear;
-            transform: translateX(0%);
-
-
-        }
+        .swip {}
     }
 
-    svg {
-        fill: white;
+    button {
+        top: 50%;
+        transform: translate(0, -50%);
+        background-color: rgba(20, 79, 12, 0.775);
+        border-radius: 50%;
+        svg {
+            fill: rgb(255, 255, 255);
+        }
     }
 }
 
@@ -79,7 +72,7 @@ export default {
 
         .swipper {
             display: grid;
-            grid-template-columns: repeat(20, minmax(25%, 1fr));
+            grid-template-columns: repeat(4, minmax(25%, 1fr));
             align-items: center;
             justify-content: flex-start;
 

@@ -4,11 +4,11 @@
       <h2 class="border-b border-gray text-left pb-2 sm:text-4xl text-3xl text-gray-dark my-10">
         {{ getLang.title.discount }}
       </h2>
-      <Swipper :products="discount" />
+      <Swipper @swip="a => disCount = a" :products="discount" />
       <h2 class="border-b border-gray text-left pb-2 sm:text-4xl text-3xl text-gray-dark my-10">
         {{ getLang.title.special }}
       </h2>
-      <Swipper :products="special" />
+      <Swipper @swip="a => specialCount = a" :products="special" />
     </Container>
     <div class="hexagon-box mt-20 py-20">
       <Container class="flex flex-wrap w-full items-center justify-center">
@@ -26,7 +26,7 @@
       <h2 class="border-b border-gray text-left pb-2 sm:text-4xl text-3xl text-gray-dark my-10">
         {{ getLang.title.fav }}
       </h2>
-      <Swipper :products="favorites" />
+      <Swipper @swip="a => favoritesCount = a" :products="favorites" />
     </Container>
     <Popup />
   </div>
@@ -37,7 +37,10 @@ export default {
   name: "IndexPage",
   data() {
     return {
-      scroll: false
+      scroll: false,
+      disCount: 6,
+      specialCount: 4,
+      favoritesCount: 4,
     }
   },
   computed: {
@@ -49,21 +52,39 @@ export default {
       clone.sort((a, b) => {
         return a.newPrice - b.newPrice;
       });
-      return clone.slice(0, 20);
+      if (process.client) {
+        if (window.screen.width > 1024) {
+          return clone.slice(this.disCount, this.disCount + 4);
+        } else {
+          return clone.slice(this.disCount, this.disCount + 2);
+        }
+      }
     },
     special() {
       const clone = [...this.$store.getters.getProducts];
       clone.sort((a, b) => {
         return b.newPrice - a.newPrice;
       });
-      return clone.slice(0, 20);
+       if (process.client) {
+        if (window.screen.width > 1024) {
+          return clone.slice(this.specialCount, this.specialCount + 4);
+        } else {
+          return clone.slice(this.specialCount, this.specialCount + 2);
+        }
+      }
     },
     favorites() {
       const clone = [...this.$store.getters.getProducts];
       clone.sort((a, b) => {
         return b.fav - a.fav;
       });
-      return clone.slice(0, 20);
+      if (process.client) {
+        if (window.screen.width > 1024) {
+          return clone.slice(this.favoritesCount, this.favoritesCount + 4);
+        } else {
+          return clone.slice(this.favoritesCount, this.favoritesCount + 2);
+        }
+      }
     },
   },
   methods: {

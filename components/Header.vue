@@ -11,12 +11,14 @@
                 <div @click="hamburger = false" class="header-main-item" v-for="(item, index) in getLang.headerList"
                     :key="index">
                     <nuxt-link :to="'/' + item.link" class="link border-b-2">
-                        <HomeSvg class="lg:hidden inline-block" v-if="item.title == 'HOME'" />
-                        <ProductHuntBrandsSvg class="lg:hidden inline-block" v-else-if="item.title == 'PRODUCTS'" />
-                        <ContactSvg class="lg:hidden inline-block" v-else-if="item.title == 'CONTACT'" />
-                        <SocialSvg class="lg:hidden inline-block" v-else-if="item.title == 'SOCIAL'" />
-                        <InfoSolidSvg class="lg:hidden inline-block" v-else-if="item.title == 'ABOUT US'" />
-                        <span class="lg:inline-block hidden">{{ item.title }}</span>
+                        <div>
+                            <HomeSvg class="lg:hidden inline-block" v-if="item.link == ''" />
+                            <ProductHuntBrandsSvg class="lg:hidden inline-block" v-else-if="item.link == 'products'" />
+                            <ContactSvg class="lg:hidden inline-block" v-else-if="item.link == 'contact'" />
+                            <SocialSvg class="lg:hidden inline-block" v-else-if="item.link == 'social'" />
+                            <InfoSolidSvg class="lg:hidden inline-block" v-else-if="item.link == 'about-us'" />
+                        </div>
+                        <div class="lg:inline-block hidden">{{ item.title }}</div>
                     </nuxt-link>
                 </div>
             </div>
