@@ -19,19 +19,34 @@ const productsSchema = new Schema({
         width: {
             type: Number,
         },
+        widthtop: {
+            type: Number,
+        },
+        widthunder: {
+            type: Number,
+        },
         height: {
             type: Number,
         },
+        heighttop: {
+            type: Number,
+        },
+        heightunder: {
+            type: Number,
+        },
         depth: {
+            type: Number,
+        },
+        depthtop: {
+            type: Number,
+        },
+        depthunder: {
             type: Number,
         },
         diameter: {
             type: Number,
         },
         weight: {
-            type: Number,
-        },
-        volume: {
             type: Number,
         },
     },

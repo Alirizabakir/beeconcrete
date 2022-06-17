@@ -19,7 +19,7 @@
                     <div :class="{ 'fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center p-2 bg-gray bg-opacity-50': bigImage }"
                         v-else class="img-box">
                         <img @click="bigImage = !bigImage" class="max-h-full cursor-pointer max-w-full"
-                            :src="require(`@/static/art/${product.src}`)">
+                            :src="require(`@/static/resize_two/${product.src}`)">
                     </div>
                 </div>
                 <div class="image-router flex flex-row lg:flex-col items-center justify-center lg:justify-start">
@@ -27,7 +27,7 @@
                         <img @click="isActive = true" class="cursor-pointer" :src="require(`@/static/resize/${product.src}`)">
                     </div>
                     <div class="border w-24 border-gray p-2 m-2">
-                        <img @click="isActive = false" class="cursor-pointer" :src="require(`@/static/art/${product.src}`)">
+                        <img @click="isActive = false" class="cursor-pointer" :src="require(`@/static/resize_two/${product.src}`)">
                     </div>
                 </div>
             </div>

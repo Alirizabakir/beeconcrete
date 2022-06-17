@@ -1252,26 +1252,6 @@ app.post('/lang', (req, res) => {
                                 text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
                                 link: 'queen'
                             },
-                            {
-                                title: 'Küp Koleksiyonu',
-                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
-                                link: 'cube'
-                            },
-                            {
-                                title: 'Vazo Koleksiyonu',
-                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
-                                link: 'vase'
-                            },
-                            {
-                                title: 'Uzun Koleksiyonu',
-                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
-                                link: 'long'
-                            },
-                            {
-                                title: 'Küçük Koleksiyonu',
-                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
-                                link: 'small series'
-                            }
                         ]
                 },
                 {
@@ -1289,16 +1269,6 @@ app.post('/lang', (req, res) => {
                                 text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
                                 link: 'table'
                             },
-                            {
-                                title: 'Tabure Koleksiyonu',
-                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
-                                link: 'seat'
-                            },
-                            {
-                                title: 'Küre Koleksiyonu',
-                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
-                                link: 'ball'
-                            }
                         ]
                 },
                 {
@@ -1312,28 +1282,6 @@ app.post('/lang', (req, res) => {
                         }
                     ]
                 },
-                {
-                    title: 'Fırınlar',
-                    link: 'oven',
-                    subList: [
-                        {
-                            title: 'Fırınlar',
-                            text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
-                            link: 'oven'
-                        }
-                    ]
-                },
-                {
-                    title: 'Fiber',
-                    link: 'fiber',
-                    subList: [
-                        {
-                            title: 'Fiber Koleksiyonu',
-                            text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
-                            link: 'fiber'
-                        }
-                    ]
-                }
             ],
             button: {
                 goCollection: 'Koleksiyona Git',
@@ -1381,13 +1329,13 @@ app.post('/lang', (req, res) => {
                     title: 'Kolon Koleksiyonu',
                     text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
                     link: 'column',
-                    src: 'decorative_column.jpg'
+                    src: 'column_no_2.jpg'
                 },
                 {
                     title: 'Masa Koleksiyonu',
                     text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
                     link: 'table',
-                    src: 'rectangular_table_no_1.jpg'
+                    src: 'table_no_1.jpg'
                 },
             ],
             characteristic: {
@@ -1879,13 +1827,13 @@ app.post('/lang', (req, res) => {
                     title: 'Column Collection',
                     text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
                     link: 'column',
-                    src: 'decorative_column.jpg'
+                    src: 'column_no_2.jpg'
                 },
                 {
                     title: 'Table Collection',
                     text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
                     link: 'table',
-                    src: 'rectangular_table_no_1.jpg'
+                    src: 'table_no_1.jpg'
                 },
             ],
             characteristic: {

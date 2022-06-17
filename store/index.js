@@ -77,26 +77,7 @@ export const state = () => ({
                             text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
                             link: 'queen'
                         },
-                        {
-                            title: 'Cube Collection',
-                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                            link: 'cube'
-                        },
-                        {
-                            title: 'Vase Collection',
-                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                            link: 'vase'
-                        },
-                        {
-                            title: 'Long Collection',
-                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                            link: 'long'
-                        },
-                        {
-                            title: 'Small Series',
-                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                            link: 'small series'
-                        }
+                      
                     ]
             },
             {
@@ -114,16 +95,6 @@ export const state = () => ({
                             text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
                             link: 'table'
                         },
-                        {
-                            title: 'Seat Collection',
-                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                            link: 'seat'
-                        },
-                        {
-                            title: 'Ball Collection',
-                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                            link: 'ball'
-                        }
                     ]
             },
             {
@@ -137,28 +108,7 @@ export const state = () => ({
                     }
                 ]
             },
-            {
-                title: 'Oven',
-                link: 'oven',
-                subList: [
-                    {
-                        title: 'Oven Collection',
-                        text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                        link: 'oven'
-                    }
-                ]
-            },
-            {
-                title: 'Fiber',
-                link: 'fiber',
-                subList: [
-                    {
-                        title: 'Fiber Collection',
-                        text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                        link: 'fiber'
-                    }
-                ]
-            }
+           
         ],
         button: {
             goCollection: 'Go Collection',
@@ -206,13 +156,13 @@ export const state = () => ({
                 title: 'Column Collection',
                 text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
                 link: 'column',
-                src: 'decorative_column.jpg'
+                src: 'column_no_1.jpg'
             },
             {
                 title: 'Table Collection',
                 text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
                 link: 'table',
-                src: 'rectangular_table_no_1.jpg'
+                src: 'table_no_1.jpg'
             },
         ],
         characteristic: {
