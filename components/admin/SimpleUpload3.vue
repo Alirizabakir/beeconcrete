@@ -1,7 +1,7 @@
 <template>
   <div class="upload-box flex a-center j-center">
     <div class="show-box">
-      <img class="img" v-if="file2 == ''" :src="require(`~/static/art/${src}`)" alt="default" />
+      <img class="img" v-if="file2 == ''" :src="require(`~/static/resize_two/${src}`)" alt="default" />
       <img class="img" v-else :src="file2" alt="upload" />
     </div>
 
