@@ -1269,6 +1269,35 @@ app.post('/lang', (req, res) => {
                                 text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
                                 link: 'table'
                             },
+                            {
+                                title: 'SideBoard Collection',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'sideboard'
+                            },
+                        ]
+                },
+                {
+                    title: 'Uzun Koleksiyonu',
+                    link: 'long',
+                    subList:
+                        [
+                            {
+                                title: 'Uzun Arı Koleksiyonu',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'long'
+                            },
+                        ]
+                },
+                {
+                    title: 'Özel Üretim',
+                    link: 'custom',
+                    subList:
+                        [
+                            {
+                                title: 'Özel Üretim',
+                                text: 'Dizayn, Dekorasyon, Tasarım, Sağlamlık, Kalite, Müşteri Memnuniyeti, Hızlı Teslimat, Güven, Ekonomik, Deneyim, Tecrübe...',
+                                link: 'custom'
+                            },
                         ]
                 },
                 {
@@ -1698,26 +1727,7 @@ app.post('/lang', (req, res) => {
                                 text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
                                 link: 'queen'
                             },
-                            {
-                                title: 'Cube Collection',
-                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                                link: 'cube'
-                            },
-                            {
-                                title: 'Vase Collection',
-                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                                link: 'vase'
-                            },
-                            {
-                                title: 'Long Collection',
-                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                                link: 'long'
-                            },
-                            {
-                                title: 'Small Series',
-                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                                link: 'small series'
-                            }
+                            
                         ]
                 },
                 {
@@ -1736,15 +1746,34 @@ app.post('/lang', (req, res) => {
                                 link: 'table'
                             },
                             {
-                                title: 'Seat Collection',
+                                title: 'SideBoard Collection',
                                 text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                                link: 'seat'
+                                link: 'sideboard'
                             },
+                        ]
+                },
+                {
+                    title: 'Long Collection',
+                    link: 'long',
+                    subList:
+                        [
                             {
-                                title: 'Ball Collection',
+                                title: 'Long Bee Collection',
                                 text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                                link: 'ball'
-                            }
+                                link: 'long'
+                            },
+                        ]
+                },
+                {
+                    title: 'Custom Production',
+                    link: 'custom',
+                    subList:
+                        [
+                            {
+                                title: 'Custom Production',
+                                text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                                link: 'custom'
+                            },
                         ]
                 },
                 {
@@ -1755,28 +1784,6 @@ app.post('/lang', (req, res) => {
                             title: 'Covering',
                             text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
                             link: 'covering'
-                        }
-                    ]
-                },
-                {
-                    title: 'Oven',
-                    link: 'oven',
-                    subList: [
-                        {
-                            title: 'Oven',
-                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                            link: 'oven'
-                        }
-                    ]
-                },
-                {
-                    title: 'Fiber',
-                    link: 'fiber',
-                    subList: [
-                        {
-                            title: 'Fiber Collection',
-                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
-                            link: 'fiber'
                         }
                     ]
                 }

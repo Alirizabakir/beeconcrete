@@ -38,7 +38,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .sub {
-    background-color: #253429cb;
+    background-color: #253429;
     svg {
         fill: white;
     }

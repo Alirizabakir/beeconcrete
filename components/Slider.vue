@@ -7,14 +7,14 @@
             <!-- Slides -->
             <div class="swiper-slide" :style="{ backgroundImage: `url(${require(`@/static/cube/${item.src}`)})` }"
                 v-for="(item, index) in getLang.slider" :key="index">
-                <div class="opacity h-full pt-48">
-                    <Container class="pt-20 sm:px-2">
+                <div class="slide opacity h-full">
+                    <Container class="px-4 h-full flex flex-col items-start justify-end ">
                         <h1 class="text-2xl sm:text-3xl font-bold mb-4 text-white">{{ item.title }}</h1>
                         <p class="lg:w-144 text-sm sm:text-base sm:w-auto mb-4 text-white ">
                             {{ item.text }}
                         </p>
                         <nuxt-link :to="'/products#' + item.link"
-                            class="w-32 h-10 block text-center leading-10 bg-green rounded-sm text-white">
+                            class="w-32 h-10 block text-center leading-10 bg-green rounded-sm text-white mb-10 lg:mb-12">
                             {{ getLang.button.goCollection }}
                         </nuxt-link>
                     </Container>
@@ -25,9 +25,9 @@
         </div>
 
         <div class="top-0 left-0 absolute w-full z-50">
-            <Container class="pt-20 sm:px-2 ">
-            <img class="opacity-100 w-40" :src="require('@/static/icon.png')" alt="Bee Concrete Desing">
-        </Container>
+            <Container class="lg:pt-8 pt-4 px-0">
+                <img class="opacity-100 lg:w-40 w-30" :src="require('@/static/icon.png')" alt="Bee Concrete Desing">
+            </Container>
         </div>
         <div class="swiper-pagination flex items-center justify-center"></div>
 
@@ -81,7 +81,7 @@ export default {
             background-repeat: no-repeat;
             background-size: cover;
 
-            .opacity {
+            .slide {
                 background-color: rgba(0, 0, 0, 0.6);
             }
         }

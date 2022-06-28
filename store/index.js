@@ -77,7 +77,7 @@ export const state = () => ({
                             text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
                             link: 'queen'
                         },
-                      
+
                     ]
             },
             {
@@ -95,6 +95,35 @@ export const state = () => ({
                             text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
                             link: 'table'
                         },
+                        {
+                            title: 'SideBoard Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'sideboard'
+                        },
+                    ]
+            },
+            {
+                title: 'Long Collection',
+                link: 'long',
+                subList:
+                    [
+                        {
+                            title: 'Long Bee Collection',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'long'
+                        },
+                    ]
+            },
+            {
+                title: 'Custom Production',
+                link: 'custom',
+                subList:
+                    [
+                        {
+                            title: 'Custom Production',
+                            text: 'Decoration, Design, Robustness, Quality, Customer Satisfaction, Fast Delivery, Trust, Economic, Experience, Experience...',
+                            link: 'custom'
+                        },
                     ]
             },
             {
@@ -108,7 +137,7 @@ export const state = () => ({
                     }
                 ]
             },
-           
+
         ],
         button: {
             goCollection: 'Go Collection',

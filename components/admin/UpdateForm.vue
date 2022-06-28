@@ -149,8 +149,8 @@ export default {
       imgInvalid: false,
       isMethods: false,
       page: "info",
-      objectType: ['pot', 'furniture', 'covering', 'oven', 'fiber', 'plate'],
-      collectionName: ['bee', 'honeycomb', 'hive', 'cube', 'queen', 'vase', 'long', 'small series', 'column', 'table', 'seat', 'ball', 'covering', 'oven', 'fiber'],
+      objectType: ['pot', 'furniture', 'covering', 'oven', 'fiber', 'plate','long','custom'],
+      collectionName: ['bee', 'honeycomb', 'hive', 'cube', 'queen', 'vase', 'long', 'small series', 'column', 'table', 'seat', 'ball', 'covering', 'oven', 'fiber','custom','sideboard'],
       product: {
         file0: null,
         file1: null,
