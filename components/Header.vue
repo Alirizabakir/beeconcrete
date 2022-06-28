@@ -1,10 +1,9 @@
 <template>
-    <div :class="[{ 'bg h-12': scroll }, { 'h-20': !scroll }]" class="fixed z-20 top-10  header w-full">
-        <Container :class="[{ 'h-12': scroll }, { 'h-20': !scroll }]" class="flex items-center justify-between">
+    <div :class="[{ 'bg h-16': scroll }, { 'h-20': !scroll }]" class="fixed z-20 top-10  header w-full">
+        <Container :class="[{ 'h-16': scroll }, { 'h-20': !scroll }]" class="flex items-center justify-between">
             <nuxt-link to="/">
-                <img :class="[{ 'w-10': scroll }, { 'w-14': !scroll }]"
-                    class="shadow-show bg-white opacity-100 rounded-full" :src="require('@/static/icon.png')"
-                    alt="Bee Concrete Desing">
+                <img :class="[{ 'w-16 opacity-100': scroll }, { 'w-16 opacity-0': !scroll }]"
+                    :src="require('@/static/icon.png')" alt="Bee Concrete Desing">
             </nuxt-link>
             <div
                 class="header-main lg:w-auto w-screen lg:h-auto flex flex-row items-center justify-around bg-white lg:bg-opacity-0 z-20 lg:static fixed left-0 bottom-0 lg:shadow-show-none shadow-show-top">
@@ -130,7 +129,6 @@ export default {
             svg {
                 width: 25px;
                 height: 25px;
-                fill: rgb(8, 69, 8);
             }
         }
     }
@@ -145,27 +143,16 @@ export default {
     // background-position-y: center;
     // background-repeat: no-repeat;
     // background-color: #F7F7F7 !important;
-    background: rgb(255, 255, 255);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 100%, rgba(247, 247, 247, 1) 100%);
+    background: #253429;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
     top: 0;
 
     svg {
-        fill: var(--first-color)
-    }
-
-
-    .header-main-item {
-        color: var(--first-color) !important;
-        font-weight: bold;
-
-
-
+        fill: white;
     }
 
     .header-svg {
-        color: var(--first-color) !important;
-
+        color: white;
         .user {
             color: white;
         }

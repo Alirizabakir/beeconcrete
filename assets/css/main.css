@@ -19,22 +19,22 @@ html {
     @apply pl-4 md:py-2 bg-gray-dark py-1 text-white hover:bg-gray-light hover:text-gray-dark
 }
 .sub-list {
-    @apply bg-gray text-white py-2 pl-8 hover:bg-gray-light hover:text-gray-dark
+    @apply bg-green text-white py-2 pl-8 hover:bg-gray-light hover:text-gray-dark
 }
 .header-svg {
     @apply flex flex-col text-white items-center h-20 justify-center
 }
 
 .header-main-item {
-    @apply text-lg lg:text-white lg:m-4 m-2 tracking-widest text-green
+    @apply text-lg text-white lg:m-4 m-2 tracking-widest
 }
 /* Variable */
 
 :root {
 
     /* Color */
-    --first-color: #0C3C10;
-    --cont-color: black;
+    --first-color: #28342a;
+    --cont-color: #28342a;
     --title-color: black;
     --text-color: black;
     --text-color-sup: grey;

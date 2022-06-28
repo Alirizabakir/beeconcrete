@@ -1,11 +1,11 @@
 <template>
-    <div :class="[{ '-right-2/3': !hamburger }, { 'right-0': hamburger }, { 'lg:top-12 top-16 active-h': scroll }, { 'top-30 disable-h': !scroll }]"
+    <div :class="[{ '-right-2/3': !hamburger }, { 'right-0': hamburger }, { 'lg:top-16 top-20 active-h': scroll }, { 'top-30 disable-h': !scroll }]"
         class="list-box w-2/3 lg:w-full bg-gray-dark lg:sticky fixed z-10">
-        <div class="cursor-pointer relative lg:hidden" href="#">
+        <div class="ham cursor-pointer relative lg:hidden" href="#">
             <div @click="hamburger = !hamburger" class="bur -left-11 absolute z-20"><img
-                    class="w-8 rounded-md p-1 bg-blue" src="hamburgerwhite.png" alt=""></div>
+                    class="w-8 rounded-md p-1" src="hamburgerwhite.png" alt=""></div>
         </div>
-        <div class="list bg-blue overflow-y-scroll lg:overflow-visible">
+        <div class="list overflow-y-scroll lg:overflow-visible">
             <div v-for="(item, index) in getLang.collectionList" :key="index">
                 <div class="main-list cursor-pointer" href="#">{{ item.title }}</div>
                 <div class="flex flex-col">
@@ -53,7 +53,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.list-box {}
+.list-box {
+    .ham {
+        .bur {
+        background-color: #253429;
+    }
+    }
+    .list {
+        background-color: #253429;
+    }
+}
 
 .active-h {
     height: calc(100vh - 4rem);

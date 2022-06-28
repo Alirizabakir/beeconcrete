@@ -22,7 +22,7 @@
                     <div class="numb pl-2">{{ fav }}</div>
                 </div>
                 <button v-show="!secret" @click="select = !select"
-                    class="w-full sm:w-auto px-4 hover:bg-orange py-1 self-end bg-green text-white">{{
+                    class="w-full sm:w-auto px-4 hover:bg-gray-dark py-1 self-end bg-green text-white">{{
                             getLang.button.addToCart
                     }}</button>
             </div>
@@ -117,7 +117,6 @@ export default {
         transition: all .3s ease-in-out;
 
         &:hover {
-            transform: scale(1.03);
             box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
         }
 

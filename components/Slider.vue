@@ -1,12 +1,13 @@
 <template>
     <!-- Slider main container -->
-    <div class="swiper w-full">
+    <div class="swiper w-full relative">
         <!-- Additional required wrapper -->
-        <div class="swiper-wrapper w-full">
+        <div class="swiper-wrapper w-full ">
+
             <!-- Slides -->
-            <div class="swiper-slide" :style="{ backgroundImage: `url(${require(`@/static/small/${item.src}`)})` }"
+            <div class="swiper-slide" :style="{ backgroundImage: `url(${require(`@/static/cube/${item.src}`)})` }"
                 v-for="(item, index) in getLang.slider" :key="index">
-                <div class="opacity w-full h-full justify-center items-center flex flex-col ">
+                <div class="opacity h-full pt-48">
                     <Container class="pt-20 sm:px-2">
                         <h1 class="text-2xl sm:text-3xl font-bold mb-4 text-white">{{ item.title }}</h1>
                         <p class="lg:w-144 text-sm sm:text-base sm:w-auto mb-4 text-white ">
@@ -20,6 +21,13 @@
                 </div>
             </div>
 
+
+        </div>
+
+        <div class="top-0 left-0 absolute w-full z-50">
+            <Container class="pt-20 sm:px-2 ">
+            <img class="opacity-100 w-40" :src="require('@/static/icon.png')" alt="Bee Concrete Desing">
+        </Container>
         </div>
         <div class="swiper-pagination flex items-center justify-center"></div>
 
@@ -65,7 +73,7 @@ export default {
 <style lang="scss" >
 .swiper {
     overflow: hidden;
-    height: 50vh;
+    height: 60vh;
 
     .swiper-wrapper {
         .swiper-slide {
